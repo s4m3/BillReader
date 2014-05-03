@@ -1,0 +1,518 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F4F2666B1915134E001D0F93 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F2666A1915134E001D0F93 /* Foundation.framework */; };
+		F4F2666D1915134E001D0F93 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F2666C1915134E001D0F93 /* CoreGraphics.framework */; };
+		F4F2666F1915134E001D0F93 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F2666E1915134E001D0F93 /* UIKit.framework */; };
+		F4F266751915134E001D0F93 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4F266731915134E001D0F93 /* InfoPlist.strings */; };
+		F4F266771915134E001D0F93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F266761915134E001D0F93 /* main.m */; };
+		F4F2667B1915134E001D0F93 /* BillReaderAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F2667A1915134E001D0F93 /* BillReaderAppDelegate.m */; };
+		F4F2667E1915134E001D0F93 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4F2667C1915134E001D0F93 /* Main_iPhone.storyboard */; };
+		F4F266811915134E001D0F93 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4F2667F1915134E001D0F93 /* Main_iPad.storyboard */; };
+		F4F266841915134E001D0F93 /* BillReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F266831915134E001D0F93 /* BillReaderViewController.m */; };
+		F4F266861915134E001D0F93 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4F266851915134E001D0F93 /* Images.xcassets */; };
+		F4F2668D1915134E001D0F93 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F2668C1915134E001D0F93 /* XCTest.framework */; };
+		F4F2668E1915134E001D0F93 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F2666A1915134E001D0F93 /* Foundation.framework */; };
+		F4F2668F1915134E001D0F93 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F2666E1915134E001D0F93 /* UIKit.framework */; };
+		F4F266971915134E001D0F93 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4F266951915134E001D0F93 /* InfoPlist.strings */; };
+		F4F266991915134E001D0F93 /* BillReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F266981915134E001D0F93 /* BillReaderTests.m */; };
+		F4F266A31915147E001D0F93 /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F266A21915147E001D0F93 /* TesseractOCR.framework */; };
+		F4F266A5191515C3001D0F93 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F266A4191515C3001D0F93 /* libstdc++.6.0.9.dylib */; };
+		F4F266B0191517D1001D0F93 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = F4F266AF191517D1001D0F93 /* tessdata */; };
+		F4F266B219151945001D0F93 /* rechnung1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F4F266B119151945001D0F93 /* rechnung1.jpg */; };
+		F4F266B419152712001D0F93 /* rechnung2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F4F266B319152712001D0F93 /* rechnung2.jpg */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F4F266901915134E001D0F93 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4F2665F1915134E001D0F93 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F4F266661915134E001D0F93;
+			remoteInfo = BillReader;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F4F266671915134E001D0F93 /* BillReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BillReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4F2666A1915134E001D0F93 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F4F2666C1915134E001D0F93 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F4F2666E1915134E001D0F93 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F4F266721915134E001D0F93 /* BillReader-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BillReader-Info.plist"; sourceTree = "<group>"; };
+		F4F266741915134E001D0F93 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F4F266761915134E001D0F93 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F4F266781915134E001D0F93 /* BillReader-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BillReader-Prefix.pch"; sourceTree = "<group>"; };
+		F4F266791915134E001D0F93 /* BillReaderAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BillReaderAppDelegate.h; sourceTree = "<group>"; };
+		F4F2667A1915134E001D0F93 /* BillReaderAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BillReaderAppDelegate.m; sourceTree = "<group>"; };
+		F4F2667D1915134E001D0F93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		F4F266801915134E001D0F93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		F4F266821915134E001D0F93 /* BillReaderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BillReaderViewController.h; sourceTree = "<group>"; };
+		F4F266831915134E001D0F93 /* BillReaderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BillReaderViewController.m; sourceTree = "<group>"; };
+		F4F266851915134E001D0F93 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F4F2668B1915134E001D0F93 /* BillReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BillReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4F2668C1915134E001D0F93 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		F4F266941915134E001D0F93 /* BillReaderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BillReaderTests-Info.plist"; sourceTree = "<group>"; };
+		F4F266961915134E001D0F93 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F4F266981915134E001D0F93 /* BillReaderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BillReaderTests.m; sourceTree = "<group>"; };
+		F4F266A21915147E001D0F93 /* TesseractOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = "<group>"; };
+		F4F266A4191515C3001D0F93 /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
+		F4F266AF191517D1001D0F93 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tessdata; path = "../../Downloads/Tesseract-OCR-iOS-master/Template Framework Project/Template Framework Project/tessdata"; sourceTree = "<group>"; };
+		F4F266B119151945001D0F93 /* rechnung1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = rechnung1.jpg; path = ../../Downloads/rechnung1.jpg; sourceTree = "<group>"; };
+		F4F266B319152712001D0F93 /* rechnung2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = rechnung2.jpg; path = ../../Downloads/rechnung2.jpg; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F4F266641915134E001D0F93 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4F266A5191515C3001D0F93 /* libstdc++.6.0.9.dylib in Frameworks */,
+				F4F266A31915147E001D0F93 /* TesseractOCR.framework in Frameworks */,
+				F4F2666D1915134E001D0F93 /* CoreGraphics.framework in Frameworks */,
+				F4F2666F1915134E001D0F93 /* UIKit.framework in Frameworks */,
+				F4F2666B1915134E001D0F93 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4F266881915134E001D0F93 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4F2668D1915134E001D0F93 /* XCTest.framework in Frameworks */,
+				F4F2668F1915134E001D0F93 /* UIKit.framework in Frameworks */,
+				F4F2668E1915134E001D0F93 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F4F2665E1915134E001D0F93 = {
+			isa = PBXGroup;
+			children = (
+				F4F266B119151945001D0F93 /* rechnung1.jpg */,
+				F4F266B319152712001D0F93 /* rechnung2.jpg */,
+				F4F266AF191517D1001D0F93 /* tessdata */,
+				F4F266701915134E001D0F93 /* BillReader */,
+				F4F266921915134E001D0F93 /* BillReaderTests */,
+				F4F266691915134E001D0F93 /* Frameworks */,
+				F4F266681915134E001D0F93 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F4F266681915134E001D0F93 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4F266671915134E001D0F93 /* BillReader.app */,
+				F4F2668B1915134E001D0F93 /* BillReaderTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F4F266691915134E001D0F93 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F4F266A4191515C3001D0F93 /* libstdc++.6.0.9.dylib */,
+				F4F266A21915147E001D0F93 /* TesseractOCR.framework */,
+				F4F2666A1915134E001D0F93 /* Foundation.framework */,
+				F4F2666C1915134E001D0F93 /* CoreGraphics.framework */,
+				F4F2666E1915134E001D0F93 /* UIKit.framework */,
+				F4F2668C1915134E001D0F93 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F4F266701915134E001D0F93 /* BillReader */ = {
+			isa = PBXGroup;
+			children = (
+				F4F266791915134E001D0F93 /* BillReaderAppDelegate.h */,
+				F4F2667A1915134E001D0F93 /* BillReaderAppDelegate.m */,
+				F4F2667C1915134E001D0F93 /* Main_iPhone.storyboard */,
+				F4F2667F1915134E001D0F93 /* Main_iPad.storyboard */,
+				F4F266821915134E001D0F93 /* BillReaderViewController.h */,
+				F4F266831915134E001D0F93 /* BillReaderViewController.m */,
+				F4F266851915134E001D0F93 /* Images.xcassets */,
+				F4F266711915134E001D0F93 /* Supporting Files */,
+			);
+			path = BillReader;
+			sourceTree = "<group>";
+		};
+		F4F266711915134E001D0F93 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F4F266721915134E001D0F93 /* BillReader-Info.plist */,
+				F4F266731915134E001D0F93 /* InfoPlist.strings */,
+				F4F266761915134E001D0F93 /* main.m */,
+				F4F266781915134E001D0F93 /* BillReader-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F4F266921915134E001D0F93 /* BillReaderTests */ = {
+			isa = PBXGroup;
+			children = (
+				F4F266981915134E001D0F93 /* BillReaderTests.m */,
+				F4F266931915134E001D0F93 /* Supporting Files */,
+			);
+			path = BillReaderTests;
+			sourceTree = "<group>";
+		};
+		F4F266931915134E001D0F93 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F4F266941915134E001D0F93 /* BillReaderTests-Info.plist */,
+				F4F266951915134E001D0F93 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F4F266661915134E001D0F93 /* BillReader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4F2669C1915134E001D0F93 /* Build configuration list for PBXNativeTarget "BillReader" */;
+			buildPhases = (
+				F4F266631915134E001D0F93 /* Sources */,
+				F4F266641915134E001D0F93 /* Frameworks */,
+				F4F266651915134E001D0F93 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BillReader;
+			productName = BillReader;
+			productReference = F4F266671915134E001D0F93 /* BillReader.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F4F2668A1915134E001D0F93 /* BillReaderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4F2669F1915134E001D0F93 /* Build configuration list for PBXNativeTarget "BillReaderTests" */;
+			buildPhases = (
+				F4F266871915134E001D0F93 /* Sources */,
+				F4F266881915134E001D0F93 /* Frameworks */,
+				F4F266891915134E001D0F93 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F4F266911915134E001D0F93 /* PBXTargetDependency */,
+			);
+			name = BillReaderTests;
+			productName = BillReaderTests;
+			productReference = F4F2668B1915134E001D0F93 /* BillReaderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F4F2665F1915134E001D0F93 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = BillReader;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Simon Mary";
+				TargetAttributes = {
+					F4F2668A1915134E001D0F93 = {
+						TestTargetID = F4F266661915134E001D0F93;
+					};
+				};
+			};
+			buildConfigurationList = F4F266621915134E001D0F93 /* Build configuration list for PBXProject "BillReader" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F4F2665E1915134E001D0F93;
+			productRefGroup = F4F266681915134E001D0F93 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F4F266661915134E001D0F93 /* BillReader */,
+				F4F2668A1915134E001D0F93 /* BillReaderTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F4F266651915134E001D0F93 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4F266811915134E001D0F93 /* Main_iPad.storyboard in Resources */,
+				F4F266861915134E001D0F93 /* Images.xcassets in Resources */,
+				F4F266B0191517D1001D0F93 /* tessdata in Resources */,
+				F4F2667E1915134E001D0F93 /* Main_iPhone.storyboard in Resources */,
+				F4F266751915134E001D0F93 /* InfoPlist.strings in Resources */,
+				F4F266B219151945001D0F93 /* rechnung1.jpg in Resources */,
+				F4F266B419152712001D0F93 /* rechnung2.jpg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4F266891915134E001D0F93 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4F266971915134E001D0F93 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F4F266631915134E001D0F93 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4F2667B1915134E001D0F93 /* BillReaderAppDelegate.m in Sources */,
+				F4F266771915134E001D0F93 /* main.m in Sources */,
+				F4F266841915134E001D0F93 /* BillReaderViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4F266871915134E001D0F93 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4F266991915134E001D0F93 /* BillReaderTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F4F266911915134E001D0F93 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F4F266661915134E001D0F93 /* BillReader */;
+			targetProxy = F4F266901915134E001D0F93 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F4F266731915134E001D0F93 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F4F266741915134E001D0F93 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F4F2667C1915134E001D0F93 /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F4F2667D1915134E001D0F93 /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		F4F2667F1915134E001D0F93 /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F4F266801915134E001D0F93 /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		F4F266951915134E001D0F93 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F4F266961915134E001D0F93 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F4F2669A1915134E001D0F93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F4F2669B1915134E001D0F93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F4F2669D1915134E001D0F93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LIBRARY = "compiler-default";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BillReader/BillReader-Prefix.pch";
+				INFOPLIST_FILE = "BillReader/BillReader-Info.plist";
+				OTHER_LDFLAGS = "-lstdc++";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F4F2669E1915134E001D0F93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LIBRARY = "compiler-default";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BillReader/BillReader-Prefix.pch";
+				INFOPLIST_FILE = "BillReader/BillReader-Info.plist";
+				OTHER_LDFLAGS = "-lstdc++";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		F4F266A01915134E001D0F93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BillReader.app/BillReader";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BillReader/BillReader-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "BillReaderTests/BillReaderTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		F4F266A11915134E001D0F93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BillReader.app/BillReader";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BillReader/BillReader-Prefix.pch";
+				INFOPLIST_FILE = "BillReaderTests/BillReaderTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F4F266621915134E001D0F93 /* Build configuration list for PBXProject "BillReader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4F2669A1915134E001D0F93 /* Debug */,
+				F4F2669B1915134E001D0F93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F4F2669C1915134E001D0F93 /* Build configuration list for PBXNativeTarget "BillReader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4F2669D1915134E001D0F93 /* Debug */,
+				F4F2669E1915134E001D0F93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F4F2669F1915134E001D0F93 /* Build configuration list for PBXNativeTarget "BillReaderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4F266A01915134E001D0F93 /* Debug */,
+				F4F266A11915134E001D0F93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F4F2665F1915134E001D0F93 /* Project object */;
+}
