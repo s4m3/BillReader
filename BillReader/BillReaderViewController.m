@@ -7,16 +7,43 @@
 //
 
 #import "BillReaderViewController.h"
+#import "Bill.h"
+#import "Position.h"
 
 @interface BillReaderViewController ()
-
+@property (nonatomic, strong) Bill *bill;
 @end
 
 @implementation BillReaderViewController
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    //[self tempSetupAndUseTesseract];
+    self.bill = [self tempUseTestData];
+    
+    
+}
+
+- (Bill *)tempUseTestData
+{
+    NSDecimalNumber *testTotal = [[NSDecimalNumber alloc] initWithInt:100];
+    NSDecimalNumber *beerPrice = [[NSDecimalNumber alloc] initWithInt:5];
+    NSDecimalNumber *vodkaPrice = [[NSDecimalNumber alloc] initWithInt:3];
+    
+    Position *testPos1 = [[Position alloc] initTempWithTestData:@"Bier" amount:5 andSinglePrice:beerPrice];
+    Position *testPos2 = [[Position alloc] initTempWithTestData:@"Vodka" amount:2 andSinglePrice:vodkaPrice];
+    NSMutableArray *testPositions = [[NSMutableArray alloc] initWithObjects:testPos1, testPos2, nil];
+    Bill *testBill = [[Bill alloc] initWithPositions:testPositions andTotalAmount:testTotal];
+    
+    return testBill;
+}
+
+- (void)tempSetupAndUseTesseract
+{
     // language are used for recognition. Ex: eng. Tesseract will search for a eng.traineddata file in the dataPath directory; eng+ita will search for a eng.traineddata and ita.traineddata.
     
     //Like in the Template Framework Project:
@@ -26,7 +53,6 @@
     
     //Create your tesseract using the initWithLanguage method:
     // Tesseract* tesseract = [[Tesseract alloc] initWithLanguage:@"eng+ita"];
-    
     // set up the delegate to recieve tesseract's callback
     // self should respond to TesseractDelegate and implement shouldCancelImageRecognitionForTesseract: method
     // to have an ability to recieve callback and interrupt Tesseract before it finishes
@@ -49,7 +75,7 @@
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\d EU"
                                                                            options:NSRegularExpressionCaseInsensitive
                                                                              error:&error];
-
+    
     
     NSArray *lines = [recognizedText componentsSeparatedByString:@"\n"];
     for(NSString *word in lines) {
@@ -63,7 +89,7 @@
         }
     }
     
-
+    
     //print array
     int iter = 0;
     for(NSString *obj in recognizedTextArray) {
@@ -73,12 +99,12 @@
     //find total amount and print it out
     NSString *totalAmountString = nil;
     NSRegularExpression *barRegex = [NSRegularExpression regularExpressionWithPattern:@"Bar"
-                                                                           options:NSRegularExpressionCaseInsensitive
-                                                                             error:&error];
+                                                                              options:NSRegularExpressionCaseInsensitive
+                                                                                error:&error];
     for(NSString *billString in recognizedTextArray) {
         NSUInteger numberOfMatches = [barRegex numberOfMatchesInString:billString
-                                                            options:0
-                                                              range:NSMakeRange(0, [billString length])];
+                                                               options:0
+                                                                 range:NSMakeRange(0, [billString length])];
         if(numberOfMatches > 0) {
             NSLog(@"bar: %@", billString);
             totalAmountString = [self getSubstring:billString betweenString:@" "];
@@ -91,9 +117,10 @@
         }
     }
     
-    tesseract = nil; //deallocate and free all memory
-    
+    tesseract = nil;
 }
+
+
 
 - (NSString *)getSubstring:(NSString *)value betweenString:(NSString *)separator
 {

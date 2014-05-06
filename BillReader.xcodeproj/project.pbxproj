@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F4E775C71919430F0036FEB5 /* Bill.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E775C61919430F0036FEB5 /* Bill.m */; };
+		F4E775CA19194B140036FEB5 /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E775C919194B140036FEB5 /* Position.m */; };
 		F4F2666B1915134E001D0F93 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F2666A1915134E001D0F93 /* Foundation.framework */; };
 		F4F2666D1915134E001D0F93 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F2666C1915134E001D0F93 /* CoreGraphics.framework */; };
 		F4F2666F1915134E001D0F93 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F2666E1915134E001D0F93 /* UIKit.framework */; };
@@ -40,6 +42,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F4E775C51919430F0036FEB5 /* Bill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bill.h; path = Model/Bill.h; sourceTree = "<group>"; };
+		F4E775C61919430F0036FEB5 /* Bill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Bill.m; path = Model/Bill.m; sourceTree = "<group>"; };
+		F4E775C819194B140036FEB5 /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Position.h; path = Model/Position.h; sourceTree = "<group>"; };
+		F4E775C919194B140036FEB5 /* Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Position.m; path = Model/Position.m; sourceTree = "<group>"; };
 		F4F266671915134E001D0F93 /* BillReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BillReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F2666A1915134E001D0F93 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4F2666C1915134E001D0F93 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -137,6 +143,10 @@
 				F4F2667F1915134E001D0F93 /* Main_iPad.storyboard */,
 				F4F266821915134E001D0F93 /* BillReaderViewController.h */,
 				F4F266831915134E001D0F93 /* BillReaderViewController.m */,
+				F4E775C819194B140036FEB5 /* Position.h */,
+				F4E775C919194B140036FEB5 /* Position.m */,
+				F4E775C51919430F0036FEB5 /* Bill.h */,
+				F4E775C61919430F0036FEB5 /* Bill.m */,
 				F4F266851915134E001D0F93 /* Images.xcassets */,
 				F4F266711915134E001D0F93 /* Supporting Files */,
 			);
@@ -274,9 +284,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4E775C71919430F0036FEB5 /* Bill.m in Sources */,
 				F4F2667B1915134E001D0F93 /* BillReaderAppDelegate.m in Sources */,
 				F4F266771915134E001D0F93 /* main.m in Sources */,
 				F4F266841915134E001D0F93 /* BillReaderViewController.m in Sources */,
+				F4E775CA19194B140036FEB5 /* Position.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,6 +515,7 @@
 				F4F2669E1915134E001D0F93 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F4F2669F1915134E001D0F93 /* Build configuration list for PBXNativeTarget "BillReaderTests" */ = {
 			isa = XCConfigurationList;
@@ -511,6 +524,7 @@
 				F4F266A11915134E001D0F93 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
