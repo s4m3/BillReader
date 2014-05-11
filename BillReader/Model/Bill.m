@@ -10,15 +10,31 @@
 
 @implementation Bill
 
-- (id)initWithPositions:(NSMutableArray *)positions andTotalAmount:(NSDecimalNumber *)total
+- (id)initWithPositions:(NSMutableDictionary *)positions andTotalAmount:(NSDecimalNumber *)total
 {
     self = [super init];
     if (self) {
-        self.positions = positions;
+        self.positionsOfId = positions;
         self.total = total;
         
     }
     return self;
+}
+
+- (NSMutableArray *)positionAtId:(id)identifier
+{
+    return [self.positionsOfId objectForKey:identifier];
+}
+
+- (void)addPosition:(Position *)position forId:(id)identifier
+{
+    [[self.positionsOfId objectForKey:identifier] addObject:position];
+}
+
+- (void)removePosition:(Position *)position forId:(id)identifer
+{
+    NSMutableArray *positionsAtId = [self.positionsOfId objectForKey:identifer];
+    [positionsAtId removeObject:position];
 }
 
 @end

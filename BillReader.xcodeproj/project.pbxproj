@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		F4E775C71919430F0036FEB5 /* Bill.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E775C61919430F0036FEB5 /* Bill.m */; };
 		F4E775CA19194B140036FEB5 /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E775C919194B140036FEB5 /* Position.m */; };
+		F4E775CD191F9B270036FEB5 /* BillSplitTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E775CC191F9B270036FEB5 /* BillSplitTableViewController.m */; };
+		F4E775D9191FCF8E0036FEB5 /* BillTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E775D8191FCF8E0036FEB5 /* BillTableView.m */; };
+		F4E775DC191FCFAB0036FEB5 /* PersonTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E775DB191FCFAB0036FEB5 /* PersonTableView.m */; };
 		F4F2666B1915134E001D0F93 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F2666A1915134E001D0F93 /* Foundation.framework */; };
 		F4F2666D1915134E001D0F93 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F2666C1915134E001D0F93 /* CoreGraphics.framework */; };
 		F4F2666F1915134E001D0F93 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F2666E1915134E001D0F93 /* UIKit.framework */; };
@@ -46,6 +49,12 @@
 		F4E775C61919430F0036FEB5 /* Bill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Bill.m; path = Model/Bill.m; sourceTree = "<group>"; };
 		F4E775C819194B140036FEB5 /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Position.h; path = Model/Position.h; sourceTree = "<group>"; };
 		F4E775C919194B140036FEB5 /* Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Position.m; path = Model/Position.m; sourceTree = "<group>"; };
+		F4E775CB191F9B270036FEB5 /* BillSplitTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillSplitTableViewController.h; sourceTree = "<group>"; };
+		F4E775CC191F9B270036FEB5 /* BillSplitTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillSplitTableViewController.m; sourceTree = "<group>"; };
+		F4E775D7191FCF8E0036FEB5 /* BillTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillTableView.h; sourceTree = "<group>"; };
+		F4E775D8191FCF8E0036FEB5 /* BillTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillTableView.m; sourceTree = "<group>"; };
+		F4E775DA191FCFAB0036FEB5 /* PersonTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonTableView.h; sourceTree = "<group>"; };
+		F4E775DB191FCFAB0036FEB5 /* PersonTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonTableView.m; sourceTree = "<group>"; };
 		F4F266671915134E001D0F93 /* BillReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BillReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4F2666A1915134E001D0F93 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4F2666C1915134E001D0F93 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -139,8 +148,14 @@
 			children = (
 				F4F266791915134E001D0F93 /* BillReaderAppDelegate.h */,
 				F4F2667A1915134E001D0F93 /* BillReaderAppDelegate.m */,
-				F4F2667C1915134E001D0F93 /* Main_iPhone.storyboard */,
 				F4F2667F1915134E001D0F93 /* Main_iPad.storyboard */,
+				F4F2667C1915134E001D0F93 /* Main_iPhone.storyboard */,
+				F4E775DA191FCFAB0036FEB5 /* PersonTableView.h */,
+				F4E775DB191FCFAB0036FEB5 /* PersonTableView.m */,
+				F4E775D7191FCF8E0036FEB5 /* BillTableView.h */,
+				F4E775D8191FCF8E0036FEB5 /* BillTableView.m */,
+				F4E775CB191F9B270036FEB5 /* BillSplitTableViewController.h */,
+				F4E775CC191F9B270036FEB5 /* BillSplitTableViewController.m */,
 				F4F266821915134E001D0F93 /* BillReaderViewController.h */,
 				F4F266831915134E001D0F93 /* BillReaderViewController.m */,
 				F4E775C819194B140036FEB5 /* Position.h */,
@@ -285,10 +300,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4E775C71919430F0036FEB5 /* Bill.m in Sources */,
+				F4E775CD191F9B270036FEB5 /* BillSplitTableViewController.m in Sources */,
 				F4F2667B1915134E001D0F93 /* BillReaderAppDelegate.m in Sources */,
 				F4F266771915134E001D0F93 /* main.m in Sources */,
 				F4F266841915134E001D0F93 /* BillReaderViewController.m in Sources */,
 				F4E775CA19194B140036FEB5 /* Position.m in Sources */,
+				F4E775DC191FCFAB0036FEB5 /* PersonTableView.m in Sources */,
+				F4E775D9191FCF8E0036FEB5 /* BillTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

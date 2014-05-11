@@ -11,30 +11,25 @@
 
 @implementation Position
 
-- (NSDecimalNumber *)getTotalPrice
-{
-    NSDecimalNumber *decAmount = [[NSDecimalNumber alloc] initWithUnsignedInt:self.amount];
-    return ([self.singlePrice decimalNumberByMultiplyingBy:decAmount]);
-}
 
-- (id)initWithName:(NSString *)name amount:(NSUInteger)amount andSinglePrice:(NSDecimalNumber *)singlePrice
+- (id)initWithName:(NSString *)name belongsToId:(NSUInteger)belongsToId andPrice:(NSDecimalNumber *)price
 {
     self = [super init];
     if (self) {
         self.name = name;
-        self.amount = amount;
-        self.singlePrice = singlePrice;
+        self.belongsToId = belongsToId;
+        self.price = price;
     }
     return self;
 }
 
-- (id)initTempWithTestData:(NSString *)name amount:(NSUInteger)amount andSinglePrice:(NSDecimalNumber *)singlePrice
+- (id)initTempWithTestData:(NSString *)name belongsToId:(NSUInteger)belongsToId andPrice:(NSDecimalNumber *)price
 {
     self = [super init];
     if (self) {
         self.name = name;
-        self.amount = amount;
-        self.singlePrice = singlePrice;
+        self.belongsToId = belongsToId;
+        self.price = price;
     }
     return self;
 }

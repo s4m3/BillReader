@@ -10,11 +10,10 @@
 
 @interface Position : NSObject
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic) NSUInteger amount;
-@property (nonatomic, strong) NSDecimalNumber *singlePrice;
+@property (nonatomic) NSUInteger belongsToId;
+@property (nonatomic, strong) NSDecimalNumber *price;
 
-- (NSDecimalNumber *)getTotalPrice;
-- (id)initWithName:(NSString *)name amount:(NSUInteger) amount andSinglePrice:(NSDecimalNumber *)singlePrice;
+- (id)initWithName:(NSString *)name belongsToId:(NSUInteger) belongsToId andPrice:(NSDecimalNumber *)price;
 
-- (id)initTempWithTestData:(NSString *)name amount:(NSUInteger) amount andSinglePrice:(NSDecimalNumber *)singlePrice;
+- (id)initTempWithTestData:(NSString *)name belongsToId:(NSUInteger) belongsToId andPrice:(NSDecimalNumber *)price;
 @end

@@ -7,11 +7,11 @@
 //
 
 #import "BillReaderViewController.h"
-#import "Bill.h"
 #import "Position.h"
+#import "BillSplitTableViewController.h"
 
 @interface BillReaderViewController ()
-@property (nonatomic, strong) Bill *bill;
+
 @end
 
 @implementation BillReaderViewController
@@ -28,15 +28,42 @@
     
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"Show Table"]) {
+        
+        // Get destination view
+        BillSplitTableViewController *bstvc = [segue destinationViewController];
+        [bstvc setPositions:self.bill.positionsOfId];
+    }
+}
+
+- (NSMutableDictionary *)latestPositions
+{
+    return self.bill.positionsOfId;
+}
+
 - (Bill *)tempUseTestData
 {
     NSDecimalNumber *testTotal = [[NSDecimalNumber alloc] initWithInt:100];
     NSDecimalNumber *beerPrice = [[NSDecimalNumber alloc] initWithInt:5];
     NSDecimalNumber *vodkaPrice = [[NSDecimalNumber alloc] initWithInt:3];
     
-    Position *testPos1 = [[Position alloc] initTempWithTestData:@"Bier" amount:5 andSinglePrice:beerPrice];
-    Position *testPos2 = [[Position alloc] initTempWithTestData:@"Vodka" amount:2 andSinglePrice:vodkaPrice];
-    NSMutableArray *testPositions = [[NSMutableArray alloc] initWithObjects:testPos1, testPos2, nil];
+    Position *testPos1 = [[Position alloc] initTempWithTestData:@"Bier" belongsToId:0 andPrice:beerPrice];
+    Position *testPos2 = [[Position alloc] initTempWithTestData:@"Bier" belongsToId:0 andPrice:beerPrice];
+    Position *testPos3 = [[Position alloc] initTempWithTestData:@"Bier" belongsToId:0 andPrice:beerPrice];
+    Position *testPos4 = [[Position alloc] initTempWithTestData:@"Bier" belongsToId:0 andPrice:beerPrice];
+    Position *testPos5 = [[Position alloc] initTempWithTestData:@"Vodka" belongsToId:0 andPrice:vodkaPrice];
+    Position *testPos6 = [[Position alloc] initTempWithTestData:@"Vodka" belongsToId:0 andPrice:vodkaPrice];
+    Position *testPos7 = [[Position alloc] initTempWithTestData:@"Vodka" belongsToId:0 andPrice:vodkaPrice];
+    
+    NSArray *objects = [[NSArray alloc] initWithObjects: testPos1, testPos2, testPos3, testPos4, testPos5, testPos6, testPos7, nil];
+    NSMutableDictionary *testPositions = [[NSMutableDictionary alloc] init];
+    
+    NSMutableArray *emptyObjectsForKey1 = [[NSMutableArray alloc] init];
+    [testPositions setObject:objects forKey:[NSNumber numberWithInt:0]];
+    [testPositions setObject:emptyObjectsForKey1 forKey:[NSNumber numberWithInt:1]];
+    
     Bill *testBill = [[Bill alloc] initWithPositions:testPositions andTotalAmount:testTotal];
     
     return testBill;
