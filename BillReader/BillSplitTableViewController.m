@@ -154,9 +154,13 @@
     Position *position = [self.positions objectForKey:[NSNumber numberWithInt:fromPerson]][indexPath.row];
     
     [position setBelongsToId:toPerson];
-    [[self.positions objectForKey:[NSNumber numberWithInt:toPerson]] addObject:position];
-    [[self.positions objectForKey:[NSNumber numberWithInt:fromPerson]] removeObjectAtIndex:indexPath.row];
-    //TODO: MEMORY MANAGEMENT? MANAGE CELLS
+    NSMutableArray *newPositions = [[self.positions objectForKey:[NSNumber numberWithInt:toPerson]] mutableCopy];
+    [newPositions addObject:position];
+    [self.positions setObject:newPositions forKey:[NSNumber numberWithInt:toPerson]];
+    
+    newPositions = [[self.positions objectForKey:[NSNumber numberWithInt:fromPerson]] mutableCopy];
+    [newPositions removeObject:position];
+    [self.positions setObject:newPositions forKey:[NSNumber numberWithInt:fromPerson]];
 }
 
 - (void) handleSelectionForPersonTableViewAtIndexPath:(NSIndexPath *)indexPath
