@@ -9,8 +9,10 @@
 #import "BillReaderViewController.h"
 #import "Position.h"
 #import "BillSplitTableViewController.h"
+#import "NumOfPeopleViewController.h"
 
 @interface BillReaderViewController ()
+@property (weak, nonatomic) IBOutlet UISegmentedControl *interfaceChoiseSegmentedControl;
 
 @end
 
@@ -28,13 +30,27 @@
     
 }
 
+- (IBAction)loadInterfaceAction:(UIButton *)sender {
+    switch ([self.interfaceChoiseSegmentedControl selectedSegmentIndex]) {
+        case 0:
+            [self performSegueWithIdentifier:@"Pick Num of People" sender:sender];
+            break;
+        case 1:
+            [self performSegueWithIdentifier:@"TestSegue" sender:sender];
+            break;
+        case 2:
+            break;
+            
+        default:
+            break;
+    }
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"Show Table"]) {
-        
-        // Get destination view
-        BillSplitTableViewController *bstvc = [segue destinationViewController];
-        [bstvc setPositions:self.bill.positionsOfId];
+    if([[segue identifier] isEqualToString:@"Pick Num of People"]) {
+        NumOfPeopleViewController *nopvc = [segue destinationViewController];
+        [nopvc setBill:self.bill];
     }
 }
 
@@ -60,9 +76,9 @@
     NSArray *objects = [[NSArray alloc] initWithObjects: testPos1, testPos2, testPos3, testPos4, testPos5, testPos6, testPos7, nil];
     NSMutableDictionary *testPositions = [[NSMutableDictionary alloc] init];
     
-    NSMutableArray *emptyObjectsForKey1 = [[NSMutableArray alloc] init];
+    //NSMutableArray *emptyObjectsForKey1 = [[NSMutableArray alloc] init];
     [testPositions setObject:objects forKey:[NSNumber numberWithInt:0]];
-    [testPositions setObject:emptyObjectsForKey1 forKey:[NSNumber numberWithInt:1]];
+    //[testPositions setObject:emptyObjectsForKey1 forKey:[NSNumber numberWithInt:1]];
     
     Bill *testBill = [[Bill alloc] initWithPositions:testPositions andTotalAmount:testTotal];
     

@@ -17,7 +17,8 @@
 
 - (id)initWithPositions:(NSMutableDictionary*)positions andTotalAmount:(NSDecimalNumber*)total;
 - (void)addPosition:(Position *)position forId:(id)identifier;
-- (NSMutableArray *)positionAtId:(id)identifier;
+- (NSMutableArray *)positionsAtId:(id)identifier;
 - (void)removePosition:(Position *)position forId:(id)identifer;
-
+- (void)addEmptyOwners:(NSInteger)amount;
+- (void)reset;
 @end

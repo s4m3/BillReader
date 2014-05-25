@@ -16,7 +16,11 @@
 @interface BillSplitTableViewController ()
 @property (weak, nonatomic) IBOutlet PersonTableView *personTableView;
 @property (weak, nonatomic) IBOutlet BillTableView *billTableView;
+@property (weak, nonatomic) IBOutlet UILabel *restLabel;
+@property (weak, nonatomic) IBOutlet UILabel *totalLabel;
+@property (weak, nonatomic) IBOutlet UILabel *personLabel;
 @property (nonatomic) NSUInteger personId;
+@property (nonatomic) long totalNumOfPersons;
 @end
 
 @implementation BillSplitTableViewController
@@ -26,6 +30,7 @@
 - (void)setPositions:(NSMutableDictionary *)positions
 {
     _positions = positions;
+    _totalNumOfPersons = [positions count] - 1;
     [self.billTableView reloadData];
     [self.personTableView reloadData];
 }
@@ -38,6 +43,8 @@
     
     self.personTableView.delegate = self;
     self.billTableView.delegate = self;
+    
+     [self updateLabels];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -120,7 +127,7 @@
 
 - (NSMutableArray *) positionsOfPersonWithId:(NSUInteger)identifier
 {
-    return [self.positions objectForKey:[NSNumber numberWithInt:identifier]];
+    return [self.positions objectForKey:[NSNumber numberWithLong:identifier]];
 //    NSMutableArray *positionsOfPerson = [NSMutableArray array];
 //    for(Position *p in self.positions) {
 //        if(p.belongsToId == id) {
@@ -141,26 +148,30 @@
     }
     [self.billTableView reloadData];
     [self.personTableView reloadData];
+    
+    [self updateLabels];
 }
 
-- (void) handleSelectionForBillTableViewAtIndexPath:(NSIndexPath *)indexPath
+- (void)handleSelectionForBillTableViewAtIndexPath:(NSIndexPath *)indexPath
 {
     [self switchPositionFrom:NO_PERSON toPerson:self.personId atIndexPath:indexPath];
     
 }
 
-- (void) switchPositionFrom:(NSUInteger)fromPerson toPerson:(NSInteger)toPerson atIndexPath:(NSIndexPath *)indexPath
+
+
+- (void)switchPositionFrom:(NSUInteger)fromPerson toPerson:(NSInteger)toPerson atIndexPath:(NSIndexPath *)indexPath
 {
-    Position *position = [self.positions objectForKey:[NSNumber numberWithInt:fromPerson]][indexPath.row];
+    Position *position = [self.positions objectForKey:[NSNumber numberWithLong:fromPerson]][indexPath.row];
     
     [position setBelongsToId:toPerson];
-    NSMutableArray *newPositions = [[self.positions objectForKey:[NSNumber numberWithInt:toPerson]] mutableCopy];
+    NSMutableArray *newPositions = [[self.positions objectForKey:[NSNumber numberWithLong:toPerson]] mutableCopy];
     [newPositions addObject:position];
-    [self.positions setObject:newPositions forKey:[NSNumber numberWithInt:toPerson]];
+    [self.positions setObject:newPositions forKey:[NSNumber numberWithLong:toPerson]];
     
-    newPositions = [[self.positions objectForKey:[NSNumber numberWithInt:fromPerson]] mutableCopy];
+    newPositions = [[self.positions objectForKey:[NSNumber numberWithLong:fromPerson]] mutableCopy];
     [newPositions removeObject:position];
-    [self.positions setObject:newPositions forKey:[NSNumber numberWithInt:fromPerson]];
+    [self.positions setObject:newPositions forKey:[NSNumber numberWithLong:fromPerson]];
 }
 
 - (void) handleSelectionForPersonTableViewAtIndexPath:(NSIndexPath *)indexPath
@@ -168,6 +179,50 @@
     [self switchPositionFrom:self.personId toPerson:NO_PERSON atIndexPath:indexPath];
     
 }
+
+- (void)updateLabels
+{
+    self.restLabel.text = [NSString stringWithFormat:@"Rest: %@€", [self getTotalOfPositionsFromPerson:NO_PERSON]];
+    self.totalLabel.text = [NSString stringWithFormat:@"Total: %@€", [self getTotalOfPositionsFromPerson:self.personId]];
+    self.personLabel.text = [NSString stringWithFormat:@"%ld. Person", self.personId];
+}
+
+- (NSDecimalNumber *)getTotalOfPositionsFromPerson:(NSUInteger)personId
+{
+    NSArray *positionArray = [[self.positions objectForKey:[NSNumber numberWithLong:personId]] copy];
+    NSDecimalNumber *total = [[NSDecimalNumber alloc] initWithInt:0];
+    for (Position *p in positionArray) {
+        total = [total decimalNumberByAdding:p.price];
+    }
+    return total;
+}
+
+- (IBAction)nextPersonAction:(UIButton *)sender
+{
+    if(self.personId >= self.totalNumOfPersons) {
+        return;
+    }
+    
+    self.personId = self.personId + 1;
+    [self updateTablesAndLabels];
+
+}
+
+- (IBAction)previousPersonAction:(UIButton *)sender {
+    if (self.personId <= 1) {
+        return;
+    }
+    
+    self.personId = self.personId - 1;
+    [self updateTablesAndLabels];
+}
+
+-(void)updateTablesAndLabels
+{
+    [self updateLabels];
+    [self.personTableView reloadData];
+}
+
 
 /*
 // Override to support conditional editing of the table view.
