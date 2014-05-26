@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		F4DE2A651932042A0043CCE2 /* NumOfPeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */; };
+		F4DE2A68193347BA0043CCE2 /* PersonArticleCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A67193347BA0043CCE2 /* PersonArticleCollectionViewController.m */; };
+		F4DE2A6B19336FAE0043CCE2 /* ArticleListTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A6A19336FAE0043CCE2 /* ArticleListTextView.m */; };
+		F4DE2A71193370E40043CCE2 /* ArticleListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A70193370E40043CCE2 /* ArticleListCollectionViewCell.m */; };
 		F4E775C71919430F0036FEB5 /* Bill.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E775C61919430F0036FEB5 /* Bill.m */; };
 		F4E775CA19194B140036FEB5 /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E775C919194B140036FEB5 /* Position.m */; };
 		F4E775CD191F9B270036FEB5 /* BillSplitTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E775CC191F9B270036FEB5 /* BillSplitTableViewController.m */; };
@@ -48,6 +51,12 @@
 /* Begin PBXFileReference section */
 		F4DE2A631932042A0043CCE2 /* NumOfPeopleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumOfPeopleViewController.h; sourceTree = "<group>"; };
 		F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumOfPeopleViewController.m; sourceTree = "<group>"; };
+		F4DE2A66193347BA0043CCE2 /* PersonArticleCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonArticleCollectionViewController.h; sourceTree = "<group>"; };
+		F4DE2A67193347BA0043CCE2 /* PersonArticleCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonArticleCollectionViewController.m; sourceTree = "<group>"; };
+		F4DE2A6919336FAE0043CCE2 /* ArticleListTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleListTextView.h; sourceTree = "<group>"; };
+		F4DE2A6A19336FAE0043CCE2 /* ArticleListTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleListTextView.m; sourceTree = "<group>"; };
+		F4DE2A6F193370E40043CCE2 /* ArticleListCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleListCollectionViewCell.h; sourceTree = "<group>"; };
+		F4DE2A70193370E40043CCE2 /* ArticleListCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleListCollectionViewCell.m; sourceTree = "<group>"; };
 		F4E775C51919430F0036FEB5 /* Bill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bill.h; path = Model/Bill.h; sourceTree = "<group>"; };
 		F4E775C61919430F0036FEB5 /* Bill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Bill.m; path = Model/Bill.m; sourceTree = "<group>"; };
 		F4E775C819194B140036FEB5 /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Position.h; path = Model/Position.h; sourceTree = "<group>"; };
@@ -149,6 +158,12 @@
 		F4F266701915134E001D0F93 /* BillReader */ = {
 			isa = PBXGroup;
 			children = (
+				F4DE2A6F193370E40043CCE2 /* ArticleListCollectionViewCell.h */,
+				F4DE2A70193370E40043CCE2 /* ArticleListCollectionViewCell.m */,
+				F4DE2A66193347BA0043CCE2 /* PersonArticleCollectionViewController.h */,
+				F4DE2A67193347BA0043CCE2 /* PersonArticleCollectionViewController.m */,
+				F4DE2A6919336FAE0043CCE2 /* ArticleListTextView.h */,
+				F4DE2A6A19336FAE0043CCE2 /* ArticleListTextView.m */,
 				F4DE2A631932042A0043CCE2 /* NumOfPeopleViewController.h */,
 				F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */,
 				F4F266791915134E001D0F93 /* BillReaderAppDelegate.h */,
@@ -307,12 +322,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4DE2A6B19336FAE0043CCE2 /* ArticleListTextView.m in Sources */,
 				F4E775C71919430F0036FEB5 /* Bill.m in Sources */,
 				F4DE2A651932042A0043CCE2 /* NumOfPeopleViewController.m in Sources */,
 				F4E775CD191F9B270036FEB5 /* BillSplitTableViewController.m in Sources */,
 				F4F2667B1915134E001D0F93 /* BillReaderAppDelegate.m in Sources */,
+				F4DE2A71193370E40043CCE2 /* ArticleListCollectionViewCell.m in Sources */,
 				F4F266771915134E001D0F93 /* main.m in Sources */,
 				F4F266841915134E001D0F93 /* BillReaderViewController.m in Sources */,
+				F4DE2A68193347BA0043CCE2 /* PersonArticleCollectionViewController.m in Sources */,
 				F4E775CA19194B140036FEB5 /* Position.m in Sources */,
 				F4E775DC191FCFAB0036FEB5 /* PersonTableView.m in Sources */,
 				F4E775D9191FCF8E0036FEB5 /* BillTableView.m in Sources */,

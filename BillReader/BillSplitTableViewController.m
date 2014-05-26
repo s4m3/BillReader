@@ -11,6 +11,7 @@
 #import "Position.h"
 #import "BillTableView.h"
 #import "PersonTableView.h"
+#import "PersonArticleCollectionViewController.h"
 
 
 @interface BillSplitTableViewController ()
@@ -21,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *personLabel;
 @property (nonatomic) NSUInteger personId;
 @property (nonatomic) long totalNumOfPersons;
+@property (weak, nonatomic) IBOutlet UIButton *previousButton;
+@property (weak, nonatomic) IBOutlet UIButton *nextButton;
+@property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @end
 
 @implementation BillSplitTableViewController
@@ -44,13 +48,22 @@
     self.personTableView.delegate = self;
     self.billTableView.delegate = self;
     
-     [self updateLabels];
+    [self updateLabels];
+    [self updateButtons];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([[segue identifier] isEqualToString:@"Person Article Overview"]) {
+        PersonArticleCollectionViewController *pacvc = [segue destinationViewController];
+        [pacvc setPositions:[self.positions copy]];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -172,6 +185,8 @@
     newPositions = [[self.positions objectForKey:[NSNumber numberWithLong:fromPerson]] mutableCopy];
     [newPositions removeObject:position];
     [self.positions setObject:newPositions forKey:[NSNumber numberWithLong:fromPerson]];
+    
+    [self updateButtons];
 }
 
 - (void) handleSelectionForPersonTableViewAtIndexPath:(NSIndexPath *)indexPath
@@ -185,6 +200,27 @@
     self.restLabel.text = [NSString stringWithFormat:@"Rest: %@€", [self getTotalOfPositionsFromPerson:NO_PERSON]];
     self.totalLabel.text = [NSString stringWithFormat:@"Total: %@€", [self getTotalOfPositionsFromPerson:self.personId]];
     self.personLabel.text = [NSString stringWithFormat:@"%ld. Person", self.personId];
+}
+
+- (void)updateButtons
+{
+    if([[self.positions objectForKey:[NSNumber numberWithInt:0]] count] == 0) {
+        self.doneButton.enabled = YES;
+    } else {
+        self.doneButton.enabled = NO;
+    }
+    if(self.personId <= 1) {
+        self.previousButton.enabled = NO;
+    } else {
+        self.previousButton.enabled = YES;
+    }
+    
+    if(self.personId >= self.totalNumOfPersons) {
+        self.nextButton.enabled = NO;
+    } else {
+        self.nextButton.enabled = YES;
+    }
+    
 }
 
 - (NSDecimalNumber *)getTotalOfPositionsFromPerson:(NSUInteger)personId
@@ -204,7 +240,7 @@
     }
     
     self.personId = self.personId + 1;
-    [self updateTablesAndLabels];
+    [self updateTablesAndLabelsAndButtons];
 
 }
 
@@ -214,12 +250,13 @@
     }
     
     self.personId = self.personId - 1;
-    [self updateTablesAndLabels];
+    [self updateTablesAndLabelsAndButtons];
 }
 
--(void)updateTablesAndLabels
+- (void)updateTablesAndLabelsAndButtons
 {
     [self updateLabels];
+    [self updateButtons];
     [self.personTableView reloadData];
 }
 

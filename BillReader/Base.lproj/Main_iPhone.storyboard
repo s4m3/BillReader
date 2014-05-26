@@ -152,7 +152,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" tag="-1" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YIe-jA-Bx7" customClass="BillTableView">
+                            <tableView clipsSubviews="YES" tag="-1" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YIe-jA-Bx7" customClass="BillTableView">
                                 <rect key="frame" x="0.0" y="0.0" width="160" height="415"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -222,7 +222,7 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Rest:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u64-U9-U8c">
-                                <rect key="frame" x="20" y="439" width="140" height="21"/>
+                                <rect key="frame" x="20" y="439" width="40" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -235,45 +235,72 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sKX-FY-iX6">
-                                <rect key="frame" x="193" y="435" width="46" height="30"/>
+                                <rect key="frame" x="191" y="423" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <state key="normal" title="➡️"/>
+                                <state key="disabled" title=".">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="nextPersonAction:" destination="nfq-bP-b3O" eventType="touchUpInside" id="XRk-YZ-kId"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLh-ZX-NwQ">
-                                <rect key="frame" x="76" y="435" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLh-ZX-NwQ">
+                                <rect key="frame" x="74" y="423" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <state key="normal" title="⬅️">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled" title=".">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="previousPersonAction:" destination="nfq-bP-b3O" eventType="touchUpInside" id="eIo-xA-pKb"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1. Person" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aP7-PK-QV4">
-                                <rect key="frame" x="130" y="439" width="55" height="21"/>
+                                <rect key="frame" x="128" y="427" width="55" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B3C-w6-mLd">
+                                <rect key="frame" x="132" y="439" width="46" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Fertig">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled" title=".">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="esd-ri-HKQ" kind="push" identifier="Person Article Overview" id="KeC-0Q-nEy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Phs-Z4-A1Y" firstAttribute="top" secondItem="S2h-I5-904" secondAttribute="bottom" constant="20" symbolic="YES" id="0h5-Mz-6Re"/>
+                            <constraint firstItem="u64-U9-U8c" firstAttribute="leading" secondItem="wKF-xt-O0w" secondAttribute="leading" constant="20" symbolic="YES" id="33g-sw-z8D"/>
+                            <constraint firstItem="Phs-Z4-A1Y" firstAttribute="top" secondItem="B3C-w6-mLd" secondAttribute="bottom" constant="20" symbolic="YES" id="Cd6-hx-t5L"/>
                             <constraint firstAttribute="trailing" secondItem="S2h-I5-904" secondAttribute="trailing" constant="20" symbolic="YES" id="JiT-dZ-RbQ"/>
-                            <constraint firstItem="u64-U9-U8c" firstAttribute="leading" secondItem="wKF-xt-O0w" secondAttribute="leading" constant="20" symbolic="YES" id="sH7-ab-IWI"/>
-                            <constraint firstItem="Phs-Z4-A1Y" firstAttribute="top" secondItem="u64-U9-U8c" secondAttribute="bottom" constant="20" symbolic="YES" id="yuf-1E-As8"/>
+                            <constraint firstItem="u64-U9-U8c" firstAttribute="centerY" secondItem="B3C-w6-mLd" secondAttribute="centerY" id="LuF-8z-D3f"/>
+                            <constraint firstItem="S2h-I5-904" firstAttribute="centerY" secondItem="B3C-w6-mLd" secondAttribute="centerY" id="rtn-5c-es4"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="btk-Fv-vT3"/>
                     <connections>
                         <outlet property="billTableView" destination="YIe-jA-Bx7" id="ddA-4b-obI"/>
+                        <outlet property="doneButton" destination="B3C-w6-mLd" id="uRM-fp-5Ek"/>
+                        <outlet property="nextButton" destination="sKX-FY-iX6" id="qSF-cy-D73"/>
                         <outlet property="personLabel" destination="aP7-PK-QV4" id="5DB-e3-e0l"/>
                         <outlet property="personTableView" destination="L07-r1-O24" id="Ssq-Xt-pvY"/>
+                        <outlet property="previousButton" destination="nLh-ZX-NwQ" id="UzH-KN-VWe"/>
                         <outlet property="restLabel" destination="u64-U9-U8c" id="4Up-m1-5p3"/>
                         <outlet property="totalLabel" destination="S2h-I5-904" id="T2c-u1-D5X"/>
                     </connections>
@@ -281,6 +308,61 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rP7-Ei-0Le" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1316" y="207"/>
+        </scene>
+        <!--Person Article Collection View Controller-->
+        <scene sceneID="tzb-Ev-nIG">
+            <objects>
+                <collectionViewController autoresizesArchivedViewToFullSize="NO" id="esd-ri-HKQ" customClass="PersonArticleCollectionViewController" sceneMemberID="viewController">
+                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="fan-6C-tQq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NRo-Kh-xGt">
+                            <size key="itemSize" width="137" height="186"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Article List" id="O9J-nk-Acn" customClass="ArticleListCollectionViewCell">
+                                <rect key="frame" x="0.0" y="64" width="137" height="186"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="137" height="186"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mBa-1E-QKz" customClass="ArticleListTextView">
+                                            <rect key="frame" x="0.0" y="0.0" width="137" height="186"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Person 1: Article...">
+                                                    <attributes>
+                                                        <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <outlet property="articleListTextView" destination="mBa-1E-QKz" id="Uem-QS-vmu"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="esd-ri-HKQ" id="UFJ-dO-HWe"/>
+                            <outlet property="delegate" destination="esd-ri-HKQ" id="BeB-iP-h5Z"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="ST4-y3-tOy"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2he-2w-Vc4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1893" y="154"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="m8s-6N-aK0">
