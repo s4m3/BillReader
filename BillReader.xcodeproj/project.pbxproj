@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F42EC84E1934AB33009798B5 /* BillSplitSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F42EC84D1934AB33009798B5 /* BillSplitSwipeViewController.m */; };
+		F42EC8541934ACB5009798B5 /* SwipeArticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F42EC8531934ACB5009798B5 /* SwipeArticleView.m */; };
+		F42EC8571934B0C6009798B5 /* BillSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F42EC8561934B0C6009798B5 /* BillSplitViewController.m */; };
 		F4DE2A651932042A0043CCE2 /* NumOfPeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */; };
 		F4DE2A68193347BA0043CCE2 /* PersonArticleCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A67193347BA0043CCE2 /* PersonArticleCollectionViewController.m */; };
 		F4DE2A6B19336FAE0043CCE2 /* ArticleListTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A6A19336FAE0043CCE2 /* ArticleListTextView.m */; };
@@ -49,6 +52,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F42EC84C1934AB33009798B5 /* BillSplitSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillSplitSwipeViewController.h; sourceTree = "<group>"; };
+		F42EC84D1934AB33009798B5 /* BillSplitSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillSplitSwipeViewController.m; sourceTree = "<group>"; };
+		F42EC8521934ACB5009798B5 /* SwipeArticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeArticleView.h; sourceTree = "<group>"; };
+		F42EC8531934ACB5009798B5 /* SwipeArticleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeArticleView.m; sourceTree = "<group>"; };
+		F42EC8551934B0C6009798B5 /* BillSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillSplitViewController.h; sourceTree = "<group>"; };
+		F42EC8561934B0C6009798B5 /* BillSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillSplitViewController.m; sourceTree = "<group>"; };
 		F4DE2A631932042A0043CCE2 /* NumOfPeopleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumOfPeopleViewController.h; sourceTree = "<group>"; };
 		F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumOfPeopleViewController.m; sourceTree = "<group>"; };
 		F4DE2A66193347BA0043CCE2 /* PersonArticleCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonArticleCollectionViewController.h; sourceTree = "<group>"; };
@@ -120,13 +129,60 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F42EC8591934B15A009798B5 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F4DE2A66193347BA0043CCE2 /* PersonArticleCollectionViewController.h */,
+				F4DE2A67193347BA0043CCE2 /* PersonArticleCollectionViewController.m */,
+				F4DE2A631932042A0043CCE2 /* NumOfPeopleViewController.h */,
+				F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */,
+				F42EC84C1934AB33009798B5 /* BillSplitSwipeViewController.h */,
+				F42EC84D1934AB33009798B5 /* BillSplitSwipeViewController.m */,
+				F4E775CB191F9B270036FEB5 /* BillSplitTableViewController.h */,
+				F4E775CC191F9B270036FEB5 /* BillSplitTableViewController.m */,
+				F42EC8551934B0C6009798B5 /* BillSplitViewController.h */,
+				F42EC8561934B0C6009798B5 /* BillSplitViewController.m */,
+				F4F266821915134E001D0F93 /* BillReaderViewController.h */,
+				F4F266831915134E001D0F93 /* BillReaderViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		F42EC85A1934B17D009798B5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F42EC8521934ACB5009798B5 /* SwipeArticleView.h */,
+				F42EC8531934ACB5009798B5 /* SwipeArticleView.m */,
+				F4DE2A6F193370E40043CCE2 /* ArticleListCollectionViewCell.h */,
+				F4DE2A70193370E40043CCE2 /* ArticleListCollectionViewCell.m */,
+				F4DE2A6919336FAE0043CCE2 /* ArticleListTextView.h */,
+				F4DE2A6A19336FAE0043CCE2 /* ArticleListTextView.m */,
+				F4E775DA191FCFAB0036FEB5 /* PersonTableView.h */,
+				F4E775DB191FCFAB0036FEB5 /* PersonTableView.m */,
+				F4E775D7191FCF8E0036FEB5 /* BillTableView.h */,
+				F4E775D8191FCF8E0036FEB5 /* BillTableView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		F42EC85B1934B193009798B5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F4E775C819194B140036FEB5 /* Position.h */,
+				F4E775C919194B140036FEB5 /* Position.m */,
+				F4E775C51919430F0036FEB5 /* Bill.h */,
+				F4E775C61919430F0036FEB5 /* Bill.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		F4F2665E1915134E001D0F93 = {
 			isa = PBXGroup;
 			children = (
+				F4F266701915134E001D0F93 /* BillReader */,
 				F4F266B119151945001D0F93 /* rechnung1.jpg */,
 				F4F266B319152712001D0F93 /* rechnung2.jpg */,
 				F4F266AF191517D1001D0F93 /* tessdata */,
-				F4F266701915134E001D0F93 /* BillReader */,
 				F4F266921915134E001D0F93 /* BillReaderTests */,
 				F4F266691915134E001D0F93 /* Frameworks */,
 				F4F266681915134E001D0F93 /* Products */,
@@ -158,30 +214,13 @@
 		F4F266701915134E001D0F93 /* BillReader */ = {
 			isa = PBXGroup;
 			children = (
-				F4DE2A6F193370E40043CCE2 /* ArticleListCollectionViewCell.h */,
-				F4DE2A70193370E40043CCE2 /* ArticleListCollectionViewCell.m */,
-				F4DE2A66193347BA0043CCE2 /* PersonArticleCollectionViewController.h */,
-				F4DE2A67193347BA0043CCE2 /* PersonArticleCollectionViewController.m */,
-				F4DE2A6919336FAE0043CCE2 /* ArticleListTextView.h */,
-				F4DE2A6A19336FAE0043CCE2 /* ArticleListTextView.m */,
-				F4DE2A631932042A0043CCE2 /* NumOfPeopleViewController.h */,
-				F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */,
+				F42EC85B1934B193009798B5 /* Models */,
+				F42EC85A1934B17D009798B5 /* Views */,
+				F42EC8591934B15A009798B5 /* ViewControllers */,
 				F4F266791915134E001D0F93 /* BillReaderAppDelegate.h */,
 				F4F2667A1915134E001D0F93 /* BillReaderAppDelegate.m */,
 				F4F2667F1915134E001D0F93 /* Main_iPad.storyboard */,
 				F4F2667C1915134E001D0F93 /* Main_iPhone.storyboard */,
-				F4E775DA191FCFAB0036FEB5 /* PersonTableView.h */,
-				F4E775DB191FCFAB0036FEB5 /* PersonTableView.m */,
-				F4E775D7191FCF8E0036FEB5 /* BillTableView.h */,
-				F4E775D8191FCF8E0036FEB5 /* BillTableView.m */,
-				F4E775CB191F9B270036FEB5 /* BillSplitTableViewController.h */,
-				F4E775CC191F9B270036FEB5 /* BillSplitTableViewController.m */,
-				F4F266821915134E001D0F93 /* BillReaderViewController.h */,
-				F4F266831915134E001D0F93 /* BillReaderViewController.m */,
-				F4E775C819194B140036FEB5 /* Position.h */,
-				F4E775C919194B140036FEB5 /* Position.m */,
-				F4E775C51919430F0036FEB5 /* Bill.h */,
-				F4E775C61919430F0036FEB5 /* Bill.m */,
 				F4F266851915134E001D0F93 /* Images.xcassets */,
 				F4F266711915134E001D0F93 /* Supporting Files */,
 			);
@@ -323,7 +362,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4DE2A6B19336FAE0043CCE2 /* ArticleListTextView.m in Sources */,
+				F42EC8571934B0C6009798B5 /* BillSplitViewController.m in Sources */,
 				F4E775C71919430F0036FEB5 /* Bill.m in Sources */,
+				F42EC8541934ACB5009798B5 /* SwipeArticleView.m in Sources */,
 				F4DE2A651932042A0043CCE2 /* NumOfPeopleViewController.m in Sources */,
 				F4E775CD191F9B270036FEB5 /* BillSplitTableViewController.m in Sources */,
 				F4F2667B1915134E001D0F93 /* BillReaderAppDelegate.m in Sources */,
@@ -331,6 +372,7 @@
 				F4F266771915134E001D0F93 /* main.m in Sources */,
 				F4F266841915134E001D0F93 /* BillReaderViewController.m in Sources */,
 				F4DE2A68193347BA0043CCE2 /* PersonArticleCollectionViewController.m in Sources */,
+				F42EC84E1934AB33009798B5 /* BillSplitSwipeViewController.m in Sources */,
 				F4E775CA19194B140036FEB5 /* Position.m in Sources */,
 				F4E775DC191FCFAB0036FEB5 /* PersonTableView.m in Sources */,
 				F4E775D9191FCF8E0036FEB5 /* BillTableView.m in Sources */,

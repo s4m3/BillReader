@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BillSplitViewController.h"
 
-@interface BillSplitTableViewController : UIViewController <UITableViewDelegate>
+@interface BillSplitTableViewController : BillSplitViewController <UITableViewDelegate>
 
-@property (nonatomic, strong) NSMutableDictionary * positions; //of Position arrays with person id as key
+
 @end

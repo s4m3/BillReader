@@ -33,7 +33,7 @@
 
 - (void)setPositions:(NSMutableDictionary *)positions
 {
-    _positions = positions;
+    [super setPositions:positions];
     _totalNumOfPersons = [positions count] - 1;
     [self.billTableView reloadData];
     [self.personTableView reloadData];

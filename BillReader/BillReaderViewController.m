@@ -9,6 +9,7 @@
 #import "BillReaderViewController.h"
 #import "Position.h"
 #import "BillSplitTableViewController.h"
+#import "BillSplitSwipeViewController.h"
 #import "NumOfPeopleViewController.h"
 
 @interface BillReaderViewController ()
@@ -39,6 +40,7 @@
             [self performSegueWithIdentifier:@"TestSegue" sender:sender];
             break;
         case 2:
+            [self performSegueWithIdentifier:@"Show Swipe" sender:sender];
             break;
             
         default:
@@ -46,11 +48,15 @@
     }
 }
 
+//TODO: interface selection in "pick num of people"?
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([[segue identifier] isEqualToString:@"Pick Num of People"]) {
         NumOfPeopleViewController *nopvc = [segue destinationViewController];
         [nopvc setBill:self.bill];
+    } else if([[segue identifier] isEqualToString:@"Show Swipe"]) {
+        BillSplitSwipeViewController *bssvc = [segue destinationViewController];
+        [bssvc setPositions:self.bill.positionsOfId];
     }
 }
 
