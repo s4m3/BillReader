@@ -22,7 +22,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Test Table"/>
                                 <connections>
-                                    <action selector="loadInterfaceAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Tcr-lj-g2Y"/>
+                                    <segue destination="PBO-rU-BVT" kind="push" identifier="Pick Num of People" id="0Ds-RF-ifC"/>
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dIs-em-AP2">
@@ -40,9 +40,6 @@
                     <navigationItem key="navigationItem" id="Syc-7C-Ml8"/>
                     <connections>
                         <outlet property="interfaceChoiseSegmentedControl" destination="dIs-em-AP2" id="Kha-LH-fGh"/>
-                        <segue destination="PBO-rU-BVT" kind="push" identifier="Pick Num of People" id="h2g-Bh-IrJ"/>
-                        <segue destination="fOr-Em-UlX" kind="push" identifier="TestSegue" id="eAT-2t-QDT"/>
-                        <segue destination="fIE-79-D1T" kind="push" identifier="Show Swipe" id="J60-1x-Zoa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -69,7 +66,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="nfq-bP-b3O" kind="push" identifier="Show Table" id="kwz-pN-2aQ"/>
+                                    <action selector="populateInterfaceOkButton:" destination="PBO-rU-BVT" eventType="touchUpInside" id="ESN-kb-tdD"/>
                                 </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1O4-bu-wqC">
@@ -89,11 +86,13 @@
                     <navigationItem key="navigationItem" id="jLh-xu-6qd"/>
                     <connections>
                         <outlet property="numOfPeoplePickerView" destination="1O4-bu-wqC" id="53G-yX-bMa"/>
+                        <segue destination="fIE-79-D1T" kind="push" identifier="Show Swipe" id="hn8-Ka-vjx"/>
+                        <segue destination="nfq-bP-b3O" kind="push" identifier="Show Table" id="bVh-Oi-GLe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lyK-o7-cFt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="895" y="42"/>
+            <point key="canvasLocation" x="843" y="86"/>
         </scene>
         <!--Bill Split Table View Controller-->
         <scene sceneID="DyP-3N-Ubh">
@@ -105,7 +104,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Position" textLabel="RA0-Hb-atP" detailTextLabel="aLT-Wz-heR" style="IBUITableViewCellStyleValue2" id="XEV-qM-cdI">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XEV-qM-cdI" id="ZqH-nG-VQV">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -322,7 +321,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gzC-IS-bDc" customClass="SwipeArticleView">
+                            <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gzC-IS-bDc" customClass="SwipeArticleView">
                                 <rect key="frame" x="120" y="280" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -338,7 +337,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dO0-qn-avS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="835" y="690"/>
+            <point key="canvasLocation" x="1337" y="768"/>
         </scene>
         <!--Person Article Collection View Controller-->
         <scene sceneID="tzb-Ev-nIG">

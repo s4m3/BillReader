@@ -10,6 +10,8 @@
 
 @interface BillSplitViewController : UIViewController //abstract
 
+@property (nonatomic) long totalNumOfPersons;
 @property (nonatomic, strong) NSMutableDictionary * positions; //of Position arrays with person id as key
 - (void)setPositions:(NSMutableDictionary *)positions;
+
 @end

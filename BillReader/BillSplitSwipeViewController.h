@@ -10,5 +10,4 @@
 #import "BillSplitViewController.h"
 
 @interface BillSplitSwipeViewController : BillSplitViewController
-
 @end

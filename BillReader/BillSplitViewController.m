@@ -17,4 +17,13 @@
 {
     _positions = positions;
 }
+
+-(long)totalNumOfPersons
+{
+    if (_totalNumOfPersons == 0) {
+        _totalNumOfPersons = [self.positions count] - 1;
+    }
+    return _totalNumOfPersons;
+}
+
 @end

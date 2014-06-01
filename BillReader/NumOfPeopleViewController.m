@@ -8,6 +8,7 @@
 
 #import "NumOfPeopleViewController.h"
 #import "BillSplitTableViewController.h"
+#import "BillSplitSwipeViewController.h"
 
 @interface NumOfPeopleViewController ()
 @property (weak, nonatomic) IBOutlet UIPickerView *numOfPeoplePickerView;
@@ -36,6 +37,24 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)populateInterfaceOkButton:(UIButton *)sender
+{
+    switch (self.interfaceNum) {
+        case 0:
+            [self performSegueWithIdentifier:@"Show Table" sender:sender];
+            break;
+        case 1:
+            
+            break;
+        case 2:
+            [self performSegueWithIdentifier:@"Show Swipe" sender:sender];
+            break;
+            
+        default:
+            break;
+    }
+    
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -45,6 +64,12 @@
         [self updatePositions];
         BillSplitTableViewController *bstvc = [segue destinationViewController];
         [bstvc setPositions:self.bill.positionsOfId];
+    } else if ([[segue identifier] isEqualToString:@"Show Swipe"]) {
+        
+        // Get destination view
+        [self updatePositions];
+        BillSplitSwipeViewController *bssvc = [segue destinationViewController];
+        [bssvc setPositions:self.bill.positionsOfId];
     }
 }
 

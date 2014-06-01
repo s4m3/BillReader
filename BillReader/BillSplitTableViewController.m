@@ -21,7 +21,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
 @property (weak, nonatomic) IBOutlet UILabel *personLabel;
 @property (nonatomic) NSUInteger personId;
-@property (nonatomic) long totalNumOfPersons;
 @property (weak, nonatomic) IBOutlet UIButton *previousButton;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
@@ -34,7 +33,6 @@
 - (void)setPositions:(NSMutableDictionary *)positions
 {
     [super setPositions:positions];
-    _totalNumOfPersons = [positions count] - 1;
     [self.billTableView reloadData];
     [self.personTableView reloadData];
 }

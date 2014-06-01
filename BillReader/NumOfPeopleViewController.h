@@ -12,4 +12,5 @@
 @interface NumOfPeopleViewController : UIViewController <UIPickerViewDelegate>
 
 @property (nonatomic, strong) Bill * bill; //of Position arrays with person id as key
+@property long interfaceNum;
 @end
