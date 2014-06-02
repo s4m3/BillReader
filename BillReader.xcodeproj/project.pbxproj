@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F421B4DC193C71F20004FB6E /* PersonCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F421B4DB193C71F20004FB6E /* PersonCircleView.m */; };
 		F42EC84E1934AB33009798B5 /* BillSplitSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F42EC84D1934AB33009798B5 /* BillSplitSwipeViewController.m */; };
 		F42EC8541934ACB5009798B5 /* SwipeArticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F42EC8531934ACB5009798B5 /* SwipeArticleView.m */; };
 		F42EC8571934B0C6009798B5 /* BillSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F42EC8561934B0C6009798B5 /* BillSplitViewController.m */; };
@@ -52,6 +53,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F421B4DA193C71F20004FB6E /* PersonCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonCircleView.h; sourceTree = "<group>"; };
+		F421B4DB193C71F20004FB6E /* PersonCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonCircleView.m; sourceTree = "<group>"; };
 		F42EC84C1934AB33009798B5 /* BillSplitSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillSplitSwipeViewController.h; sourceTree = "<group>"; };
 		F42EC84D1934AB33009798B5 /* BillSplitSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillSplitSwipeViewController.m; sourceTree = "<group>"; };
 		F42EC8521934ACB5009798B5 /* SwipeArticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeArticleView.h; sourceTree = "<group>"; };
@@ -151,6 +154,8 @@
 		F42EC85A1934B17D009798B5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F421B4DA193C71F20004FB6E /* PersonCircleView.h */,
+				F421B4DB193C71F20004FB6E /* PersonCircleView.m */,
 				F42EC8521934ACB5009798B5 /* SwipeArticleView.h */,
 				F42EC8531934ACB5009798B5 /* SwipeArticleView.m */,
 				F4DE2A6F193370E40043CCE2 /* ArticleListCollectionViewCell.h */,
@@ -362,6 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4DE2A6B19336FAE0043CCE2 /* ArticleListTextView.m in Sources */,
+				F421B4DC193C71F20004FB6E /* PersonCircleView.m in Sources */,
 				F42EC8571934B0C6009798B5 /* BillSplitViewController.m in Sources */,
 				F4E775C71919430F0036FEB5 /* Bill.m in Sources */,
 				F42EC8541934ACB5009798B5 /* SwipeArticleView.m in Sources */,

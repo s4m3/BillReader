@@ -48,13 +48,14 @@
 - (Bill *)tempUseTestData
 {
     NSDecimalNumber *testTotal = [[NSDecimalNumber alloc] initWithInt:100];
-    NSDecimalNumber *beerPrice = [[NSDecimalNumber alloc] initWithInt:5];
-    NSDecimalNumber *vodkaPrice = [[NSDecimalNumber alloc] initWithInt:3];
+    NSDecimalNumber *beerPrice = [[NSDecimalNumber alloc] initWithInt:3];
+    NSDecimalNumber *vodkaPrice = [[NSDecimalNumber alloc] initWithInt:2];
+    NSDecimalNumber *waterPrice = [[NSDecimalNumber alloc] initWithFloat:1.5];
     
     Position *testPos1 = [[Position alloc] initTempWithTestData:@"Bier" belongsToId:0 andPrice:beerPrice];
     Position *testPos2 = [[Position alloc] initTempWithTestData:@"Bier" belongsToId:0 andPrice:beerPrice];
     Position *testPos3 = [[Position alloc] initTempWithTestData:@"Bier" belongsToId:0 andPrice:beerPrice];
-    Position *testPos4 = [[Position alloc] initTempWithTestData:@"Bier" belongsToId:0 andPrice:beerPrice];
+    Position *testPos4 = [[Position alloc] initTempWithTestData:@"Wasser" belongsToId:0 andPrice:waterPrice];
     Position *testPos5 = [[Position alloc] initTempWithTestData:@"Vodka" belongsToId:0 andPrice:vodkaPrice];
     Position *testPos6 = [[Position alloc] initTempWithTestData:@"Vodka" belongsToId:0 andPrice:vodkaPrice];
     Position *testPos7 = [[Position alloc] initTempWithTestData:@"Vodka" belongsToId:0 andPrice:vodkaPrice];

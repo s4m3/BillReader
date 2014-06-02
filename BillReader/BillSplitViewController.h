@@ -12,6 +12,7 @@
 
 @property (nonatomic) long totalNumOfPersons;
 @property (nonatomic, strong) NSMutableDictionary * positions; //of Position arrays with person id as key
+@property (nonatomic, strong) NSMutableArray * colors; //of UIColor for collectionDisplay
 - (void)setPositions:(NSMutableDictionary *)positions;
-
+- (UIColor *)createRandomColor;
 @end

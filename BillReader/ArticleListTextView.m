@@ -46,7 +46,7 @@
     [attributes setObject:paragraphStyle forKey:NSParagraphStyleAttributeName];
     [attributes setObject:@(NSUnderlineStyleSingle) forKey:NSUnderlineStyleAttributeName];
     [attributes setObject:titleFont forKey:NSFontAttributeName];
-    [attributes setObject:[UIColor lightGrayColor] forKey:NSForegroundColorAttributeName];
+    [attributes setObject:self.color forKey:NSForegroundColorAttributeName];
     NSAttributedString *title = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", self.name] attributes:attributes];
     
     attributes = [[NSMutableDictionary alloc] init];
@@ -57,7 +57,7 @@
     
     
     [attributes setObject:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forKey:NSForegroundColorAttributeName];
-    NSAttributedString *totalAttributedString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"___________\nTotal: %@€", total] attributes:attributes];
+    NSAttributedString *totalAttributedString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"___________\nTotal: %@€", [self decimalAsString:total]] attributes:attributes];
     
     
     NSMutableAttributedString *completeText = [[NSMutableAttributedString alloc] initWithAttributedString:title];
@@ -71,7 +71,17 @@
     
     return completeText;
     
+}
+
+- (NSString *)decimalAsString:(NSDecimalNumber *)decimal
+{
+    NSNumberFormatter * nf = [[NSNumberFormatter alloc] init];
+    [nf setMinimumFractionDigits:2];
+    [nf setMaximumFractionDigits:2];
+    [nf setMinimumIntegerDigits:1];
     
+    NSString *decimalAsString = [nf stringFromNumber:decimal];
+    return decimalAsString;
 }
 @end
 

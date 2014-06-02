@@ -9,6 +9,7 @@
 #import "BillSplitSwipeViewController.h"
 #import "SwipeArticleView.h"
 #import "Position.h"
+#import "PersonCircleView.h"
 
 @interface BillSplitSwipeViewController ()
 
@@ -18,12 +19,14 @@
 @property (strong, nonatomic) SwipeArticleView *swipeArticleView;
 @property (strong, nonatomic) Position *currentPosition;
 @property (nonatomic) long totalNumOfPersons;
-@property (strong, nonatomic) NSMutableArray *circles;
-@property int intersectionObjectNumber;
+@property (strong, nonatomic) NSMutableArray *circles; //of personCircleViews
+@property (nonatomic)  int intersectionObjectNumber;
 
 @end
 
 @implementation BillSplitSwipeViewController
+
+#define DEFAULT_CIRCLE_SIZE 50.0;
 
 - (void)setPositions:(NSMutableDictionary *)positions
 {
@@ -50,17 +53,17 @@
     
     
     if(recognizer.state == UIGestureRecognizerStateBegan || recognizer.state == UIGestureRecognizerStateChanged) {
-        self.intersectionObjectNumber = -1;
         CGPoint location = [recognizer locationInView:self.view];
         CGPoint newCenter = location;
         self.swipeArticleView.center = newCenter;
         for (int i=0; i<self.circles.count; i++) {
-            UIView *circle = self.circles[i];
+            PersonCircleView *circle = self.circles[i];
             if(CGRectIntersectsRect(self.swipeArticleView.frame, circle.frame)) {
                 self.intersectionObjectNumber = i;
                 return;
             }
         }
+        self.intersectionObjectNumber = -1;
     } else {
         if(self.intersectionObjectNumber > -1) {
             [self animateInCircleWithNumber:self.intersectionObjectNumber];
@@ -68,9 +71,30 @@
         } else {
             [self animateBackToOriginalPosition];
         }
-        
+        self.intersectionObjectNumber = -1;
     }
 }
+
+- (void)setIntersectionObjectNumber:(int)intersectionObjectNumber
+{
+    if (_intersectionObjectNumber == intersectionObjectNumber) {
+        return;
+    }
+    _intersectionObjectNumber = intersectionObjectNumber;
+    
+    if (self.circles.count > 0) {
+        for (int i=0; i<self.circles.count; i++) {
+            if(i != intersectionObjectNumber) {
+                [self.circles[i] setIsIntersected:NO];
+            } else {
+                [self.circles[i] setIsIntersected:YES];
+            }
+        }
+    }
+}
+
+
+
 
 - (void)setCurrentPositionToNewOwner:(int)owner
 {
@@ -122,14 +146,37 @@
                      }];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    //[self initController];
-}
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [self initController];
+    [self letCirclesAppearInView];
+}
+
+- (void)letCirclesAppearInView
+{
+    CGFloat delay = 0.0;
+    for (PersonCircleView *circleView in self.circles) {
+        [self.view addSubview:circleView];
+        [circleView animateToGoalPositionWithDelay:delay];
+        delay += 0.1;
+        
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self.swipeArticleView removeFromSuperview];
+    self.swipeArticleView = nil;
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    for (PersonCircleView *circleView in self.circles) {
+        [circleView animateToStartPosition];
+        
+    }
 }
 
 #define BORDER_DISTANCE 60.0
@@ -138,65 +185,63 @@
     self.originalSwipeArticleViewBounds = self.originalSwipeArticleView.bounds;
     self.originalSwipeArticleViewFrame = self.originalSwipeArticleView.frame;
     
-    self.circles = [NSMutableArray array];
+
     
     NSArray *positionsWithNoOwner = [self.positions objectForKey:[NSNumber numberWithInt:0]];
     self.currentPosition = [positionsWithNoOwner count] > 0 ? positionsWithNoOwner[0] : nil;
-    //[self drawPersonAreas];
-    
-    //TESTING DRAWING OF PERSON AREAS
-    long totalAmountOfPeople = self.totalNumOfPersons;
+    [self setPositionOfSwipeArticle:self.currentPosition];
+
+    if(!self.circles) {
+        long totalAmountOfPeople = self.totalNumOfPersons;
+        self.colors = [NSMutableArray arrayWithCapacity:totalAmountOfPeople];
+        self.circles = [NSMutableArray array];
+        CGFloat size = self.view.frame.size.width - BORDER_DISTANCE;
+        CGRect osavf = self.originalSwipeArticleViewFrame;
+        CGSize drawingAreaSize = CGSizeMake(size, size);
+        CGRect drawingAreaRect = CGRectMake(osavf.origin.x - drawingAreaSize.width/2 + osavf.size.width/2,
+                                            osavf.origin.y - drawingAreaSize.height/2 + osavf.size.width/2,
+                                            drawingAreaSize.width, drawingAreaSize.height);
+        
+        for (int i=0; i<totalAmountOfPeople; i++) {
+            
+            CGFloat size = DEFAULT_CIRCLE_SIZE;
+            PersonCircleView *circleView = [self createCircleAtNumber:i
+                                                         WithTotalNum:totalAmountOfPeople
+                                                             WithSize:CGSizeMake(size, size)
+                                                   WithCenterOfCircle:CGPointMake(osavf.origin.x + osavf.size.width / 2, osavf.origin.y + osavf.size.height / 2)
+                                                           WithRadius:drawingAreaRect.size.width / 2];
+            [self.circles addObject:circleView];
+        }
+    }
 
     
-    CGFloat size = self.view.frame.size.width - BORDER_DISTANCE;
-    CGRect osavf = self.originalSwipeArticleViewFrame;
-    CGSize drawingAreaSize = CGSizeMake(size, size);
-    CGRect drawingAreaRect = CGRectMake(osavf.origin.x - drawingAreaSize.width/2 + osavf.size.width/2,
-                             osavf.origin.y - drawingAreaSize.height/2 + osavf.size.width/2,
-                             drawingAreaSize.width, drawingAreaSize.height);
-    
-    for (int i=0; i<totalAmountOfPeople; i++) {
-//        UIImageView *drawingAreaImageView = [self circleShapeNumber:i WithTotalNum:totalAmountOfPeople AndWithSize:drawingAreaSize];
-//        drawingAreaImageView.frame = drawingAreaRect;
-//        [self.view addSubview:drawingAreaImageView];
-        UIView *circleView = [self createCircleAtNumber:i WithTotalNum:totalAmountOfPeople WithSize:CGSizeMake(50, 50) WithCenterOfCircle:CGPointMake(osavf.origin.x + osavf.size.width / 2, osavf.origin.y + osavf.size.height / 2) WithRadius:drawingAreaRect.size.width / 2];
-        [self.view addSubview:circleView];
-        [self.circles addObject:circleView];
-    }
-    
-//    //debugging purpose
-//    UIView *testView = [[UIView alloc] initWithFrame:drawingAreaRect];
-//    testView.backgroundColor = [UIColor lightGrayColor];
-//    testView.alpha = 0.1;
-//    [self.view addSubview:testView];
-    
-    //TESTING SWIPE ARTICLE
-    [self setPositionOfSwipeArticle:self.currentPosition];
 }
 
-- (UIView *)createCircleAtNumber:(int)num WithTotalNum:(long)total WithSize:(CGSize)size WithCenterOfCircle:(CGPoint)centerOfCircle WithRadius:(CGFloat)radius{
+- (PersonCircleView *)createCircleAtNumber:(int)num WithTotalNum:(long)total WithSize:(CGSize)size WithCenterOfCircle:(CGPoint)centerOfCircle WithRadius:(CGFloat)radius{
     
-    CGFloat centerPos = num * (2*M_PI/total);
+    CGFloat centerPos = num * (2*M_PI/total) - M_PI_2;
     CGFloat xPos = cosf(centerPos) * radius;
     CGFloat yPos = sinf(centerPos) * radius;
-    UIView *circleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-    circleView.center = CGPointMake(centerOfCircle.x + xPos, centerOfCircle.y + yPos);
+    CGPoint originalCenter = self.swipeArticleView.center;
+    PersonCircleView *circleView = [[PersonCircleView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height) AndCenter:originalCenter];
+    circleView.goalPosition = CGPointMake(centerOfCircle.x + xPos, centerOfCircle.y + yPos);
     circleView.layer.cornerRadius = size.width / 2;
-    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
-    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
-    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
-    UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+
     
-    circleView.backgroundColor = color;
+    circleView.backgroundColor = [super createRandomColor];
+    [self.colors addObject:circleView.backgroundColor];
     UITextView *text = [[UITextView alloc] initWithFrame:circleView.bounds];
+    [circleView setAlpha:0];
     [text setBackgroundColor:[UIColor clearColor]];
     [text setTextColor:[UIColor whiteColor]];
     [text setTextAlignment:NSTextAlignmentCenter];
     [text setFont:[UIFont fontWithName:@"Helvetica" size:25]];
     [text setText:[NSString stringWithFormat:@"%d", num + 1]];
+    [text setEditable:NO];
     [circleView addSubview:text];
     return circleView;
 }
+
 
 - (void)drawPersonAreas //TODO:delete?
 {
@@ -347,7 +392,7 @@
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     return imageView;
-}
+} //TODO:delete?
 
 - (void)setPositionOfSwipeArticle:(Position *)position
 {
@@ -361,13 +406,26 @@
     
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
     label.textColor = [UIColor yellowColor];
-    label.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
-    label.text = [NSString stringWithFormat:@"%@(%@€)", [position name], [position price]];
+    label.font = [UIFont systemFontOfSize:11];
+    label.text = [NSString stringWithFormat:@"%@ %@€", [position name], [position priceAsString]];
     label.textAlignment = NSTextAlignmentCenter;
     
     [self.swipeArticleView addSubview:label];
+    CGRect bounds = self.swipeArticleView.bounds;
+    self.swipeArticleView.bounds = CGRectMake(0, 0, 0, 0);
+    self.swipeArticleView.alpha = 0;
     [self.view addSubview:self.swipeArticleView];
-
+    
+    [UIView animateWithDuration:0.3
+                          delay:0.1
+                        options: UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         self.swipeArticleView.alpha = 1;
+                         self.swipeArticleView.bounds = bounds;
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }];
 }
 
 

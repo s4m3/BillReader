@@ -11,4 +11,5 @@
 @interface ArticleListTextView : UITextView
 @property (strong, nonatomic) NSArray *positions;
 @property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) UIColor *color;
 @end

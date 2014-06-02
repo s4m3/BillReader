@@ -88,7 +88,7 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return [[NSString alloc] initWithFormat:@"%ld", (row + 1) ];
+    return [[NSString alloc] initWithFormat:@"%d", (row + 1) ];
 }
 
 /*

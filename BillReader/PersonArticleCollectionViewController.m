@@ -47,7 +47,9 @@
     if([cell isKindOfClass:[ArticleListCollectionViewCell class]]) {
         ArticleListTextView *view = ((ArticleListCollectionViewCell *) cell).articleListTextView;
         view.name = [NSString stringWithFormat:@"Person %ld", (indexPath.row + 1)];
+        view.color = self.colors[indexPath.row];
         view.positions = [[self.positions objectForKey:[NSNumber numberWithInt:(indexPath.row + 1.0)]] copy];
+        
     }
     return cell;
 }

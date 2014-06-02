@@ -21,4 +21,5 @@
 - (void)removePosition:(Position *)position forId:(id)identifer;
 - (void)addEmptyOwners:(NSInteger)amount;
 - (void)reset;
+- (NSString *)totalAsString;
 @end

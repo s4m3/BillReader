@@ -62,4 +62,15 @@
     
 }
 
+-(NSString *)totalAsString
+{
+    NSNumberFormatter * nf = [[NSNumberFormatter alloc] init];
+    [nf setMinimumFractionDigits:2];
+    [nf setMaximumFractionDigits:2];
+    [nf setMinimumIntegerDigits:1];
+    
+    NSString *totalAsString = [nf stringFromNumber:self.total];
+    return totalAsString;
+}
+
 @end

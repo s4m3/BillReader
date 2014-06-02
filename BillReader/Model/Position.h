@@ -16,4 +16,5 @@
 - (id)initWithName:(NSString *)name belongsToId:(NSUInteger) belongsToId andPrice:(NSDecimalNumber *)price;
 
 - (id)initTempWithTestData:(NSString *)name belongsToId:(NSUInteger) belongsToId andPrice:(NSDecimalNumber *)price;
+- (NSString *)priceAsString;
 @end

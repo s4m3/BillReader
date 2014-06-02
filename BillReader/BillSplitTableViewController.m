@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *previousButton;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
+
 @end
 
 @implementation BillSplitTableViewController
@@ -35,6 +36,18 @@
     [super setPositions:positions];
     [self.billTableView reloadData];
     [self.personTableView reloadData];
+
+}
+
+- (NSMutableArray *)colors
+{
+    if (![super colors]) {
+        self.colors = [NSMutableArray arrayWithCapacity:self.totalNumOfPersons];
+        for (int i=0; i<self.totalNumOfPersons; i++) {
+            self.colors[i] = [super createRandomColor];
+        }
+    }
+    return [super colors];
 }
 
 
@@ -46,22 +59,13 @@
     self.personTableView.delegate = self;
     self.billTableView.delegate = self;
     
-    [self updateLabels];
-    [self updateButtons];
+    [self updateTablesAndLabelsAndButtons];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if([[segue identifier] isEqualToString:@"Person Article Overview"]) {
-        PersonArticleCollectionViewController *pacvc = [segue destinationViewController];
-        [pacvc setPositions:[self.positions copy]];
-    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -102,7 +106,7 @@
 - (NSString *)priceForRow:(NSUInteger)row inTableWithPersonId:(NSUInteger)personId
 {
     Position *pos = (Position *) [self positionsOfPersonWithId:personId][row];
-    return [[NSString alloc] initWithFormat:@"%@", pos.price];
+    return [[NSString alloc] initWithFormat:@"%@", [pos priceAsString]];
 }
 
 - (NSString *)subtitleForRow:(NSUInteger)row inTableWithPersonId:(NSUInteger)personId
@@ -130,6 +134,8 @@
         
         cell.textLabel.text = [self titleForRow:indexPath.row inTableWithPersonId:self.personId];
         cell.detailTextLabel.text = [self subtitleForRow:indexPath.row inTableWithPersonId:self.personId];
+        
+        cell.backgroundColor = self.colors[self.personId - 1];
     }
 
     
@@ -197,16 +203,11 @@
 {
     self.restLabel.text = [NSString stringWithFormat:@"Rest: %@€", [self getTotalOfPositionsFromPerson:NO_PERSON]];
     self.totalLabel.text = [NSString stringWithFormat:@"Total: %@€", [self getTotalOfPositionsFromPerson:self.personId]];
-    self.personLabel.text = [NSString stringWithFormat:@"%ld. Person", self.personId];
+    self.personLabel.text = [NSString stringWithFormat:@"%lu. Person", (unsigned long)self.personId];
 }
 
 - (void)updateButtons
 {
-    if([[self.positions objectForKey:[NSNumber numberWithInt:0]] count] == 0) {
-        self.doneButton.enabled = YES;
-    } else {
-        self.doneButton.enabled = NO;
-    }
     if(self.personId <= 1) {
         self.previousButton.enabled = NO;
     } else {
@@ -256,6 +257,7 @@
     [self updateLabels];
     [self updateButtons];
     [self.personTableView reloadData];
+    self.personTableView.backgroundColor = self.colors[self.personId - 1];
 }
 
 
