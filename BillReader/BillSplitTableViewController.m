@@ -59,7 +59,7 @@
     self.personTableView.delegate = self;
     self.billTableView.delegate = self;
     
-    [self updateTablesAndLabelsAndButtons];
+    [self updateUI];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -239,7 +239,7 @@
     }
     
     self.personId = self.personId + 1;
-    [self updateTablesAndLabelsAndButtons];
+    [self updateUI];
 
 }
 
@@ -249,10 +249,10 @@
     }
     
     self.personId = self.personId - 1;
-    [self updateTablesAndLabelsAndButtons];
+    [self updateUI];
 }
 
-- (void)updateTablesAndLabelsAndButtons
+- (void)updateUI
 {
     [self updateLabels];
     [self updateButtons];

@@ -11,6 +11,7 @@
 #import "BillSplitTableViewController.h"
 #import "BillSplitSwipeViewController.h"
 #import "NumOfPeopleViewController.h"
+#import "BillRevisionTableViewController.h"
 
 @interface BillReaderViewController ()
 @property (weak, nonatomic) IBOutlet UISegmentedControl *interfaceChoiseSegmentedControl;
@@ -31,12 +32,16 @@
     
 }
 
+#define NO_PERSON 0
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([[segue identifier] isEqualToString:@"Pick Num of People"]) {
         NumOfPeopleViewController *nopvc = [segue destinationViewController];
         [nopvc setBill:self.bill];
         [nopvc setInterfaceNum:[self.interfaceChoiseSegmentedControl selectedSegmentIndex]];
+    } else if([[segue identifier] isEqualToString:@"Revise Bill"]) {
+        BillRevisionTableViewController *brtvc = [segue destinationViewController];
+        [brtvc setPositions:[self.bill positionsAtId:[NSNumber numberWithInt:NO_PERSON]]];
     }
 }
 
@@ -52,13 +57,13 @@
     NSDecimalNumber *vodkaPrice = [[NSDecimalNumber alloc] initWithInt:2];
     NSDecimalNumber *waterPrice = [[NSDecimalNumber alloc] initWithFloat:1.5];
     
-    Position *testPos1 = [[Position alloc] initTempWithTestData:@"Bier" belongsToId:0 andPrice:beerPrice];
-    Position *testPos2 = [[Position alloc] initTempWithTestData:@"Bier" belongsToId:0 andPrice:beerPrice];
-    Position *testPos3 = [[Position alloc] initTempWithTestData:@"Bier" belongsToId:0 andPrice:beerPrice];
-    Position *testPos4 = [[Position alloc] initTempWithTestData:@"Wasser" belongsToId:0 andPrice:waterPrice];
-    Position *testPos5 = [[Position alloc] initTempWithTestData:@"Vodka" belongsToId:0 andPrice:vodkaPrice];
-    Position *testPos6 = [[Position alloc] initTempWithTestData:@"Vodka" belongsToId:0 andPrice:vodkaPrice];
-    Position *testPos7 = [[Position alloc] initTempWithTestData:@"Vodka" belongsToId:0 andPrice:vodkaPrice];
+    Position *testPos1 = [[Position alloc] initTempWithTestData:@"Bier" belongsToId:NO_PERSON andPrice:beerPrice];
+    Position *testPos2 = [[Position alloc] initTempWithTestData:@"Bier" belongsToId:NO_PERSON andPrice:beerPrice];
+    Position *testPos3 = [[Position alloc] initTempWithTestData:@"Bier" belongsToId:NO_PERSON andPrice:beerPrice];
+    Position *testPos4 = [[Position alloc] initTempWithTestData:@"Wasser" belongsToId:NO_PERSON andPrice:waterPrice];
+    Position *testPos5 = [[Position alloc] initTempWithTestData:@"Vodka" belongsToId:NO_PERSON andPrice:vodkaPrice];
+    Position *testPos6 = [[Position alloc] initTempWithTestData:@"Vodka" belongsToId:NO_PERSON andPrice:vodkaPrice];
+    Position *testPos7 = [[Position alloc] initTempWithTestData:@"Vodka" belongsToId:NO_PERSON andPrice:vodkaPrice];
     
     NSArray *objects = [[NSArray alloc] initWithObjects: testPos1, testPos2, testPos3, testPos4, testPos5, testPos6, testPos7, nil];
     NSMutableDictionary *testPositions = [[NSMutableDictionary alloc] init];
