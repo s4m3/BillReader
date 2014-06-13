@@ -8,6 +8,7 @@
 
 #import "ArticleListTextView.h"
 #import "Position.h"
+#import "ViewHelper.h"
 
 @implementation ArticleListTextView
 - (void)setPositions:(NSArray *)positions
@@ -57,8 +58,7 @@
     
     
     [attributes setObject:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forKey:NSForegroundColorAttributeName];
-    NSAttributedString *totalAttributedString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"___________\nTotal: %@€", [self decimalAsString:total]] attributes:attributes];
-    
+    NSAttributedString *totalAttributedString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"___________\nTotal: %@€", [ViewHelper transformDecimalToString:total]] attributes:attributes];
     
     NSMutableAttributedString *completeText = [[NSMutableAttributedString alloc] initWithAttributedString:title];
     [completeText appendAttributedString:positionsAttributedString];
@@ -73,16 +73,6 @@
     
 }
 
-- (NSString *)decimalAsString:(NSDecimalNumber *)decimal
-{
-    NSNumberFormatter * nf = [[NSNumberFormatter alloc] init];
-    [nf setMinimumFractionDigits:2];
-    [nf setMaximumFractionDigits:2];
-    [nf setMinimumIntegerDigits:1];
-    
-    NSString *decimalAsString = [nf stringFromNumber:decimal];
-    return decimalAsString;
-}
 @end
 
 

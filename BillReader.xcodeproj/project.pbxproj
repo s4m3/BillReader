@@ -10,6 +10,7 @@
 		F40798991949B70900CCCC88 /* BillRevisionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F40798981949B70900CCCC88 /* BillRevisionTableViewController.m */; };
 		F407989C1949CF0F00CCCC88 /* EditablePosition.m in Sources */ = {isa = PBXBuildFile; fileRef = F407989B1949CF0F00CCCC88 /* EditablePosition.m */; };
 		F407989F1949DC7E00CCCC88 /* PositionEditingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F407989E1949DC7E00CCCC88 /* PositionEditingViewController.m */; };
+		F40798A2194B1A1500CCCC88 /* ViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F40798A1194B1A1500CCCC88 /* ViewHelper.m */; };
 		F421B4DC193C71F20004FB6E /* PersonCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F421B4DB193C71F20004FB6E /* PersonCircleView.m */; };
 		F42EC84E1934AB33009798B5 /* BillSplitSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F42EC84D1934AB33009798B5 /* BillSplitSwipeViewController.m */; };
 		F42EC8541934ACB5009798B5 /* SwipeArticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F42EC8531934ACB5009798B5 /* SwipeArticleView.m */; };
@@ -62,6 +63,8 @@
 		F407989B1949CF0F00CCCC88 /* EditablePosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditablePosition.m; sourceTree = "<group>"; };
 		F407989D1949DC7E00CCCC88 /* PositionEditingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionEditingViewController.h; sourceTree = "<group>"; };
 		F407989E1949DC7E00CCCC88 /* PositionEditingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionEditingViewController.m; sourceTree = "<group>"; };
+		F40798A0194B1A1500CCCC88 /* ViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewHelper.h; sourceTree = "<group>"; };
+		F40798A1194B1A1500CCCC88 /* ViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewHelper.m; sourceTree = "<group>"; };
 		F421B4DA193C71F20004FB6E /* PersonCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonCircleView.h; sourceTree = "<group>"; };
 		F421B4DB193C71F20004FB6E /* PersonCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonCircleView.m; sourceTree = "<group>"; };
 		F42EC84C1934AB33009798B5 /* BillSplitSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillSplitSwipeViewController.h; sourceTree = "<group>"; };
@@ -167,6 +170,8 @@
 		F42EC85A1934B17D009798B5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F40798A0194B1A1500CCCC88 /* ViewHelper.h */,
+				F40798A1194B1A1500CCCC88 /* ViewHelper.m */,
 				F421B4DA193C71F20004FB6E /* PersonCircleView.h */,
 				F421B4DB193C71F20004FB6E /* PersonCircleView.m */,
 				F42EC8521934ACB5009798B5 /* SwipeArticleView.h */,
@@ -391,6 +396,7 @@
 				F4E775CD191F9B270036FEB5 /* BillSplitTableViewController.m in Sources */,
 				F4F2667B1915134E001D0F93 /* BillReaderAppDelegate.m in Sources */,
 				F4DE2A71193370E40043CCE2 /* ArticleListCollectionViewCell.m in Sources */,
+				F40798A2194B1A1500CCCC88 /* ViewHelper.m in Sources */,
 				F4F266771915134E001D0F93 /* main.m in Sources */,
 				F4F266841915134E001D0F93 /* BillReaderViewController.m in Sources */,
 				F4DE2A68193347BA0043CCE2 /* PersonArticleCollectionViewController.m in Sources */,

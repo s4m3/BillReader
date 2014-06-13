@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "EditablePosition.h"
+#import "BillRevisionTableViewController.h"
 
 @interface PositionEditingViewController : UIViewController <UITextFieldDelegate>
 
 @property (nonatomic, strong) EditablePosition *editablePosition;
+@property (nonatomic, strong) NSArray *otherPositions; //rest of positions to display full bill
+@property (nonatomic, strong) BillRevisionTableViewController *parentController;
 
 @end

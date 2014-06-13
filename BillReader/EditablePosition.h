@@ -10,6 +10,9 @@
 
 @interface EditablePosition : Position
 @property (nonatomic) NSUInteger amount;
+@property int identification;
+
++ (int)staticId;
 
 - (id)initWithName:(NSString *)name amount:(NSUInteger)amount andPrice:(NSDecimalNumber *)price;
 @end

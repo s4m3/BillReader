@@ -198,12 +198,71 @@
                                     <action selector="priceStepAction:" destination="YAV-dR-EXt" eventType="valueChanged" id="TTp-Rn-nhb"/>
                                 </connections>
                             </stepper>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G9t-uZ-pwP">
+                                <rect key="frame" x="20" y="261" width="280" height="199"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jei-W2-kgN">
+                                        <rect key="frame" x="0.0" y="21" width="178" height="158"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Bill (complete):">
+                                                <attributes>
+                                                    <color key="NSColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rechnung" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Saq-Jf-WEn">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyB-jn-uV1">
+                                        <rect key="frame" x="186" y="21" width="94" height="158"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Totals">
+                                                <attributes>
+                                                    <color key="NSColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="12" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.126454151459854" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="jei-W2-kgN" firstAttribute="top" secondItem="G9t-uZ-pwP" secondAttribute="top" constant="21" id="Av1-n3-l5l"/>
+                                    <constraint firstAttribute="bottom" secondItem="jei-W2-kgN" secondAttribute="bottom" constant="20" id="Png-2u-Phl"/>
+                                    <constraint firstItem="gyB-jn-uV1" firstAttribute="top" secondItem="G9t-uZ-pwP" secondAttribute="top" constant="21" id="o0b-1k-zjV"/>
+                                    <constraint firstAttribute="bottom" secondItem="gyB-jn-uV1" secondAttribute="bottom" constant="20" id="v7c-U0-tN9"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="CsC-YB-nct" firstAttribute="top" secondItem="G9t-uZ-pwP" secondAttribute="bottom" constant="20" id="6wg-gg-ysj"/>
+                            <constraint firstItem="G9t-uZ-pwP" firstAttribute="top" secondItem="YOz-CJ-AfV" secondAttribute="bottom" constant="197" id="n0d-Gc-krt"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2j6-la-biY"/>
                     <connections>
                         <outlet property="amountTextField" destination="8wc-Pi-gS9" id="M1R-b4-5Qc"/>
+                        <outlet property="completeBillTextView" destination="jei-W2-kgN" id="mjZ-VU-ews"/>
+                        <outlet property="completeBillTotalsTextView" destination="gyB-jn-uV1" id="x8h-MD-PzK"/>
                         <outlet property="nameTextField" destination="J8T-HA-Zac" id="sJk-gY-g1M"/>
                         <outlet property="priceTextField" destination="fRd-Wv-g0Y" id="ihN-qn-No6"/>
                     </connections>

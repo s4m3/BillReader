@@ -49,15 +49,22 @@
 {
     
     CGRect newFrame = self.originalFrame;
-    if(up)
+    CGFloat shadowOpacity = 0;
+    if(up) {
         newFrame = self.increasedFrame;
+        shadowOpacity = 1;
+    }
     
     
     [UIView animateWithDuration:0.4
                           delay:0.1
                         options: UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         self.bounds = newFrame;
+                         //self.bounds = newFrame;
+                         self.layer.masksToBounds = NO;
+                         self.layer.shadowColor = [UIColor yellowColor].CGColor;
+                         self.layer.shadowRadius = 10;
+                         self.layer.shadowOpacity = shadowOpacity;
                      }
                      completion:^(BOOL finished){
                          

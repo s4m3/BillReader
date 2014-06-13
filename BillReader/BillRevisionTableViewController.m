@@ -8,7 +8,6 @@
 
 #import "BillRevisionTableViewController.h"
 #import "Position.h"
-#import "EditablePosition.h"
 #import "PositionEditingViewController.h"
 
 @interface BillRevisionTableViewController ()
@@ -52,18 +51,37 @@
     }
 }
 
+- (void)updateEditablePosition:(EditablePosition *)editablePosition
+{
+    EditablePosition * currentPosition;
+    for (int i=0; i<[self.editablePositions count]; i++) {
+        currentPosition = self.editablePositions[i];
+        if ([currentPosition isKindOfClass:[EditablePosition class]]) {
+            if (((EditablePosition *)currentPosition).identification == editablePosition.identification) {
+                currentPosition = editablePosition;
+            }
+        }
+    }
+
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.billTableView.delegate = self;
     self.billTableView.dataSource = self;
-    [self.billTableView reloadData];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.billTableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -100,7 +118,7 @@
 {
     if ([self.editablePositions[row] isKindOfClass:[EditablePosition class]]) {
         EditablePosition *pos = (EditablePosition *) self.editablePositions[row];
-        return [NSString stringWithFormat:@"%lu✕%@ (à %@)",(unsigned long)pos.amount, pos.name, pos.priceAsString];
+        return [NSString stringWithFormat:@"%lu✕%@ (à %@€)",(unsigned long)pos.amount, pos.name, pos.priceAsString];
     }
     return nil;
 }
@@ -112,8 +130,18 @@
 
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
  {
+     NSUInteger index = ((NSIndexPath *)sender).row;
      PositionEditingViewController *pevc = [segue destinationViewController];
-     pevc.editablePosition = self.editablePositions[((NSIndexPath *)sender).row];
+     pevc.editablePosition = self.editablePositions[index];
+     pevc.parentController = self;
+     
+     NSMutableArray *otherPositions = [NSMutableArray array];
+     for (int i=0; i<[self.editablePositions count]; i++) {
+         if (i != index) {
+             [otherPositions addObject:self.editablePositions[i]];
+         }
+     }
+     pevc.otherPositions = otherPositions;
  }
 
 
