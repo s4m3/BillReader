@@ -38,7 +38,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self.positions count] - 1;
+    return [self.items count] - 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -48,7 +48,7 @@
         ArticleListTextView *view = ((ArticleListCollectionViewCell *) cell).articleListTextView;
         view.name = [NSString stringWithFormat:@"Person %ld", (indexPath.row + 1)];
         view.color = self.colors[indexPath.row];
-        view.positions = [[self.positions objectForKey:[NSNumber numberWithInt:(indexPath.row + 1.0)]] copy];
+        view.positions = [[self.items objectForKey:[NSNumber numberWithInt:(indexPath.row + 1.0)]] copy];
         
     }
     return cell;

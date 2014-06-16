@@ -8,44 +8,44 @@
 
 #import "Bill.h"
 @interface Bill()
-@property (nonatomic, strong) NSMutableArray * originalPositions;
+@property (nonatomic, strong) NSMutableArray * originalItems;
 @end
 @implementation Bill
 
-- (id)initWithPositions:(NSMutableDictionary *)positions andTotalAmount:(NSDecimalNumber *)total
+- (id)initWithItems:(NSMutableDictionary *)items andTotalAmount:(NSDecimalNumber *)total
 {
     self = [super init];
     if (self) {
-        self.positionsOfId = positions;
-        self.originalPositions = [positions mutableCopy];
+        self.items = items;
+        self.originalItems = [items mutableCopy];
         self.total = total;
         
     }
     return self;
 }
 
-- (NSMutableArray *)positionsAtId:(id)identifier
+- (NSMutableArray *)itemsAtId:(id)identifier
 {
-    return [self.positionsOfId objectForKey:identifier];
+    return [self.items objectForKey:identifier];
 }
 
-- (void)addPosition:(Position *)position forId:(id)identifier
+- (void)addItem:(Item *)item forId:(id)identifier
 {
-    [[self.positionsOfId objectForKey:identifier] addObject:position];
+    [[self.items objectForKey:identifier] addObject:item];
 }
 
 -(void)addEmptyOwners:(NSInteger)amount
 {
     for(int i = 1; i <= amount; i++) {
         NSMutableArray *emptyObject = [[NSMutableArray alloc] init];
-        [self.positionsOfId setObject:emptyObject forKey:[NSNumber numberWithInt:i]];
+        [self.items setObject:emptyObject forKey:[NSNumber numberWithInt:i]];
     }
 }
 
-- (void)removePosition:(Position *)position forId:(id)identifer
+- (void)removeItem:(Item *)item forId:(id)identifer
 {
-    NSMutableArray *positionsAtId = [self.positionsOfId objectForKey:identifer];
-    [positionsAtId removeObject:position];
+    NSMutableArray *itemsAtId = [self.items objectForKey:identifer];
+    [itemsAtId removeObject:item];
 }
 
 - (void)reset
@@ -56,8 +56,8 @@
 //        id value = [self.positionsOfId objectForKey:key];
 //        [resetedPositions addObject:value];
     //}
-    [self.positionsOfId removeAllObjects];
-    self.positionsOfId = [self.originalPositions mutableCopy];
+    [self.items removeAllObjects];
+    self.items = [self.originalItems mutableCopy];
     //[self.positionsOfId setObject:resetedPositions forKey:[NSNumber numberWithInt:0]];
     
 }

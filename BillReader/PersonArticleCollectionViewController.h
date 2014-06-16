@@ -10,6 +10,6 @@
 
 @interface PersonArticleCollectionViewController : UICollectionViewController
 
-@property (nonatomic, strong) NSDictionary * positions; //of Position arrays with person id as key
+@property (nonatomic, strong) NSDictionary * items; //of Item arrays with person id as key
 @property (nonatomic, strong) NSArray * colors; //of UIColors for displaying collection with colors
 @end

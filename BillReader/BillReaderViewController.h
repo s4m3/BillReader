@@ -13,5 +13,5 @@
 @interface BillReaderViewController : UIViewController <TesseractDelegate>
 @property (nonatomic, strong) Bill *bill;
 
-- (NSMutableDictionary *)latestPositions;
+- (NSMutableDictionary *)latestItems;
 @end

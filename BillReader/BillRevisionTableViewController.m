@@ -7,58 +7,58 @@
 //
 
 #import "BillRevisionTableViewController.h"
-#import "Position.h"
-#import "PositionEditingViewController.h"
+#import "Item.h"
+#import "ItemEditingViewController.h"
 
 @interface BillRevisionTableViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *billTableView;
-@property (strong, nonatomic) NSMutableArray *editablePositions;
+@property (strong, nonatomic) NSMutableArray *editableItems;
 
 @end
 
 @implementation BillRevisionTableViewController
 
-- (void)setPositions:(NSMutableArray *)positions
+- (void)setItems:(NSMutableArray *)positions
 {
-    _positions = positions;
+    _items = positions;
     [self setupEditablePositions];
     [self.billTableView reloadData];
 }
 
 - (void)setupEditablePositions
 {
-    NSArray *items = [NSArray arrayWithArray:self.positions];
+    NSArray *itemsArray = [NSArray arrayWithArray:self.items];
     NSMutableDictionary *itemDictionary = [[NSMutableDictionary alloc] init];
     NSString *name = @"";
-    for (Position *pos in items) {
+    for (Item *pos in itemsArray) {
         name = pos.name;
         
         //check whether item with name is already in dictionary
         if ([itemDictionary objectForKey:name]) {
-            EditablePosition *positionFromDict = [itemDictionary objectForKey:name];
+            EditableItem *positionFromDict = [itemDictionary objectForKey:name];
             positionFromDict.amount = positionFromDict.amount + 1;
         } else {
-            EditablePosition *newPosition = [[EditablePosition alloc] initWithName:name amount:1 andPrice:pos.price];
+            EditableItem *newPosition = [[EditableItem alloc] initWithName:name amount:1 andPrice:pos.price];
             [itemDictionary setObject:newPosition forKey:name];
         }
     }
     
     NSEnumerator *itemEnum = [itemDictionary objectEnumerator];
-    self.editablePositions = [NSMutableArray array];
-    EditablePosition *nextPos;
+    self.editableItems = [NSMutableArray array];
+    EditableItem *nextPos;
     while (nextPos = [itemEnum nextObject]) {
-        [self.editablePositions addObject:nextPos];
+        [self.editableItems addObject:nextPos];
     }
 }
 
-- (void)updateEditablePosition:(EditablePosition *)editablePosition
+- (void)updateEditableItem:(EditableItem *)editableItem
 {
-    EditablePosition * currentPosition;
-    for (int i=0; i<[self.editablePositions count]; i++) {
-        currentPosition = self.editablePositions[i];
-        if ([currentPosition isKindOfClass:[EditablePosition class]]) {
-            if (((EditablePosition *)currentPosition).identification == editablePosition.identification) {
-                currentPosition = editablePosition;
+    EditableItem * currentItem;
+    for (int i=0; i<[self.editableItems count]; i++) {
+        currentItem = self.editableItems[i];
+        if ([currentItem isKindOfClass:[EditableItem class]]) {
+            if (((EditableItem *)currentItem).identification == editableItem.identification) {
+                currentItem = editableItem;
             }
         }
     }
@@ -101,7 +101,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.editablePositions count];
+    return [self.editableItems count];
 }
 
 
@@ -116,8 +116,8 @@
 
 - (NSString *)titleForRow:(NSUInteger)row
 {
-    if ([self.editablePositions[row] isKindOfClass:[EditablePosition class]]) {
-        EditablePosition *pos = (EditablePosition *) self.editablePositions[row];
+    if ([self.editableItems[row] isKindOfClass:[EditableItem class]]) {
+        EditableItem *pos = (EditableItem *) self.editableItems[row];
         return [NSString stringWithFormat:@"%lu✕%@ (à %@€)",(unsigned long)pos.amount, pos.name, pos.priceAsString];
     }
     return nil;
@@ -131,17 +131,17 @@
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
  {
      NSUInteger index = ((NSIndexPath *)sender).row;
-     PositionEditingViewController *pevc = [segue destinationViewController];
-     pevc.editablePosition = self.editablePositions[index];
+     ItemEditingViewController *pevc = [segue destinationViewController];
+     pevc.editableItem = self.editableItems[index];
      pevc.parentController = self;
      
      NSMutableArray *otherPositions = [NSMutableArray array];
-     for (int i=0; i<[self.editablePositions count]; i++) {
+     for (int i=0; i<[self.editableItems count]; i++) {
          if (i != index) {
-             [otherPositions addObject:self.editablePositions[i]];
+             [otherPositions addObject:self.editableItems[i]];
          }
      }
-     pevc.otherPositions = otherPositions;
+     pevc.otherItems = otherPositions;
  }
 
 

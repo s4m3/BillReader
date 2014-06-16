@@ -1,14 +1,14 @@
 //
-//  EditablePosition.m
+//  EditableItem.m
 //  BillReader
 //
 //  Created by Simon Mary on 12.06.14.
 //  Copyright (c) 2014 Simon Mary. All rights reserved.
 //
 
-#import "EditablePosition.h"
+#import "EditableItem.h"
 
-@implementation EditablePosition
+@implementation EditableItem
 
 static int staticId = 0;
 
@@ -21,7 +21,7 @@ static int staticId = 0;
     self = [super initWithName:name belongsToId:0 andPrice:price];
     if (self) {
         self.amount = amount;
-        self.identification = EditablePosition.staticId;
+        self.identification = EditableItem.staticId;
     }
     return self;
     

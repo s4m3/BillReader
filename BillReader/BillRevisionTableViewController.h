@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EditablePosition.h"
+#import "EditableItem.h"
 
 @interface BillRevisionTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) NSMutableArray * positions; //of Positions (of Person 0 = no Person)
+@property (nonatomic, strong) NSMutableArray * items; //of Items (of Person 0 = no Person)
 
-- (void)updateEditablePosition:(EditablePosition *)editablePosition;
+- (void)updateEditableItem:(EditableItem *)editableItem;
 @end

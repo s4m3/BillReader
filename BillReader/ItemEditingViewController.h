@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EditablePosition.h"
+#import "EditableItem.h"
 #import "BillRevisionTableViewController.h"
 
-@interface PositionEditingViewController : UIViewController <UITextFieldDelegate>
+@interface ItemEditingViewController : UIViewController <UITextFieldDelegate>
 
-@property (nonatomic, strong) EditablePosition *editablePosition;
-@property (nonatomic, strong) NSArray *otherPositions; //rest of positions to display full bill
+@property (nonatomic, strong) EditableItem *editableItem;
+@property (nonatomic, strong) NSArray *otherItems; //rest of positions to display full bill
 @property (nonatomic, strong) BillRevisionTableViewController *parentController;
 
 @end

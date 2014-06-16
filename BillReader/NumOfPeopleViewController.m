@@ -61,19 +61,19 @@
     if ([[segue identifier] isEqualToString:@"Show Table"]) {
         
         // Get destination view
-        [self updatePositions];
+        [self updateItems];
         BillSplitTableViewController *bstvc = [segue destinationViewController];
-        [bstvc setPositions:self.bill.positionsOfId];
+        [bstvc setItems:self.bill.items];
     } else if ([[segue identifier] isEqualToString:@"Show Swipe"]) {
         
         // Get destination view
-        [self updatePositions];
+        [self updateItems];
         BillSplitSwipeViewController *bssvc = [segue destinationViewController];
-        [bssvc setPositions:self.bill.positionsOfId];
+        [bssvc setItems:self.bill.items];
     }
 }
 
-- (void)updatePositions
+- (void)updateItems
 {
     [self.bill reset];
     long numOfPeople = [self.numOfPeoplePickerView selectedRowInComponent:0] + 1;

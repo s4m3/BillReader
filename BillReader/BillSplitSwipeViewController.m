@@ -8,7 +8,7 @@
 
 #import "BillSplitSwipeViewController.h"
 #import "SwipeArticleView.h"
-#import "Position.h"
+#import "Item.h"
 #import "PersonCircleView.h"
 
 @interface BillSplitSwipeViewController ()
@@ -17,7 +17,7 @@
 @property (nonatomic) CGRect originalSwipeArticleViewFrame; //for reference
 @property (nonatomic) CGRect originalSwipeArticleViewBounds; //for reference
 @property (strong, nonatomic) SwipeArticleView *swipeArticleView;
-@property (strong, nonatomic) Position *currentPosition;
+@property (strong, nonatomic) Item *currentItem;
 @property (nonatomic) long totalNumOfPersons;
 @property (strong, nonatomic) NSMutableArray *circles; //of personCircleViews
 @property (nonatomic)  int intersectionObjectNumber;
@@ -28,9 +28,9 @@
 
 #define DEFAULT_CIRCLE_SIZE 50.0;
 
-- (void)setPositions:(NSMutableDictionary *)positions
+- (void)setItems:(NSMutableDictionary *)items
 {
-    [super setPositions:positions];
+    [super setItems:items];
 }
 
 - (SwipeArticleView *)swipeArticleView
@@ -67,7 +67,7 @@
     } else {
         if(self.intersectionObjectNumber > -1) {
             [self animateInCircleWithNumber:self.intersectionObjectNumber];
-            [self setCurrentPositionToNewOwner:self.intersectionObjectNumber + 1];
+            [self setCurrentItemToNewOwner:self.intersectionObjectNumber + 1];
         } else {
             [self animateBackToOriginalPosition];
         }
@@ -96,21 +96,21 @@
 
 
 
-- (void)setCurrentPositionToNewOwner:(int)owner
+- (void)setCurrentItemToNewOwner:(int)owner
 {
-    [self.currentPosition setBelongsToId:owner];
-    NSMutableArray *newPositions = [[self.positions objectForKey:[NSNumber numberWithInt:owner]] mutableCopy];
-    [newPositions addObject:self.currentPosition];
-    [self.positions setObject:newPositions forKey:[NSNumber numberWithInt:owner]];
+    [self.currentItem setBelongsToId:owner];
+    NSMutableArray *newItems = [[self.items objectForKey:[NSNumber numberWithInt:owner]] mutableCopy];
+    [newItems addObject:self.currentItem];
+    [self.items setObject:newItems forKey:[NSNumber numberWithInt:owner]];
         
-    newPositions = [[self.positions objectForKey:[NSNumber numberWithInt:0]] mutableCopy];
-    [newPositions removeObject:self.currentPosition];
-    [self.positions setObject:newPositions forKey:[NSNumber numberWithInt:0]];
+    newItems = [[self.items objectForKey:[NSNumber numberWithInt:0]] mutableCopy];
+    [newItems removeObject:self.currentItem];
+    [self.items setObject:newItems forKey:[NSNumber numberWithInt:0]];
         
-    NSArray *positionsWithNoOwner = [self.positions objectForKey:[NSNumber numberWithInt:0]];
-    self.currentPosition = [positionsWithNoOwner count] > 0 ? positionsWithNoOwner[0] : nil;
+    NSArray *itemsWithNoOwner = [self.items objectForKey:[NSNumber numberWithInt:0]];
+    self.currentItem = [itemsWithNoOwner count] > 0 ? itemsWithNoOwner[0] : nil;
 
-    [self setPositionOfSwipeArticle:self.currentPosition];
+    [self setItemOfSwipeArticle:self.currentItem];
 }
 
 - (void)animateInCircleWithNumber:(int)circleNumber
@@ -135,12 +135,24 @@
 
 - (void)animateBackToOriginalPosition
 {
+//    [UIView animateWithDuration:0.2
+//                          delay:0.0
+//                        options: UIViewAnimationOptionCurveEaseInOut
+//                     animations:^{
+//                         self.swipeArticleView.frame = self.originalSwipeArticleViewFrame;
+//                     }
+//                     completion:^(BOOL finished){
+//                         
+//                     }];
+    
     [UIView animateWithDuration:0.2
                           delay:0.0
-                        options: UIViewAnimationOptionCurveEaseInOut
+         usingSpringWithDamping:0.8
+          initialSpringVelocity:15.0
+                        options:0
                      animations:^{
-                         self.swipeArticleView.frame = self.originalSwipeArticleViewFrame;
-                     }
+                            self.swipeArticleView.frame = self.originalSwipeArticleViewFrame;
+                        }
                      completion:^(BOOL finished){
                          
                      }];
@@ -187,9 +199,9 @@
     
 
     
-    NSArray *positionsWithNoOwner = [self.positions objectForKey:[NSNumber numberWithInt:0]];
-    self.currentPosition = [positionsWithNoOwner count] > 0 ? positionsWithNoOwner[0] : nil;
-    [self setPositionOfSwipeArticle:self.currentPosition];
+    NSArray *itemsWithNoOwner = [self.items objectForKey:[NSNumber numberWithInt:0]];
+    self.currentItem = [itemsWithNoOwner count] > 0 ? itemsWithNoOwner[0] : nil;
+    [self setItemOfSwipeArticle:self.currentItem];
 
     if(!self.circles) {
         long totalAmountOfPeople = self.totalNumOfPersons;
@@ -394,10 +406,10 @@
     return imageView;
 } //TODO:delete?
 
-- (void)setPositionOfSwipeArticle:(Position *)position
+- (void)setItemOfSwipeArticle:(Item *)item
 {
     self.swipeArticleView = nil;
-    if(!position) {
+    if(!item) {
         return;
     }
     CGRect frame = self.originalSwipeArticleViewBounds;
@@ -407,7 +419,7 @@
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
     label.textColor = [UIColor yellowColor];
     label.font = [UIFont systemFontOfSize:11];
-    label.text = [NSString stringWithFormat:@"%@ %@€", [position name], [position priceAsString]];
+    label.text = [NSString stringWithFormat:@"%@ %@€", [item name], [item priceAsString]];
     label.textAlignment = NSTextAlignmentCenter;
     
     [self.swipeArticleView addSubview:label];
@@ -419,7 +431,7 @@
     [self.view addSubview:self.swipeArticleView];
     
     
-    [UIView animateWithDuration:1.5
+    [UIView animateWithDuration:0.5
                           delay:0.0
          usingSpringWithDamping:1.0
           initialSpringVelocity:15.0

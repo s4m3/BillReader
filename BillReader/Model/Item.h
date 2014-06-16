@@ -1,5 +1,5 @@
 //
-//  Position.h
+//  Item.h
 //  BillReader
 //
 //  Created by Simon Mary on 06.05.14.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Position : NSObject
+@interface Item : NSObject
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic) NSUInteger belongsToId;
 @property (nonatomic, strong) NSDecimalNumber *price;

@@ -205,10 +205,10 @@
             </objects>
             <point key="canvasLocation" x="1250" y="-558"/>
         </scene>
-        <!--Position Editing View Controller-->
+        <!--Item Editing View Controller-->
         <scene sceneID="zTc-Wm-oNd">
             <objects>
-                <viewController id="YAV-dR-EXt" customClass="PositionEditingViewController" sceneMemberID="viewController">
+                <viewController id="YAV-dR-EXt" customClass="ItemEditingViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YOz-CJ-AfV"/>
                         <viewControllerLayoutGuide type="bottom" id="CsC-YB-nct"/>

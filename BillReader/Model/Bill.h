@@ -8,17 +8,17 @@
 //  This is the Bill Class that contains the scanned bill image as bill object TODO: make more generic!
 
 #import <Foundation/Foundation.h>
-#import "Position.h"
+#import "Item.h"
 
 @interface Bill : NSObject
 @property (nonatomic) NSUInteger idNumber; //identifier
-@property (nonatomic, strong) NSMutableDictionary *positionsOfId; //of arrays of positions
+@property (nonatomic, strong) NSMutableDictionary *items; //of arrays of items
 @property (nonatomic, strong) NSDecimalNumber *total; //total price
 
-- (id)initWithPositions:(NSMutableDictionary*)positions andTotalAmount:(NSDecimalNumber*)total;
-- (void)addPosition:(Position *)position forId:(id)identifier;
-- (NSMutableArray *)positionsAtId:(id)identifier;
-- (void)removePosition:(Position *)position forId:(id)identifer;
+- (id)initWithItems:(NSMutableDictionary*)items andTotalAmount:(NSDecimalNumber*)total;
+- (void)addItem:(Item *)item forId:(id)identifier;
+- (NSMutableArray *)itemsAtId:(id)identifier;
+- (void)removeItem:(Item *)item forId:(id)identifer;
 - (void)addEmptyOwners:(NSInteger)amount;
 - (void)reset;
 - (NSString *)totalAsString;

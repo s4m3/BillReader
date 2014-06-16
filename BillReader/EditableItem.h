@@ -1,14 +1,14 @@
 //
-//  EditablePosition.h
+//  EditableItem.h
 //  BillReader
 //
 //  Created by Simon Mary on 12.06.14.
 //  Copyright (c) 2014 Simon Mary. All rights reserved.
 //
 
-#import "Position.h"
+#import "Item.h"
 
-@interface EditablePosition : Position
+@interface EditableItem : Item
 @property (nonatomic) NSUInteger amount;
 @property int identification;
 

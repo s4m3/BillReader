@@ -8,7 +8,7 @@
 
 #import "BillReaderViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "Position.h"
+#import "Item.h"
 #import "BillSplitTableViewController.h"
 #import "BillSplitSwipeViewController.h"
 #import "NumOfPeopleViewController.h"
@@ -113,7 +113,7 @@
         [nopvc setInterfaceNum:[self.interfaceChoiseSegmentedControl selectedSegmentIndex]];
     } else if([[segue identifier] isEqualToString:@"Revise Bill"]) {
         BillRevisionTableViewController *brtvc = [segue destinationViewController];
-        [brtvc setPositions:[self.bill positionsAtId:[NSNumber numberWithInt:NO_PERSON]]];
+        [brtvc setItems:[self.bill itemsAtId:[NSNumber numberWithInt:NO_PERSON]]];
     }
 }
 
@@ -233,9 +233,9 @@
 /////// end referenz
 
 
-- (NSMutableDictionary *)latestPositions
+- (NSMutableDictionary *)latestItems
 {
-    return self.bill.positionsOfId;
+    return self.bill.items;
 }
 
 ////// EXAMPLE PICTURE (delete in the end, also at image action sheet)
@@ -257,30 +257,30 @@
 
 
     
-    Position *staro1 = [[Position alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
-    Position *staro2 = [[Position alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
-    Position *staro3 = [[Position alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
-    Position *staro4 = [[Position alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
-    Position *staro5 = [[Position alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
+    Item *staro1 = [[Item alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
+    Item *staro2 = [[Item alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
+    Item *staro3 = [[Item alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
+    Item *staro4 = [[Item alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
+    Item *staro5 = [[Item alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
     
-    Position *krom1 = [[Position alloc] initTempWithTestData:@"Krombacher 0,5l" belongsToId:NO_PERSON andPrice:krombacherPrice];
+    Item *krom1 = [[Item alloc] initTempWithTestData:@"Krombacher 0,5l" belongsToId:NO_PERSON andPrice:krombacherPrice];
     
-    Position *hefe1 = [[Position alloc] initTempWithTestData:@"Hefe dunkel" belongsToId:NO_PERSON andPrice:hefeDunkelPrice];
+    Item *hefe1 = [[Item alloc] initTempWithTestData:@"Hefe dunkel" belongsToId:NO_PERSON andPrice:hefeDunkelPrice];
     
-    Position *johnny1 = [[Position alloc] initTempWithTestData:@"Johnny Walker Red Label" belongsToId:NO_PERSON andPrice:johnnyWalkerPrice];
+    Item *johnny1 = [[Item alloc] initTempWithTestData:@"Johnny Walker Red Label" belongsToId:NO_PERSON andPrice:johnnyWalkerPrice];
     
-    Position *tortilla1 = [[Position alloc] initTempWithTestData:@"Tortillachips Cheesedip" belongsToId:NO_PERSON andPrice:tortillaPrice];
-    Position *tortilla2 = [[Position alloc] initTempWithTestData:@"Tortillachips Cheesedip" belongsToId:NO_PERSON andPrice:tortillaPrice];
+    Item *tortilla1 = [[Item alloc] initTempWithTestData:@"Tortillachips Cheesedip" belongsToId:NO_PERSON andPrice:tortillaPrice];
+    Item *tortilla2 = [[Item alloc] initTempWithTestData:@"Tortillachips Cheesedip" belongsToId:NO_PERSON andPrice:tortillaPrice];
 
     
     NSArray *objects = [[NSArray alloc] initWithObjects: staro1, staro2, staro3, staro4, staro5, krom1, hefe1, johnny1, tortilla1, tortilla2, nil];
-    NSMutableDictionary *testPositions = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *testItems = [[NSMutableDictionary alloc] init];
     
     //NSMutableArray *emptyObjectsForKey1 = [[NSMutableArray alloc] init];
-    [testPositions setObject:objects forKey:[NSNumber numberWithInt:0]];
+    [testItems setObject:objects forKey:[NSNumber numberWithInt:0]];
     //[testPositions setObject:emptyObjectsForKey1 forKey:[NSNumber numberWithInt:1]];
     
-    Bill *testBill = [[Bill alloc] initWithPositions:testPositions andTotalAmount:testTotal];
+    Bill *testBill = [[Bill alloc] initWithItems:testItems andTotalAmount:testTotal];
     
     return testBill;
 }

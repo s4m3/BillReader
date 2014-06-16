@@ -1,15 +1,15 @@
 //
-//  PositionEditingViewController.m
+//  ItemEditingViewController.m
 //  BillReader
 //
 //  Created by Simon Mary on 12.06.14.
 //  Copyright (c) 2014 Simon Mary. All rights reserved.
 //
 
-#import "PositionEditingViewController.h"
+#import "ItemEditingViewController.h"
 #import "ViewHelper.h"
 
-@interface PositionEditingViewController () 
+@interface ItemEditingViewController () 
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *amountTextField;
 @property (weak, nonatomic) IBOutlet UITextField *priceTextField;
@@ -19,7 +19,7 @@
 
 @end
 
-@implementation PositionEditingViewController
+@implementation ItemEditingViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,9 +33,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.nameTextField.text = self.editablePosition.name;
-    self.amountTextField.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.editablePosition.amount];
-    self.priceTextField.text = [self.editablePosition priceAsString];
+    self.nameTextField.text = self.editableItem.name;
+    self.amountTextField.text = [NSString stringWithFormat:@"%lu", (unsigned long)self.editableItem.amount];
+    self.priceTextField.text = [self.editableItem priceAsString];
     
     self.nameTextField.delegate = self;
     self.amountTextField.delegate = self;
@@ -50,10 +50,10 @@
     
     //the actual parent is the navigation controller, but i need the last controller on the stack
 //    if ([parent isKindOfClass:[BillRevisionTableViewController class]]) {
-//        [(BillRevisionTableViewController *)parent updateEditablePosition:self.editablePosition];
+//        [(BillRevisionTableViewController *)parent updateEditableItem:self.editableItem];
 //    }
     if (self.parentController) {
-        [self.parentController updateEditablePosition:self.editablePosition];
+        [self.parentController updateEditableItem:self.editableItem];
     }
 }
 
@@ -87,29 +87,29 @@
 - (IBAction)nameEditingAction:(UITextField *)sender
 {
     if (sender.text) {
-        self.editablePosition.name = sender.text;
+        self.editableItem.name = sender.text;
         [self updateCompleteBillTextView];
     }
-    self.nameTextField.text = self.editablePosition.name;
+    self.nameTextField.text = self.editableItem.name;
 }
 
 - (IBAction)amountEditingAction:(UITextField *)sender
 {
     NSUInteger amount = [sender.text intValue];
     if (amount) {
-        self.editablePosition.amount = amount;
+        self.editableItem.amount = amount;
     }
-    self.amountTextField.text = [NSString stringWithFormat:@"%lu",(unsigned long)self.editablePosition.amount];;
+    self.amountTextField.text = [NSString stringWithFormat:@"%lu",(unsigned long)self.editableItem.amount];;
 }
 
 - (IBAction)priceEditingAction:(UITextField *)sender
 {
     NSDecimalNumber *newAmount = [NSDecimalNumber decimalNumberWithString:sender.text];
     if (newAmount) {
-        self.editablePosition.price = newAmount;
+        self.editableItem.price = newAmount;
     }
     
-    self.priceTextField.text = [self.editablePosition priceAsString];
+    self.priceTextField.text = [self.editableItem priceAsString];
 }
 
 - (IBAction)amountStepAction:(UIStepper *)sender
@@ -119,8 +119,8 @@
         return;
     }
     int newAmount = [self getAmountAsInteger] + sender.value;
-    self.editablePosition.amount = newAmount;
-    self.amountTextField.text = [NSString stringWithFormat:@"%lu",(unsigned long)self.editablePosition.amount];
+    self.editableItem.amount = newAmount;
+    self.amountTextField.text = [NSString stringWithFormat:@"%lu",(unsigned long)self.editableItem.amount];
     sender.value = 0;
     [self updateCompleteBillTextView];
 }
@@ -133,8 +133,8 @@
         return;
     }
     NSDecimalNumber *newAmount = [[self getPriceAsDecimalNumber] decimalNumberByAdding:(NSDecimalNumber *)[NSDecimalNumber numberWithDouble:sender.value]];
-    self.editablePosition.price = newAmount;
-    self.priceTextField.text = [self.editablePosition priceAsString];
+    self.editableItem.price = newAmount;
+    self.priceTextField.text = [self.editableItem priceAsString];
     sender.value = 0;
     [self updateCompleteBillTextView];
 }
@@ -147,17 +147,17 @@
     NSString *appendingStringTotals;
     
     appendingStringBill = [NSString stringWithFormat:@"%lu✕%@ (à %@€) \n",
-                           (unsigned long)self.editablePosition.amount,
-                           self.editablePosition.name,
-                           self.editablePosition.priceAsString];
+                           (unsigned long)self.editableItem.amount,
+                           self.editableItem.name,
+                           self.editableItem.priceAsString];
     newTextBill = [newTextBill stringByAppendingString:appendingStringBill];
     
-    NSDecimalNumber *currentTotal = [self.editablePosition.price decimalNumberByMultiplyingBy:[ViewHelper transformLongToDecimalNumber:self.editablePosition.amount]];
+    NSDecimalNumber *currentTotal = [self.editableItem.price decimalNumberByMultiplyingBy:[ViewHelper transformLongToDecimalNumber:self.editableItem.amount]];
     appendingStringTotals = [NSString stringWithFormat:@"%@€ \n", [ViewHelper transformDecimalToString:currentTotal]];
     newTextTotals = [newTextTotals stringByAppendingString:appendingStringTotals];
     
     
-    for (EditablePosition *pos in self.otherPositions) {
+    for (EditableItem *pos in self.otherItems) {
         appendingStringBill = [NSString stringWithFormat:@"%lu✕%@ (à %@€) \n",(unsigned long)pos.amount, pos.name, pos.priceAsString];
         newTextBill = [newTextBill stringByAppendingString:appendingStringBill];
         
@@ -178,14 +178,14 @@
     BOOL lightColor = YES;
     BOOL rightAligned = NO;
     NSString *billString = [NSString stringWithFormat:@"%lu ✕ %@ (à %@€) \n",
-                           (unsigned long)self.editablePosition.amount,
-                           self.editablePosition.name,
-                           self.editablePosition.priceAsString];
+                           (unsigned long)self.editableItem.amount,
+                           self.editableItem.name,
+                           self.editableItem.priceAsString];
     NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:billString attributes:[self getAttributesForTextWithLightColor:lightColor andRightAligned:rightAligned]];
     lightColor = !lightColor;
     NSMutableAttributedString *completeText = [[NSMutableAttributedString alloc] initWithAttributedString:attributedString];
     
-    for (EditablePosition *pos in self.otherPositions) {
+    for (EditableItem *pos in self.otherItems) {
         billString = [NSString stringWithFormat:@"%lu ✕ %@ (à %@€) \n",(unsigned long)pos.amount, pos.name, pos.priceAsString];
         attributedString = [[NSAttributedString alloc] initWithString:billString attributes:[self getAttributesForTextWithLightColor:lightColor andRightAligned:rightAligned]];
         lightColor = !lightColor;
@@ -201,7 +201,7 @@
 {
     BOOL lightColor = YES;
     BOOL rightAligned = YES;
-    NSDecimalNumber *currentTotal = [self.editablePosition.price decimalNumberByMultiplyingBy:[ViewHelper transformLongToDecimalNumber:self.editablePosition.amount]];
+    NSDecimalNumber *currentTotal = [self.editableItem.price decimalNumberByMultiplyingBy:[ViewHelper transformLongToDecimalNumber:self.editableItem.amount]];
     NSDecimalNumber *total = [NSDecimalNumber decimalNumberWithDecimal:[currentTotal decimalValue]];
     
     NSString *totalString = [NSString stringWithFormat:@"%@€ \n", [ViewHelper transformDecimalToString:currentTotal]];
@@ -212,7 +212,7 @@
     NSMutableAttributedString *completeText = [[NSMutableAttributedString alloc] initWithAttributedString:attributedString];
     
     
-    for (EditablePosition *pos in self.otherPositions) {
+    for (EditableItem *pos in self.otherItems) {
         currentTotal = [pos.price decimalNumberByMultiplyingBy:[ViewHelper transformLongToDecimalNumber:pos.amount]];
         total = [total decimalNumberByAdding:currentTotal];
         totalString = [NSString stringWithFormat:@"%@€ \n", [ViewHelper transformDecimalToString:currentTotal]];

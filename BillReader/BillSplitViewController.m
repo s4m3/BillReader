@@ -14,15 +14,15 @@
 @end
 
 @implementation BillSplitViewController
-- (void)setPositions:(NSMutableDictionary *)positions
+- (void)setItems:(NSMutableDictionary *)items
 {
-    _positions = positions;
+    _items = items;
 }
 
 - (long)totalNumOfPersons
 {
     if (_totalNumOfPersons == 0) {
-        _totalNumOfPersons = [self.positions count] - 1;
+        _totalNumOfPersons = [self.items count] - 1;
     }
     return _totalNumOfPersons;
 }
@@ -43,7 +43,7 @@
     if([[segue identifier] isEqualToString:@"Person Article Overview"]) {
         PersonArticleCollectionViewController *pacvc = [segue destinationViewController];
         [pacvc setColors:[self.colors copy]];
-        [pacvc setPositions:[self.positions copy]];
+        [pacvc setItems:[self.items copy]];
         
     }
 }

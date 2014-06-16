@@ -1,5 +1,5 @@
 //
-//  Position.m
+//  Item.m
 //  BillReader
 //
 //  Created by Simon Mary on 06.05.14.
@@ -7,9 +7,9 @@
 //
 //  Each Position of Bill with 
 
-#import "Position.h"
+#import "Item.h"
 
-@implementation Position
+@implementation Item
 
 
 - (id)initWithName:(NSString *)name belongsToId:(NSUInteger)belongsToId andPrice:(NSDecimalNumber *)price

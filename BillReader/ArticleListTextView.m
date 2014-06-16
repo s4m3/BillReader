@@ -7,7 +7,7 @@
 //
 
 #import "ArticleListTextView.h"
-#import "Position.h"
+#import "Item.h"
 #import "ViewHelper.h"
 
 @implementation ArticleListTextView
@@ -22,7 +22,7 @@
     NSString *positionsText = [[NSString alloc] init];
     NSMutableDictionary *positionDict = [[NSMutableDictionary alloc] init];
     NSDecimalNumber *total = [[NSDecimalNumber alloc] initWithInteger:0];
-    for (Position *p in self.positions) {
+    for (Item *p in self.positions) {
         NSNumber *amount = [positionDict valueForKey:p.name];
         if(!amount) {
             [positionDict setObject:[NSNumber numberWithInt:1] forKey:p.name];

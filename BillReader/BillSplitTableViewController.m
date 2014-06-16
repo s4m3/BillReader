@@ -8,7 +8,7 @@
 
 #import "BillSplitTableViewController.h"
 #import "BillReaderViewController.h"
-#import "Position.h"
+#import "Item.h"
 #import "BillTableView.h"
 #import "PersonTableView.h"
 #import "PersonArticleCollectionViewController.h"
@@ -31,9 +31,9 @@
 
 #define NO_PERSON 0
 
-- (void)setPositions:(NSMutableDictionary *)positions
+- (void)setItems:(NSMutableDictionary *)items
 {
-    [super setPositions:positions];
+    [super setItems:items];
     [self.billTableView reloadData];
     [self.personTableView reloadData];
 
@@ -81,9 +81,9 @@
 {
     // Return the number of rows in the section.
     if ([tableView isKindOfClass:[BillTableView class]]) {
-        return [[self positionsOfPersonWithId:NO_PERSON] count];
+        return [[self itemsOfPersonWithId:NO_PERSON] count];
     } else if([tableView isKindOfClass:[PersonTableView class]]) {
-        return [[self positionsOfPersonWithId:self.personId] count];
+        return [[self itemsOfPersonWithId:self.personId] count];
     } else {
         return 0;
     }
@@ -91,13 +91,13 @@
 
 - (NSString *)titleForRow:(NSUInteger)row inTableWithPersonId:(NSUInteger)personId
 {
-    NSMutableArray *items = [self positionsOfPersonWithId:personId];
+    NSMutableArray *items = [self itemsOfPersonWithId:personId];
     if (!items) {
         return nil;
     }
     
-    if ([items[row] isKindOfClass:[Position class]]) {
-        Position *pos = (Position *) items[row];
+    if ([items[row] isKindOfClass:[Item class]]) {
+        Item *pos = (Item *) items[row];
         return pos.name;
     }
     return nil;
@@ -105,13 +105,13 @@
 
 - (NSString *)priceForRow:(NSUInteger)row inTableWithPersonId:(NSUInteger)personId
 {
-    Position *pos = (Position *) [self positionsOfPersonWithId:personId][row];
+    Item *pos = (Item *) [self itemsOfPersonWithId:personId][row];
     return [[NSString alloc] initWithFormat:@"%@", [pos priceAsString]];
 }
 
 - (NSString *)subtitleForRow:(NSUInteger)row inTableWithPersonId:(NSUInteger)personId
 {
-    if ([[self positionsOfPersonWithId:personId][row] isKindOfClass:[Position class]]) {
+    if ([[self itemsOfPersonWithId:personId][row] isKindOfClass:[Item class]]) {
         return [[NSString alloc] initWithFormat:@"%@€", [self priceForRow:row inTableWithPersonId:personId]];
     }
     return nil;
@@ -142,9 +142,9 @@
     return cell;
 }
 
-- (NSMutableArray *) positionsOfPersonWithId:(NSUInteger)identifier
+- (NSMutableArray *) itemsOfPersonWithId:(NSUInteger)identifier
 {
-    return [self.positions objectForKey:[NSNumber numberWithLong:identifier]];
+    return [self.items objectForKey:[NSNumber numberWithLong:identifier]];
 //    NSMutableArray *positionsOfPerson = [NSMutableArray array];
 //    for(Position *p in self.positions) {
 //        if(p.belongsToId == id) {
@@ -171,38 +171,38 @@
 
 - (void)handleSelectionForBillTableViewAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self switchPositionFrom:NO_PERSON toPerson:self.personId atIndexPath:indexPath];
+    [self switchItemFrom:NO_PERSON toPerson:self.personId atIndexPath:indexPath];
     
 }
 
 
 
-- (void)switchPositionFrom:(NSUInteger)fromPerson toPerson:(NSInteger)toPerson atIndexPath:(NSIndexPath *)indexPath
+- (void)switchItemFrom:(NSUInteger)fromPerson toPerson:(NSInteger)toPerson atIndexPath:(NSIndexPath *)indexPath
 {
-    Position *position = [self.positions objectForKey:[NSNumber numberWithLong:fromPerson]][indexPath.row];
+    Item *item = [self.items objectForKey:[NSNumber numberWithLong:fromPerson]][indexPath.row];
     
-    [position setBelongsToId:toPerson];
-    NSMutableArray *newPositions = [[self.positions objectForKey:[NSNumber numberWithLong:toPerson]] mutableCopy];
-    [newPositions addObject:position];
-    [self.positions setObject:newPositions forKey:[NSNumber numberWithLong:toPerson]];
+    [item setBelongsToId:toPerson];
+    NSMutableArray *newItems = [[self.items objectForKey:[NSNumber numberWithLong:toPerson]] mutableCopy];
+    [newItems addObject:item];
+    [self.items setObject:newItems forKey:[NSNumber numberWithLong:toPerson]];
     
-    newPositions = [[self.positions objectForKey:[NSNumber numberWithLong:fromPerson]] mutableCopy];
-    [newPositions removeObject:position];
-    [self.positions setObject:newPositions forKey:[NSNumber numberWithLong:fromPerson]];
+    newItems = [[self.items objectForKey:[NSNumber numberWithLong:fromPerson]] mutableCopy];
+    [newItems removeObject:item];
+    [self.items setObject:newItems forKey:[NSNumber numberWithLong:fromPerson]];
     
     [self updateButtons];
 }
 
 - (void) handleSelectionForPersonTableViewAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self switchPositionFrom:self.personId toPerson:NO_PERSON atIndexPath:indexPath];
+    [self switchItemFrom:self.personId toPerson:NO_PERSON atIndexPath:indexPath];
     
 }
 
 - (void)updateLabels
 {
-    self.restLabel.text = [NSString stringWithFormat:@"Rest: %@€", [self getTotalOfPositionsFromPerson:NO_PERSON]];
-    self.totalLabel.text = [NSString stringWithFormat:@"Total: %@€", [self getTotalOfPositionsFromPerson:self.personId]];
+    self.restLabel.text = [NSString stringWithFormat:@"Rest: %@€", [self getTotalOfItemsFromPerson:NO_PERSON]];
+    self.totalLabel.text = [NSString stringWithFormat:@"Total: %@€", [self getTotalOfItemsFromPerson:self.personId]];
     self.personLabel.text = [NSString stringWithFormat:@"%lu. Person", (unsigned long)self.personId];
 }
 
@@ -222,11 +222,11 @@
     
 }
 
-- (NSDecimalNumber *)getTotalOfPositionsFromPerson:(NSUInteger)personId
+- (NSDecimalNumber *)getTotalOfItemsFromPerson:(NSUInteger)personId
 {
-    NSArray *positionArray = [[self.positions objectForKey:[NSNumber numberWithLong:personId]] copy];
+    NSArray *itemArray = [[self.items objectForKey:[NSNumber numberWithLong:personId]] copy];
     NSDecimalNumber *total = [[NSDecimalNumber alloc] initWithInt:0];
-    for (Position *p in positionArray) {
+    for (Item *p in itemArray) {
         total = [total decimalNumberByAdding:p.price];
     }
     return total;
