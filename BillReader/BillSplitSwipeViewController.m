@@ -413,19 +413,36 @@
     [self.swipeArticleView addSubview:label];
     CGRect bounds = self.swipeArticleView.bounds;
     self.swipeArticleView.bounds = CGRectMake(0, 0, 0, 0);
+    CGFloat actualCornerRadius = self.swipeArticleView.layer.cornerRadius;
+    self.swipeArticleView.layer.cornerRadius = 0;
     self.swipeArticleView.alpha = 0;
     [self.view addSubview:self.swipeArticleView];
     
-    [UIView animateWithDuration:0.3
-                          delay:0.1
-                        options: UIViewAnimationOptionCurveEaseInOut
+    
+    [UIView animateWithDuration:1.5
+                          delay:0.0
+         usingSpringWithDamping:1.0
+          initialSpringVelocity:15.0
+                        options:0
                      animations:^{
                          self.swipeArticleView.alpha = 1;
                          self.swipeArticleView.bounds = bounds;
+                         self.swipeArticleView.layer.cornerRadius = actualCornerRadius;
                      }
                      completion:^(BOOL finished){
                          
                      }];
+    
+//    [UIView animateWithDuration:0.3
+//                          delay:0.1
+//                        options: UIViewAnimationOptionCurveEaseInOut
+//                     animations:^{
+//                         self.swipeArticleView.alpha = 1;
+//                         self.swipeArticleView.bounds = bounds;
+//                     }
+//                     completion:^(BOOL finished){
+//                         
+//                     }];
 }
 
 

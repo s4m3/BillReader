@@ -14,7 +14,10 @@
 #import "NumOfPeopleViewController.h"
 #import "BillRevisionTableViewController.h"
 
-@interface BillReaderViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface BillReaderViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+
+@property (weak, nonatomic) IBOutlet UIButton *splitButton;
+
 @property (weak, nonatomic) IBOutlet UISegmentedControl *interfaceChoiseSegmentedControl;
 
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
@@ -25,6 +28,7 @@
 
 @property (strong, nonatomic) UIImage *billImage;
 @property (nonatomic) BOOL imageProcessingRequired;
+@property (nonatomic) BOOL editingOfBillAllowed;
 
 @end
 
@@ -39,26 +43,61 @@
     [self.imagePreview setImage:billImage];
 }
 
+- (void)setBill:(Bill *)bill
+{
+    _bill = bill;
+    if (_bill) {
+        self.splitButton.enabled = YES;
+        self.editingOfBillAllowed = YES;
+    }
+
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"VIEW DID LOAD: BILL READER");
     self.imageProcessingRequired = YES;
     self.billRecognitionProgressBar.hidden = YES;
+    self.splitButton.enabled = NO;
     self.billRecognitionProgressBar.progress = 0.0;
-    //[self tempSetupAndUseTesseract];
-    self.bill = [self tempUseTestData];
-    UIBarButtonItem *cameraButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(takePicture:)];
+    UIBarButtonItem *cameraButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(showImageActionSheet:)];
+    UITapGestureRecognizer *imageTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showImageActionSheet:)];
+    [self.imagePreview addGestureRecognizer:imageTapRecognizer];
     //UIBarButtonItem *other buttons ???
     NSArray *items = [[NSArray alloc] initWithObjects:cameraButton, nil];
     //self.toolbarItems = items;
     self.toolbar.items = items;
     
+    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editBillAction:)];
+    self.navigationItem.rightBarButtonItem = editButton;
+    self.editingOfBillAllowed = NO;
+    
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editBillAction:)];
+    [self.billPreviewText addGestureRecognizer:recognizer];
+    
+}
+
+- (void)setEditingOfBillAllowed:(BOOL)editingOfBillAllowed
+{
+    _editingOfBillAllowed = editingOfBillAllowed;
+    self.navigationItem.rightBarButtonItem.enabled = editingOfBillAllowed;
+    self.navigationItem.rightBarButtonItem.tintColor = editingOfBillAllowed ? [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] : [UIColor clearColor];
+    
+}
+
+- (void)editBillAction:(id)sender
+{
+    NSLog(@"editBillAction");
+    if (self.editingOfBillAllowed) {
+        [self performSegueWithIdentifier:@"Revise Bill" sender:sender];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     NSLog(@"view appeared");
-    if (self.billImage && self.imageProcessingRequired) {
+    if (self.billImage && self.imageProcessingRequired && !self.bill) {
         self.billRecognitionProgressBar.hidden = NO;
         self.billRecognitionProgressBar.progress = 0.0;
         [self performSelectorInBackground:@selector(processImage) withObject:nil];
@@ -78,8 +117,79 @@
     }
 }
 
-- (void)takePicture:(id)sender
+#define NEW_PHOTO @"Neues Photo"
+#define PICTURE_FROM_GALLERY @"Bild aus Galerie"
+#define EXAMPLE_PICTURE_WITH_DATA @"Beispiel Bild"
+
+- (IBAction)showImageActionSheet:(id)sender
 {
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self
+                                                    cancelButtonTitle:@"Abbrechen"
+                                                    destructiveButtonTitle:nil
+                                                    otherButtonTitles:NEW_PHOTO, PICTURE_FROM_GALLERY, EXAMPLE_PICTURE_WITH_DATA, nil];
+    
+    [actionSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *menuItem = [actionSheet buttonTitleAtIndex:buttonIndex];
+    NSLog(@"You have pressed the %@ button", menuItem);
+    if ([menuItem isEqualToString:NEW_PHOTO]) {
+        [self prepareToTakePicture];
+    } else if ([menuItem isEqualToString:PICTURE_FROM_GALLERY]) {
+        //TODO: go to galery and pick image
+        NSLog(@"get gallery picture");
+    } else if ([menuItem isEqualToString:EXAMPLE_PICTURE_WITH_DATA]) {
+        [self setupExamplePicture];
+    }
+}
+
+
+- (void)prepareToTakePicture
+{
+    if ([self isCameraAvailable] && [self doesCameraSupportTakingPhotos]) {
+        [self takePicture];
+    }
+}
+//////////Referenz: iOS 7 Programming Cookbook pp 627 - 635 (but modified)
+- (BOOL)isCameraAvailable
+{
+    return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+}
+
+- (BOOL)doesCameraSupportTakingPhotos
+{
+    return [self cameraSupportsMedia:(__bridge NSString *)kUTTypeImage
+                          sourceType:UIImagePickerControllerSourceTypeCamera];
+}
+
+- (BOOL)cameraSupportsMedia:(NSString *)paramMediaType sourceType:(UIImagePickerControllerSourceType)paramSourceType
+{
+    __block BOOL result = NO;
+    
+    if ([paramMediaType length] == 0) {
+        NSLog(@"Media Type is empty!");
+        return NO;
+    }
+    
+    NSArray *availableMediaTypes = [UIImagePickerController availableMediaTypesForSourceType:paramSourceType];
+    
+    [availableMediaTypes enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSString *mediaType = (NSString *)obj;
+        if ([mediaType isEqualToString:paramMediaType]) {
+            result = YES;
+            *stop = YES;
+        }
+    }];
+    
+    return result;
+}
+
+- (void)takePicture
+{
+    //only be called by prepareToTakePicture TODO
     NSLog(@"take Picture");
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
@@ -97,16 +207,19 @@
     NSLog(@"Picker returned successfully");
     
     NSLog(@"%@", info);
-    
+    //TODO: clean up unused image
+    self.bill = nil;
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:(__bridge NSString *)kUTTypeImage]) {
         NSDictionary *metaData = info[UIImagePickerControllerMediaMetadata];
         UIImage *theImage = info[UIImagePickerControllerOriginalImage];
+        UIImage *editedImage = info[UIImagePickerControllerEditedImage];
         
         NSLog(@"Image Metadata = %@", metaData);
         NSLog(@"Image = %@", theImage);
+        NSLog(@"Edited Image = %@", editedImage);
         
-        self.billImage = theImage;
+        self.billImage = editedImage;
     }
     
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -117,28 +230,50 @@
     NSLog(@"Picker was cancelled");
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
+/////// end referenz
+
 
 - (NSMutableDictionary *)latestPositions
 {
     return self.bill.positionsOfId;
 }
 
+////// EXAMPLE PICTURE (delete in the end, also at image action sheet)
+
+- (void)setupExamplePicture
+{
+    self.billImage = [UIImage imageNamed:@"exampleBillPicture2.png"];
+    self.bill = [self tempUseTestData];
+}
+
 - (Bill *)tempUseTestData
 {
     NSDecimalNumber *testTotal = [[NSDecimalNumber alloc] initWithInt:100];
-    NSDecimalNumber *beerPrice = [[NSDecimalNumber alloc] initWithInt:3];
-    NSDecimalNumber *vodkaPrice = [[NSDecimalNumber alloc] initWithInt:2];
-    NSDecimalNumber *waterPrice = [[NSDecimalNumber alloc] initWithFloat:1.5];
+    NSDecimalNumber *staropramenPrice = [[NSDecimalNumber alloc] initWithFloat:3.5];
+    NSDecimalNumber *krombacherPrice = [[NSDecimalNumber alloc] initWithFloat:3.5];
+    NSDecimalNumber *hefeDunkelPrice = [[NSDecimalNumber alloc] initWithFloat:3.5];
+    NSDecimalNumber *johnnyWalkerPrice = [[NSDecimalNumber alloc] initWithFloat:5.0];
+    NSDecimalNumber *tortillaPrice = [[NSDecimalNumber alloc] initWithFloat:4.0];
+
+
     
-    Position *testPos1 = [[Position alloc] initTempWithTestData:@"Bier" belongsToId:NO_PERSON andPrice:beerPrice];
-    Position *testPos2 = [[Position alloc] initTempWithTestData:@"Bier" belongsToId:NO_PERSON andPrice:beerPrice];
-    Position *testPos3 = [[Position alloc] initTempWithTestData:@"Bier" belongsToId:NO_PERSON andPrice:beerPrice];
-    Position *testPos4 = [[Position alloc] initTempWithTestData:@"Wasser" belongsToId:NO_PERSON andPrice:waterPrice];
-    Position *testPos5 = [[Position alloc] initTempWithTestData:@"Vodka" belongsToId:NO_PERSON andPrice:vodkaPrice];
-    Position *testPos6 = [[Position alloc] initTempWithTestData:@"Vodka" belongsToId:NO_PERSON andPrice:vodkaPrice];
-    Position *testPos7 = [[Position alloc] initTempWithTestData:@"Vodka" belongsToId:NO_PERSON andPrice:vodkaPrice];
+    Position *staro1 = [[Position alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
+    Position *staro2 = [[Position alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
+    Position *staro3 = [[Position alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
+    Position *staro4 = [[Position alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
+    Position *staro5 = [[Position alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
     
-    NSArray *objects = [[NSArray alloc] initWithObjects: testPos1, testPos2, testPos3, testPos4, testPos5, testPos6, testPos7, nil];
+    Position *krom1 = [[Position alloc] initTempWithTestData:@"Krombacher 0,5l" belongsToId:NO_PERSON andPrice:krombacherPrice];
+    
+    Position *hefe1 = [[Position alloc] initTempWithTestData:@"Hefe dunkel" belongsToId:NO_PERSON andPrice:hefeDunkelPrice];
+    
+    Position *johnny1 = [[Position alloc] initTempWithTestData:@"Johnny Walker Red Label" belongsToId:NO_PERSON andPrice:johnnyWalkerPrice];
+    
+    Position *tortilla1 = [[Position alloc] initTempWithTestData:@"Tortillachips Cheesedip" belongsToId:NO_PERSON andPrice:tortillaPrice];
+    Position *tortilla2 = [[Position alloc] initTempWithTestData:@"Tortillachips Cheesedip" belongsToId:NO_PERSON andPrice:tortillaPrice];
+
+    
+    NSArray *objects = [[NSArray alloc] initWithObjects: staro1, staro2, staro3, staro4, staro5, krom1, hefe1, johnny1, tortilla1, tortilla2, nil];
     NSMutableDictionary *testPositions = [[NSMutableDictionary alloc] init];
     
     //NSMutableArray *emptyObjectsForKey1 = [[NSMutableArray alloc] init];
@@ -149,6 +284,8 @@
     
     return testBill;
 }
+
+////////END EXAMPLE
 
 - (void)processImage
 {

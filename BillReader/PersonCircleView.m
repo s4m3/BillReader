@@ -73,9 +73,11 @@
 
 - (void)animateToGoalPositionWithDelay:(CGFloat)delay
 {
-    [UIView animateWithDuration:0.3
+    [UIView animateWithDuration:0.5
                           delay:delay
-                        options: UIViewAnimationOptionCurveEaseInOut
+         usingSpringWithDamping:0.7
+          initialSpringVelocity:1.0
+                        options:0
                      animations:^{
                          self.center = self.goalPosition;
                          self.alpha = 1;
@@ -83,6 +85,17 @@
                      completion:^(BOOL finished){
                          
                      }];
+    
+//    [UIView animateWithDuration:0.3
+//                          delay:delay
+//                        options: UIViewAnimationOptionCurveEaseInOut
+//                     animations:^{
+//                         self.center = self.goalPosition;
+//                         self.alpha = 1;
+//                     }
+//                     completion:^(BOOL finished){
+//                         
+//                     }];
 }
 
 - (void)animateToStartPosition

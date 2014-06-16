@@ -11,6 +11,8 @@
 		F407989C1949CF0F00CCCC88 /* EditablePosition.m in Sources */ = {isa = PBXBuildFile; fileRef = F407989B1949CF0F00CCCC88 /* EditablePosition.m */; };
 		F407989F1949DC7E00CCCC88 /* PositionEditingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F407989E1949DC7E00CCCC88 /* PositionEditingViewController.m */; };
 		F40798A2194B1A1500CCCC88 /* ViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F40798A1194B1A1500CCCC88 /* ViewHelper.m */; };
+		F41A461A194EEFCB0075174D /* iconImageBill.png in Resources */ = {isa = PBXBuildFile; fileRef = F41A4619194EEFCB0075174D /* iconImageBill.png */; };
+		F41A461E194EF8750075174D /* exampleBillPicture2.png in Resources */ = {isa = PBXBuildFile; fileRef = F41A461D194EF8750075174D /* exampleBillPicture2.png */; };
 		F421B4DC193C71F20004FB6E /* PersonCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F421B4DB193C71F20004FB6E /* PersonCircleView.m */; };
 		F42EC84E1934AB33009798B5 /* BillSplitSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F42EC84D1934AB33009798B5 /* BillSplitSwipeViewController.m */; };
 		F42EC8541934ACB5009798B5 /* SwipeArticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F42EC8531934ACB5009798B5 /* SwipeArticleView.m */; };
@@ -65,6 +67,8 @@
 		F407989E1949DC7E00CCCC88 /* PositionEditingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionEditingViewController.m; sourceTree = "<group>"; };
 		F40798A0194B1A1500CCCC88 /* ViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewHelper.h; sourceTree = "<group>"; };
 		F40798A1194B1A1500CCCC88 /* ViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewHelper.m; sourceTree = "<group>"; };
+		F41A4619194EEFCB0075174D /* iconImageBill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconImageBill.png; sourceTree = "<group>"; };
+		F41A461D194EF8750075174D /* exampleBillPicture2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exampleBillPicture2.png; sourceTree = "<group>"; };
 		F421B4DA193C71F20004FB6E /* PersonCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonCircleView.h; sourceTree = "<group>"; };
 		F421B4DB193C71F20004FB6E /* PersonCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonCircleView.m; sourceTree = "<group>"; };
 		F42EC84C1934AB33009798B5 /* BillSplitSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillSplitSwipeViewController.h; sourceTree = "<group>"; };
@@ -207,6 +211,8 @@
 				F4F266701915134E001D0F93 /* BillReader */,
 				F4F266B119151945001D0F93 /* rechnung1.jpg */,
 				F4F266B319152712001D0F93 /* rechnung2.jpg */,
+				F41A461D194EF8750075174D /* exampleBillPicture2.png */,
+				F41A4619194EEFCB0075174D /* iconImageBill.png */,
 				F4F266AF191517D1001D0F93 /* tessdata */,
 				F4F266921915134E001D0F93 /* BillReaderTests */,
 				F4F266691915134E001D0F93 /* Frameworks */,
@@ -362,6 +368,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4F266811915134E001D0F93 /* Main_iPad.storyboard in Resources */,
+				F41A461A194EEFCB0075174D /* iconImageBill.png in Resources */,
+				F41A461E194EF8750075174D /* exampleBillPicture2.png in Resources */,
 				F4F266861915134E001D0F93 /* Images.xcassets in Resources */,
 				F4F266B0191517D1001D0F93 /* tessdata in Resources */,
 				F4F2667E1915134E001D0F93 /* Main_iPhone.storyboard in Resources */,

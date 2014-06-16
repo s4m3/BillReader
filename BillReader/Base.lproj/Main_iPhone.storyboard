@@ -16,61 +16,60 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NEg-rm-dyv">
-                                <rect key="frame" x="20" y="347" width="280" height="2"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </progressView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Shr-iX-xa6">
-                                <rect key="frame" x="97" y="347" width="127" height="79"/>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NEg-rm-dyv">
+                                <rect key="frame" x="20" y="79" width="280" height="2"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="79" id="kUo-KN-WLz"/>
+                                    <constraint firstAttribute="height" constant="2" id="Jq2-2e-h14"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Testrechnung"/>
+                            </progressView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Shr-iX-xa6">
+                                <rect key="frame" x="20" y="324" width="280" height="158"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="45"/>
+                                <state key="normal" title="Teilen"/>
                                 <connections>
                                     <segue destination="PBO-rU-BVT" kind="push" identifier="Pick Num of People" id="0Ds-RF-ifC"/>
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dIs-em-AP2">
-                                <rect key="frame" x="20" y="445" width="280" height="29"/>
+                                <rect key="frame" x="20" y="490" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="zNo-wT-Xrc"/>
+                                </constraints>
                                 <segments>
                                     <segment title="Interface A"/>
                                     <segment title="Interface B"/>
                                     <segment title="Interface C"/>
                                 </segments>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ZY-up-Dzr">
-                                <rect key="frame" x="48" y="66" width="224" height="72"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <state key="normal" title="Rechnung überprüfen">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="ppq-Dk-DzE" kind="push" identifier="Revise Bill" id="4Sn-aV-mNB"/>
-                                </connections>
-                            </button>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mcH-OY-R3a">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items/>
                             </toolbar>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EnS-8u-LUV">
-                                <rect key="frame" x="20" y="146" width="130" height="185"/>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconImageBill.png" translatesAutoresizingMaskIntoConstraints="NO" id="EnS-8u-LUV">
+                                <rect key="frame" x="0.0" y="89" width="159" height="227"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="159" id="RCi-W2-nAu"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DWa-ux-LDY">
-                                <rect key="frame" x="170" y="146" width="130" height="185"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Rechnung:" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DWa-ux-LDY">
+                                <rect key="frame" x="161" y="89" width="159" height="227"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="159" id="JYg-Ab-uds"/>
+                                    <constraint firstAttribute="height" constant="227" id="vzw-oy-WOt"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <userDefinedRuntimeAttributes>
@@ -82,19 +81,25 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Shr-iX-xa6" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" constant="102.5" id="0jr-f7-fdP"/>
-                            <constraint firstItem="Shr-iX-xa6" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="97" id="13g-lx-pO0"/>
+                            <constraint firstItem="Shr-iX-xa6" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" constant="119" id="0jr-f7-fdP"/>
+                            <constraint firstItem="Shr-iX-xa6" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="13g-lx-pO0"/>
+                            <constraint firstAttribute="trailing" secondItem="NEg-rm-dyv" secondAttribute="trailing" constant="20" id="1mx-Bs-Utd"/>
+                            <constraint firstItem="NEg-rm-dyv" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="2xW-82-1H4"/>
+                            <constraint firstItem="dIs-em-AP2" firstAttribute="leading" secondItem="Shr-iX-xa6" secondAttribute="leading" id="9Ey-AC-a1x"/>
                             <constraint firstAttribute="bottom" secondItem="mcH-OY-R3a" secondAttribute="bottom" id="AtG-io-Vj2"/>
-                            <constraint firstItem="2ZY-up-Dzr" firstAttribute="centerX" secondItem="Shr-iX-xa6" secondAttribute="centerX" id="Cz9-mA-OEd"/>
                             <constraint firstAttribute="trailing" secondItem="mcH-OY-R3a" secondAttribute="trailing" id="DuB-vs-sjV"/>
-                            <constraint firstItem="Shr-iX-xa6" firstAttribute="centerX" secondItem="dIs-em-AP2" secondAttribute="centerX" id="OLB-1n-F9N"/>
-                            <constraint firstItem="2ZY-up-Dzr" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="48" id="R0y-I9-drJ"/>
-                            <constraint firstItem="2ZY-up-Dzr" firstAttribute="top" secondItem="Nb7-TE-gUo" secondAttribute="bottom" constant="2" id="cSg-Qg-L03"/>
-                            <constraint firstItem="dIs-em-AP2" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" symbolic="YES" id="fx2-Cq-2XY"/>
+                            <constraint firstItem="NEg-rm-dyv" firstAttribute="top" secondItem="Nb7-TE-gUo" secondAttribute="bottom" constant="15" id="KxR-B3-6Da"/>
+                            <constraint firstItem="EnS-8u-LUV" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Pz9-Ib-WrA"/>
+                            <constraint firstItem="EnS-8u-LUV" firstAttribute="top" secondItem="NEg-rm-dyv" secondAttribute="bottom" constant="8" id="UDx-24-LVh"/>
+                            <constraint firstAttribute="trailing" secondItem="Shr-iX-xa6" secondAttribute="trailing" constant="20" id="UIY-zO-voS"/>
+                            <constraint firstItem="Shr-iX-xa6" firstAttribute="top" secondItem="DWa-ux-LDY" secondAttribute="bottom" constant="8" id="dYa-Nz-y1p"/>
+                            <constraint firstItem="mcH-OY-R3a" firstAttribute="top" secondItem="dIs-em-AP2" secondAttribute="bottom" constant="5" id="fyL-a2-gHi"/>
                             <constraint firstItem="mcH-OY-R3a" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="gpC-oh-ap4"/>
-                            <constraint firstItem="2ZY-up-Dzr" firstAttribute="centerX" secondItem="mcH-OY-R3a" secondAttribute="centerX" id="tJe-ZI-82x"/>
-                            <constraint firstAttribute="bottom" secondItem="dIs-em-AP2" secondAttribute="bottom" constant="95" id="vYO-CD-Kkd"/>
-                            <constraint firstItem="Shr-iX-xa6" firstAttribute="top" secondItem="2ZY-up-Dzr" secondAttribute="bottom" constant="209" id="yJm-Do-Fze"/>
+                            <constraint firstAttribute="trailing" secondItem="DWa-ux-LDY" secondAttribute="trailing" id="hIK-y9-yes"/>
+                            <constraint firstItem="Shr-iX-xa6" firstAttribute="top" secondItem="EnS-8u-LUV" secondAttribute="bottom" constant="8" id="i7e-YG-kDk"/>
+                            <constraint firstItem="DWa-ux-LDY" firstAttribute="leading" secondItem="EnS-8u-LUV" secondAttribute="trailing" constant="2" id="xX7-XI-jxP"/>
+                            <constraint firstItem="DWa-ux-LDY" firstAttribute="top" secondItem="NEg-rm-dyv" secondAttribute="bottom" constant="8" id="xu7-Qg-M7R"/>
+                            <constraint firstItem="dIs-em-AP2" firstAttribute="trailing" secondItem="Shr-iX-xa6" secondAttribute="trailing" id="y6b-Pt-3ql"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Syc-7C-Ml8"/>
@@ -103,7 +108,9 @@
                         <outlet property="billRecognitionProgressBar" destination="NEg-rm-dyv" id="agM-1G-4yC"/>
                         <outlet property="imagePreview" destination="EnS-8u-LUV" id="nD6-uV-WFM"/>
                         <outlet property="interfaceChoiseSegmentedControl" destination="dIs-em-AP2" id="Kha-LH-fGh"/>
+                        <outlet property="splitButton" destination="Shr-iX-xa6" id="3fs-Zv-qzm"/>
                         <outlet property="toolbar" destination="mcH-OY-R3a" id="KfF-TN-7MF"/>
+                        <segue destination="ppq-Dk-DzE" kind="push" identifier="Revise Bill" id="H94-vV-Rw7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -682,6 +689,9 @@
             <point key="canvasLocation" x="-88" y="-314"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="iconImageBill.png" width="256" height="256"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
