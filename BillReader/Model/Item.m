@@ -23,16 +23,6 @@
     return self;
 }
 
-- (id)initTempWithTestData:(NSString *)name belongsToId:(NSUInteger)belongsToId andPrice:(NSDecimalNumber *)price
-{
-    self = [super init];
-    if (self) {
-        self.name = name;
-        self.belongsToId = belongsToId;
-        self.price = price;
-    }
-    return self;
-}
 
 - (NSString *)priceAsString
 {

@@ -13,8 +13,6 @@
 @property (nonatomic) NSUInteger belongsToId;
 @property (nonatomic, strong) NSDecimalNumber *price;
 
-- (id)initWithName:(NSString *)name belongsToId:(NSUInteger) belongsToId andPrice:(NSDecimalNumber *)price;
-
-- (id)initTempWithTestData:(NSString *)name belongsToId:(NSUInteger) belongsToId andPrice:(NSDecimalNumber *)price;
+- (id)initWithName:(NSString *)name belongsToId:(NSUInteger)belongsToId andPrice:(NSDecimalNumber *)price;
 - (NSString *)priceAsString;
 @end

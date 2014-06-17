@@ -53,41 +53,6 @@
         self.editingOfBillAllowed = YES;
         [self updateBillPreviewText];
     }
-
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    NSLog(@"VIEW DID LOAD: BILL READER");
-    self.imageProcessingRequired = YES;
-    self.billRecognitionProgressBar.hidden = YES;
-    self.splitButton.enabled = NO;
-    self.billRecognitionProgressBar.progress = 0.0;
-    UIBarButtonItem *cameraButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(showImageActionSheet:)];
-    UITapGestureRecognizer *imageTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showImageActionSheet:)];
-    [self.imagePreview addGestureRecognizer:imageTapRecognizer];
-    //UIBarButtonItem *other buttons ???
-    NSArray *items = [[NSArray alloc] initWithObjects:cameraButton, nil];
-    //self.toolbarItems = items;
-    self.toolbar.items = items;
-    
-    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Bearbeiten"
-                                                                   style:self.navigationItem.rightBarButtonItem.style
-                                                                  target:self
-                                                                  action:@selector(editBillAction:)];
-    self.navigationItem.rightBarButtonItem = editButton;
-    self.editingOfBillAllowed = NO;
-    
-    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editBillAction:)];
-    [self.billPreviewText addGestureRecognizer:recognizer];
-    
-    
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Zurück"
-                                                                             style:self.navigationItem.backBarButtonItem.style
-                                                                            target:nil
-                                                                            action:nil];
-    
 }
 
 - (void)setEditingOfBillAllowed:(BOOL)editingOfBillAllowed
@@ -95,35 +60,68 @@
     _editingOfBillAllowed = editingOfBillAllowed;
     self.navigationItem.rightBarButtonItem.enabled = editingOfBillAllowed;
     self.navigationItem.rightBarButtonItem.tintColor = editingOfBillAllowed ? [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] : [UIColor clearColor];
-    
 }
 
-- (void)editBillAction:(id)sender
+- (void)viewDidLoad
 {
-    NSLog(@"editBillAction");
-    if (self.editingOfBillAllowed) {
-        [self performSegueWithIdentifier:@"Revise Bill" sender:sender];
-    }
+    [super viewDidLoad];
+    self.imageProcessingRequired = YES;
+    self.billRecognitionProgressBar.hidden = YES;
+    self.splitButton.enabled = NO;
+    self.billRecognitionProgressBar.progress = 0.0;
+    
+    UIBarButtonItem *cameraButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(showImageActionSheet:)];
+    UITapGestureRecognizer *imageTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showImageActionSheet:)];
+    [self.imagePreview addGestureRecognizer:imageTapRecognizer];
+    
+    //UIBarButtonItem *other buttons ??? TODO...
+    NSArray *items = [[NSArray alloc] initWithObjects:cameraButton, nil];
+    self.toolbar.items = items;
+    
+    //Navigation Buttons
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Bearbeiten"
+                                                                              style:self.navigationItem.rightBarButtonItem.style
+                                                                             target:self
+                                                                             action:@selector(editBillAction:)];
+    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Zurück"
+                                                                             style:self.navigationItem.backBarButtonItem.style
+                                                                            target:nil
+                                                                            action:nil];
+    
+    self.editingOfBillAllowed = NO;
+    
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editBillAction:)];
+    [self.billPreviewText addGestureRecognizer:recognizer];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    NSLog(@"view appeared");
     if (self.billImage && self.imageProcessingRequired && !self.bill) {
+        //setup progress bar and process image.
         self.billRecognitionProgressBar.hidden = NO;
         self.billRecognitionProgressBar.progress = 0.0;
         [self performSelectorInBackground:@selector(processImage) withObject:nil];
     }
 }
 
+
+//get data back from bill revision controller
 - (void)updateBillWithRevisedItems:(NSMutableArray *)revisedItems
 {
-    //NSMutableDictionary *updatedItems = [NSMutableDictionary dictionaryWithObject:revisedItems forKey:[NSNumber numberWithInt:0]];
-    [self.bill setEditableItems:revisedItems];
+    [self.bill updateEditableItems:revisedItems];
     [self updateBillPreviewText];
 }
 
-#define NO_PERSON 0
+//go to bill revision
+- (void)editBillAction:(id)sender
+{
+    if (self.editingOfBillAllowed) {
+        [self performSegueWithIdentifier:@"Revise Bill" sender:sender];
+    }
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([[segue identifier] isEqualToString:@"Pick Num of People"]) {
@@ -152,10 +150,10 @@
     [actionSheet showInView:self.view];
 }
 
+//delegate method of action sheet
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *menuItem = [actionSheet buttonTitleAtIndex:buttonIndex];
-    NSLog(@"You have pressed the %@ button", menuItem);
     if ([menuItem isEqualToString:NEW_PHOTO]) {
         [self prepareToTakePicture];
     } else if ([menuItem isEqualToString:PICTURE_FROM_GALLERY]) {
@@ -209,8 +207,6 @@
 
 - (void)takePicture
 {
-    //only be called by prepareToTakePicture TODO
-    NSLog(@"take Picture");
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
     NSString *requiredMediaType = (__bridge NSString *)kUTTypeImage;
@@ -219,7 +215,6 @@
     imagePickerController.delegate = self;
     
     [self presentViewController:imagePickerController animated:YES completion:nil];
-    
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -269,24 +264,19 @@
     NSDecimalNumber *hefeDunkelPrice = [[NSDecimalNumber alloc] initWithFloat:3.5];
     NSDecimalNumber *johnnyWalkerPrice = [[NSDecimalNumber alloc] initWithFloat:5.0];
     NSDecimalNumber *tortillaPrice = [[NSDecimalNumber alloc] initWithFloat:4.0];
-
-
-    
     EditableItem *staro = [[EditableItem alloc] initWithName:@"Staropramen 0,5l" amount:5 andPrice:staropramenPrice];
     EditableItem *krom = [[EditableItem alloc] initWithName:@"Krombacher 0,5l" amount:1 andPrice:krombacherPrice];
     EditableItem *hefe = [[EditableItem alloc] initWithName:@"Hefe dunkel" amount:1 andPrice:hefeDunkelPrice];
     EditableItem *johnny = [[EditableItem alloc] initWithName:@"Johnny Walker Red Label" amount:1 andPrice:johnnyWalkerPrice];
     EditableItem *tortilla = [[EditableItem alloc] initWithName:@"Tortillachips Cheesedip" amount:2 andPrice:tortillaPrice];
-    
     NSArray *items = [[NSArray alloc] initWithObjects: staro, krom, hefe, johnny, tortilla, nil];
-
     Bill *testBill = [[Bill alloc] initWithEditableItems:items];
-    
     return testBill;
 }
 
 ////////END EXAMPLE
 
+//TODO: implement proper image processing
 - (void)processImage
 {
     
@@ -357,7 +347,7 @@
     
 }
 
-//TODO: maybe let other object take care of this. this is a little bit copy pasted code from ItemEditingViewController
+//TODO: maybe let other object take care of this. this is a little bit copy pasted code from ItemEditingViewController TODO:FIX!!!
 - (void)updateBillPreviewText
 {
     NSLog(@"updating bill preview text");
@@ -373,6 +363,9 @@
         currentTotal = [currentItem.price decimalNumberByMultiplyingBy:[ViewHelper transformLongToDecimalNumber:currentItem.amount]];
         appendingStringBill = [appendingStringBill stringByAppendingString:[NSString stringWithFormat:@"%@€ \n", [ViewHelper transformDecimalToString:currentTotal]]];
     }
+    
+    appendingStringBill = [appendingStringBill stringByAppendingString:@"\n------------\nTotal:"];
+    appendingStringBill = [appendingStringBill stringByAppendingString:[self.bill totalAsString]];
     
     NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
     
@@ -401,7 +394,7 @@
     
 }
 
-
+//OLD, DEPRECATED?   TODO
 - (void)tempSetupAndUseTesseract
 {
     // language are used for recognition. Ex: eng. Tesseract will search for a eng.traineddata file in the dataPath directory; eng+ita will search for a eng.traineddata and ita.traineddata.

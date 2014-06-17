@@ -17,14 +17,15 @@
 @property (nonatomic, strong) NSDecimalNumber *total; //total price TODO:update this after change Of items
 @property (nonatomic) NSUInteger numOfOwners;
 
++ (int)Id;
+
 - (id)initWithEditableItems:(NSArray *)editableItems;
 
-- (void)addEditableItem:(EditableItem *)editableItem;
-
-- (void)removeEditableItem:(EditableItem *)item;
+- (void)updateEditableItems:(NSArray *)editableItems;
 
 - (NSMutableDictionary *)itemsAsDictionary;
 
-- (void)reset;
+- (void)resetToOriginalValues;
+
 - (NSString *)totalAsString;
 @end

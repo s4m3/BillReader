@@ -80,7 +80,7 @@
 
 - (void)updateItems
 {
-    [self.bill reset];
+    //[self.bill reset];
     long numOfPeople = [self.numOfPeoplePickerView selectedRowInComponent:0] + 1;
     [self.bill setNumOfOwners:numOfPeople];
     

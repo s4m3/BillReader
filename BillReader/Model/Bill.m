@@ -12,6 +12,13 @@
 @end
 @implementation Bill
 
+static int Id = 0;
+
++ (int)Id
+{
+    return Id++;
+}
+
 //designated initializer
 - (id)initWithEditableItems:(NSArray *)editableItems
 {
@@ -19,8 +26,8 @@
     if(self) {
         self.editableItems = [editableItems mutableCopy];
         self.originalItems = editableItems;
-        self.total = 0; //TODO: fix total and add id from static class method
         self.numOfOwners = 0;
+        self.idNumber = Bill.Id;
     }
     return self;
 }
@@ -55,25 +62,32 @@
 }
 
 
-- (void)addEditableItem:(EditableItem *)editableItem
+- (void)updateEditableItems:(NSArray *)editableItems
 {
-    [self.editableItems addObject:editableItem];
+    self.editableItems = nil;
+    self.editableItems = [[NSMutableArray alloc] initWithArray:editableItems];
 }
 
 
-- (void)removeEditableItem:(EditableItem *)editableItem
-{
-    [self.editableItems removeObject:editableItem];
-}
-
-- (void)reset
+- (void)resetToOriginalValues
 {
     [self.editableItems removeAllObjects];
     self.editableItems = [self.originalItems mutableCopy];
-    
 }
 
--(NSString *)totalAsString
+- (NSDecimalNumber *)total
+{
+    //always recalculate (no big calculation anyways)
+    NSDecimalNumber *currentTotal = [[NSDecimalNumber alloc] initWithInt:0];
+    NSDecimalNumber *amountOfItem;
+    for (EditableItem *editItem in self.editableItems) {
+        amountOfItem = [[NSDecimalNumber alloc] initWithFloat:editItem.amount];
+        currentTotal = [currentTotal decimalNumberByAdding:[editItem.price decimalNumberByMultiplyingBy:amountOfItem]];
+    }
+    return currentTotal;
+}
+
+- (NSString *)totalAsString
 {
     NSNumberFormatter * nf = [[NSNumberFormatter alloc] init];
     [nf setMinimumFractionDigits:2];

@@ -73,6 +73,7 @@
 
 }
 
+#define EDIT_TITLE @"Bearbeiten"
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -83,12 +84,69 @@
                                       style:self.navigationItem.backBarButtonItem.style
                                      target:nil
                                      action:nil];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                              target:self
+                                                                              action:@selector(enterItemAddingMode)];
+    
+    UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:EDIT_TITLE
+                                                                     style:self.navigationItem.rightBarButtonItem.style
+                                                                    target:self
+                                                                    action:@selector(enterEditingMode)];
+    
+    
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:EDIT_TITLE
+//                                                                              style:self.navigationItem.rightBarButtonItem.style
+//                                                                             target:self
+//                                                                             action:@selector(enterEditingMode)];
+    
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:removeButton, addButton, nil];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)enterEditingMode
+{
+    if ([self.billTableView isEditing]) {
+        [self.billTableView setEditing:NO animated:YES];
+        [self.navigationItem.rightBarButtonItems[0] setTitle:EDIT_TITLE];
+    } else {
+        [self.navigationItem.rightBarButtonItems[0] setTitle:@"Fertig"];
+        [self.billTableView setEditing:YES animated:YES];
+    }
+}
+
+- (void)enterItemAddingMode
+{
+    NSLog(@"adding item");
+    EditableItem *newItem = [[EditableItem alloc] initWithName:@"Getränkename" amount:1 andPrice:[NSDecimalNumber decimalNumberWithString:@"0"]];
+    [self.editableItems addObject:newItem];
+    NSUInteger section = 0;
+    NSUInteger row = [self.billTableView numberOfRowsInSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+    [self performSegueWithIdentifier:@"Edit Position" sender:indexPath];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        
+        EditableItem *item = [self.editableItems objectAtIndex:indexPath.row];
+        [self.editableItems removeObject:item];
+        //[self.editableItems removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        // Additional code to configure the Edit Button, if any
+        if (self.editableItems.count == 0) {
+            self.navigationItem.rightBarButtonItem.enabled = NO;
+            [self.navigationItem.rightBarButtonItems[0] setTitle:EDIT_TITLE];
+        }
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -110,6 +168,11 @@
 //    // Return the number of sections.
 //    return 1;
 //}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
