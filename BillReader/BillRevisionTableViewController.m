@@ -79,6 +79,11 @@
     self.billTableView.delegate = self;
     self.billTableView.dataSource = self;
     
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Speichern"
+                                      style:self.navigationItem.backBarButtonItem.style
+                                     target:nil
+                                     action:nil];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     

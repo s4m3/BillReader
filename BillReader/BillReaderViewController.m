@@ -72,12 +72,21 @@
     //self.toolbarItems = items;
     self.toolbar.items = items;
     
-    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editBillAction:)];
+    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Bearbeiten"
+                                                                   style:self.navigationItem.rightBarButtonItem.style
+                                                                  target:self
+                                                                  action:@selector(editBillAction:)];
     self.navigationItem.rightBarButtonItem = editButton;
     self.editingOfBillAllowed = NO;
     
     UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editBillAction:)];
     [self.billPreviewText addGestureRecognizer:recognizer];
+    
+    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Zurück"
+                                                                             style:self.navigationItem.backBarButtonItem.style
+                                                                            target:nil
+                                                                            action:nil];
     
 }
 
@@ -268,30 +277,9 @@
     EditableItem *hefe = [[EditableItem alloc] initWithName:@"Hefe dunkel" amount:1 andPrice:hefeDunkelPrice];
     EditableItem *johnny = [[EditableItem alloc] initWithName:@"Johnny Walker Red Label" amount:1 andPrice:johnnyWalkerPrice];
     EditableItem *tortilla = [[EditableItem alloc] initWithName:@"Tortillachips Cheesedip" amount:2 andPrice:tortillaPrice];
-                           //initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
-//    Item *staro2 = [[Item alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
-//    Item *staro3 = [[Item alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
-//    Item *staro4 = [[Item alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
-//    Item *staro5 = [[Item alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
-    
-//    Item *krom1 = [[Item alloc] initTempWithTestData:@"Krombacher 0,5l" belongsToId:NO_PERSON andPrice:krombacherPrice];
-    
-//    Item *hefe1 = [[Item alloc] initTempWithTestData:@"Hefe dunkel" belongsToId:NO_PERSON andPrice:hefeDunkelPrice];
-    
-//    Item *johnny1 = [[Item alloc] initTempWithTestData:@"Johnny Walker Red Label" belongsToId:NO_PERSON andPrice:johnnyWalkerPrice];
-    
-//    Item *tortilla1 = [[Item alloc] initTempWithTestData:@"Tortillachips Cheesedip" belongsToId:NO_PERSON andPrice:tortillaPrice];
-//    Item *tortilla2 = [[Item alloc] initTempWithTestData:@"Tortillachips Cheesedip" belongsToId:NO_PERSON andPrice:tortillaPrice];
-
     
     NSArray *items = [[NSArray alloc] initWithObjects: staro, krom, hefe, johnny, tortilla, nil];
-    //NSMutableDictionary *testItems = [[NSMutableDictionary alloc] init];
-    
-    //NSMutableArray *emptyObjectsForKey1 = [[NSMutableArray alloc] init];
-    //[testItems setObject:objects forKey:[NSNumber numberWithInt:0]];
-    //[testPositions setObject:emptyObjectsForKey1 forKey:[NSNumber numberWithInt:1]];
-    
-    //Bill *testBill = [[Bill alloc] initWithItems:testItems andTotalAmount:testTotal];
+
     Bill *testBill = [[Bill alloc] initWithEditableItems:items];
     
     return testBill;
@@ -373,11 +361,7 @@
 - (void)updateBillPreviewText
 {
     NSLog(@"updating bill preview text");
-    //self.billPreviewText.text =
-    //NSString *newTextBill = @"Rechnung: \n";
-    //NSString *newTextTotals = @"Totals \n\n";
     NSString *appendingStringBill = @"Rechnung: \n";
-    //NSString *appendingStringTotals;
     NSDecimalNumber *currentTotal;
     NSArray *items = [self.bill editableItems];
     

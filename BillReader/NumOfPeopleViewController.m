@@ -30,6 +30,11 @@
 {
     [super viewDidLoad];
     self.numOfPeoplePickerView.delegate = self;
+    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Zurück"
+                                                                             style:self.navigationItem.backBarButtonItem.style
+                                                                            target:nil
+                                                                            action:nil];
 }
 
 - (void)didReceiveMemoryWarning

@@ -12,18 +12,7 @@
 @end
 @implementation Bill
 
-//- (id)initWithItems:(NSMutableDictionary *)items andTotalAmount:(NSDecimalNumber *)total
-//{
-//    self = [super init];
-//    if (self) {
-//        self.items = items;
-//        self.originalItems = [items mutableCopy];
-//        self.total = total;
-//        
-//    }
-//    return self;
-//}
-
+//designated initializer
 - (id)initWithEditableItems:(NSArray *)editableItems
 {
     self = [super init];
@@ -75,21 +64,12 @@
 - (void)removeEditableItem:(EditableItem *)editableItem
 {
     [self.editableItems removeObject:editableItem];
-//    NSMutableArray *itemsAtId = [self.items objectForKey:identifer];
-//    [itemsAtId removeObject:item];
 }
 
 - (void)reset
 {
-    //set all positions back to original owner (the bill itself: position 0)
-//    NSMutableArray *resetedPositions = [NSMutableArray array];
-//    for (id key in self.positionsOfId) {
-//        id value = [self.positionsOfId objectForKey:key];
-//        [resetedPositions addObject:value];
-    //}
     [self.editableItems removeAllObjects];
     self.editableItems = [self.originalItems mutableCopy];
-    //[self.positionsOfId setObject:resetedPositions forKey:[NSNumber numberWithInt:0]];
     
 }
 

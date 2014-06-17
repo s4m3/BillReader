@@ -27,6 +27,20 @@
     return _totalNumOfPersons;
 }
 
+- (void)viewDidLoad
+{
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Zurück"
+                                                                             style:self.navigationItem.backBarButtonItem.style
+                                                                            target:nil
+                                                                            action:nil];
+    UIBarButtonItem *overviewButton = [[UIBarButtonItem alloc] initWithTitle:@"Überblick"
+                                                                   style:self.navigationItem.rightBarButtonItem.style
+                                                                  target:self
+                                                                  action:@selector(showOverview)];
+    self.navigationItem.rightBarButtonItem = overviewButton;
+    
+}
+
 //- (NSMutableArray *)colors
 //{
 //    if (!_colors) {
@@ -37,6 +51,11 @@
 //    }
 //    return _colors;
 //}
+
+- (void)showOverview
+{
+    [self performSegueWithIdentifier:@"Person Article Overview" sender:nil];
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

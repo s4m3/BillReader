@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Wlx-o4-5KK">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Bill Reader View Controller-->
@@ -449,7 +450,7 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rest:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u64-U9-U8c">
-                                <rect key="frame" x="20" y="533" width="40" height="21"/>
+                                <rect key="frame" x="20" y="533" width="140" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -481,7 +482,8 @@
                                 <rect key="frame" x="74" y="489" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="a9a-bs-Yrh"/>
+                                    <constraint firstAttribute="width" constant="46" id="gOm-PL-XAh"/>
+                                    <constraint firstAttribute="height" constant="30" id="yYV-KS-bZA"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <state key="normal" title="⬅️">
@@ -500,66 +502,48 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FGc-ku-HzO"/>
+                                    <constraint firstAttribute="width" constant="55" id="fHy-AH-d8S"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B3C-w6-mLd">
-                                <rect key="frame" x="132" y="527" width="46" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="pRx-NS-lwZ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Fertig">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="disabled" title=".">
-                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="esd-ri-HKQ" kind="push" identifier="Person Article Overview" id="KeC-0Q-nEy"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="YIe-jA-Bx7" firstAttribute="top" secondItem="wKF-xt-O0w" secondAttribute="top" id="03s-xw-LYY"/>
-                            <constraint firstItem="B3C-w6-mLd" firstAttribute="top" secondItem="aP7-PK-QV4" secondAttribute="bottom" constant="13" id="0Fh-9N-ZPi"/>
                             <constraint firstItem="u64-U9-U8c" firstAttribute="leading" secondItem="wKF-xt-O0w" secondAttribute="leading" constant="20" symbolic="YES" id="33g-sw-z8D"/>
                             <constraint firstAttribute="trailing" secondItem="L07-r1-O24" secondAttribute="trailing" constant="-8" id="6lz-oK-czo"/>
                             <constraint firstAttribute="trailing" secondItem="S2h-I5-904" secondAttribute="trailing" constant="20" symbolic="YES" id="6nC-6g-QzX"/>
                             <constraint firstItem="L07-r1-O24" firstAttribute="bottom" secondItem="YIe-jA-Bx7" secondAttribute="bottom" id="7z4-sh-UHv"/>
                             <constraint firstItem="S2h-I5-904" firstAttribute="leading" secondItem="L07-r1-O24" secondAttribute="leading" id="8Rx-HU-9L8"/>
-                            <constraint firstItem="B3C-w6-mLd" firstAttribute="leading" secondItem="wKF-xt-O0w" secondAttribute="leading" constant="132" id="ANl-5A-b4k"/>
+                            <constraint firstItem="S2h-I5-904" firstAttribute="top" secondItem="sKX-FY-iX6" secondAttribute="bottom" constant="14" id="AKx-If-9lw"/>
                             <constraint firstItem="YIe-jA-Bx7" firstAttribute="leading" secondItem="wKF-xt-O0w" secondAttribute="leading" id="BG1-0g-gK7"/>
-                            <constraint firstItem="Phs-Z4-A1Y" firstAttribute="top" secondItem="B3C-w6-mLd" secondAttribute="bottom" constant="20" symbolic="YES" id="Cd6-hx-t5L"/>
-                            <constraint firstItem="nLh-ZX-NwQ" firstAttribute="bottom" secondItem="sKX-FY-iX6" secondAttribute="bottom" id="DY0-tO-xBb"/>
-                            <constraint firstItem="nLh-ZX-NwQ" firstAttribute="top" secondItem="sKX-FY-iX6" secondAttribute="top" id="DtW-3N-8vm"/>
-                            <constraint firstItem="nLh-ZX-NwQ" firstAttribute="leading" secondItem="u64-U9-U8c" secondAttribute="trailing" constant="14" id="DuL-pd-hS1"/>
+                            <constraint firstItem="L07-r1-O24" firstAttribute="width" secondItem="sKX-FY-iX6" secondAttribute="height" multiplier="16:3" id="EUc-Qw-ucc"/>
                             <constraint firstItem="aP7-PK-QV4" firstAttribute="leading" secondItem="nLh-ZX-NwQ" secondAttribute="trailing" constant="8" symbolic="YES" id="Ipi-m9-boM"/>
+                            <constraint firstItem="aP7-PK-QV4" firstAttribute="top" secondItem="L07-r1-O24" secondAttribute="bottom" constant="26" id="JeD-v8-Rbz"/>
                             <constraint firstAttribute="trailing" secondItem="sKX-FY-iX6" secondAttribute="trailing" constant="83" id="PRS-Pk-Wp8"/>
                             <constraint firstItem="S2h-I5-904" firstAttribute="baseline" secondItem="u64-U9-U8c" secondAttribute="baseline" id="Rwi-oD-Uv1"/>
                             <constraint firstItem="L07-r1-O24" firstAttribute="top" secondItem="Izz-Mz-NUQ" secondAttribute="bottom" constant="1" id="VAL-O7-zcR"/>
                             <constraint firstItem="sKX-FY-iX6" firstAttribute="leading" secondItem="aP7-PK-QV4" secondAttribute="trailing" constant="8" symbolic="YES" id="W52-EX-gh3"/>
-                            <constraint firstItem="S2h-I5-904" firstAttribute="baseline" secondItem="B3C-w6-mLd" secondAttribute="baseline" id="c6P-cZ-dS7"/>
+                            <constraint firstItem="L07-r1-O24" firstAttribute="top" secondItem="Izz-Mz-NUQ" secondAttribute="bottom" constant="1" id="XWi-xe-Aad"/>
+                            <constraint firstItem="sKX-FY-iX6" firstAttribute="top" secondItem="nLh-ZX-NwQ" secondAttribute="top" id="dDr-yH-xpl"/>
+                            <constraint firstItem="L07-r1-O24" firstAttribute="bottom" secondItem="YIe-jA-Bx7" secondAttribute="bottom" id="e1R-La-8eI"/>
                             <constraint firstItem="L07-r1-O24" firstAttribute="leading" secondItem="YIe-jA-Bx7" secondAttribute="trailing" constant="8" symbolic="YES" id="efC-6o-FAZ"/>
                             <constraint firstItem="Phs-Z4-A1Y" firstAttribute="top" secondItem="nLh-ZX-NwQ" secondAttribute="bottom" constant="49" id="fGH-2t-Aqt"/>
-                            <constraint firstItem="nLh-ZX-NwQ" firstAttribute="top" secondItem="YIe-jA-Bx7" secondAttribute="bottom" constant="22" id="mNH-DA-D05"/>
-                            <constraint firstItem="aP7-PK-QV4" firstAttribute="centerX" secondItem="B3C-w6-mLd" secondAttribute="centerX" id="zXs-xx-0kC"/>
+                            <constraint firstItem="S2h-I5-904" firstAttribute="leading" secondItem="u64-U9-U8c" secondAttribute="trailing" constant="8" symbolic="YES" id="jeH-ED-wjw"/>
+                            <constraint firstItem="S2h-I5-904" firstAttribute="top" secondItem="aP7-PK-QV4" secondAttribute="bottom" constant="19" id="nu8-Af-tJ0"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="btk-Fv-vT3"/>
                     <connections>
                         <outlet property="billTableView" destination="YIe-jA-Bx7" id="ddA-4b-obI"/>
-                        <outlet property="doneButton" destination="B3C-w6-mLd" id="uRM-fp-5Ek"/>
                         <outlet property="nextButton" destination="sKX-FY-iX6" id="qSF-cy-D73"/>
                         <outlet property="personLabel" destination="aP7-PK-QV4" id="5DB-e3-e0l"/>
                         <outlet property="personTableView" destination="L07-r1-O24" id="Ssq-Xt-pvY"/>
                         <outlet property="previousButton" destination="nLh-ZX-NwQ" id="UzH-KN-VWe"/>
                         <outlet property="restLabel" destination="u64-U9-U8c" id="4Up-m1-5p3"/>
                         <outlet property="totalLabel" destination="S2h-I5-904" id="T2c-u1-D5X"/>
+                        <segue destination="esd-ri-HKQ" kind="push" identifier="Person Article Overview" id="xBY-Cp-B3l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rP7-Ei-0Le" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -583,44 +567,25 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H5d-SY-w6f">
-                                <rect key="frame" x="137" y="527" width="46" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="f2u-an-dIo"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Fertig">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="disabled" title=".">
-                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="esd-ri-HKQ" kind="push" identifier="Person Article Overview" id="bna-ZT-RXH"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="H5d-SY-w6f" firstAttribute="centerX" secondItem="gzC-IS-bDc" secondAttribute="centerX" id="6gO-pX-ZPw"/>
-                            <constraint firstItem="H5d-SY-w6f" firstAttribute="centerX" secondItem="1hS-Dk-2Jh" secondAttribute="centerX" id="QQw-wL-FtC"/>
-                            <constraint firstItem="mB0-iV-6cG" firstAttribute="top" secondItem="H5d-SY-w6f" secondAttribute="bottom" constant="20" symbolic="YES" id="Skq-OW-D2B"/>
                             <constraint firstItem="gzC-IS-bDc" firstAttribute="leading" secondItem="1hS-Dk-2Jh" secondAttribute="leading" constant="120" id="bEp-mR-0ip"/>
                             <constraint firstItem="gzC-IS-bDc" firstAttribute="top" secondItem="I9Y-KW-QIH" secondAttribute="bottom" constant="180" id="fa1-Sk-gQw"/>
                             <constraint firstItem="gzC-IS-bDc" firstAttribute="centerY" secondItem="1hS-Dk-2Jh" secondAttribute="centerY" id="gqC-yt-KsH"/>
+                            <constraint firstItem="gzC-IS-bDc" firstAttribute="centerX" secondItem="1hS-Dk-2Jh" secondAttribute="centerX" id="oAK-Sk-FrU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="dmn-TF-88E"/>
                     <connections>
                         <outlet property="originalSwipeArticleView" destination="gzC-IS-bDc" id="N8Y-gA-n4l"/>
                         <outlet property="swipeArticleView" destination="gzC-IS-bDc" id="Sjl-we-hi1"/>
+                        <segue destination="esd-ri-HKQ" kind="push" identifier="Person Article Overview" id="4KJ-W3-zoP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dO0-qn-avS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1337" y="768"/>
+            <point key="canvasLocation" x="1307" y="886"/>
         </scene>
         <!--Person Article Collection View Controller-->
         <scene sceneID="tzb-Ev-nIG">
@@ -705,6 +670,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="bna-ZT-RXH"/>
+        <segue reference="xBY-Cp-B3l"/>
     </inferredMetricsTieBreakers>
 </document>
