@@ -9,17 +9,22 @@
 
 #import <Foundation/Foundation.h>
 #import "Item.h"
-
+#import "EditableItem.h"
+//TODO: REFACTOR!!!!
 @interface Bill : NSObject
 @property (nonatomic) NSUInteger idNumber; //identifier
-@property (nonatomic, strong) NSMutableDictionary *items; //of arrays of items
-@property (nonatomic, strong) NSDecimalNumber *total; //total price
+@property (nonatomic, strong) NSMutableArray *editableItems; // of arrays of editable items
+@property (nonatomic, strong) NSDecimalNumber *total; //total price TODO:update this after change Of items
+@property (nonatomic) NSUInteger numOfOwners;
 
-- (id)initWithItems:(NSMutableDictionary*)items andTotalAmount:(NSDecimalNumber*)total;
-- (void)addItem:(Item *)item forId:(id)identifier;
-- (NSMutableArray *)itemsAtId:(id)identifier;
-- (void)removeItem:(Item *)item forId:(id)identifer;
-- (void)addEmptyOwners:(NSInteger)amount;
+- (id)initWithEditableItems:(NSArray *)editableItems;
+
+- (void)addEditableItem:(EditableItem *)editableItem;
+
+- (void)removeEditableItem:(EditableItem *)item;
+
+- (NSMutableDictionary *)itemsAsDictionary;
+
 - (void)reset;
 - (NSString *)totalAsString;
 @end

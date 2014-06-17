@@ -12,44 +12,52 @@
 
 @interface BillRevisionTableViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *billTableView;
-@property (strong, nonatomic) NSMutableArray *editableItems;
+
 
 @end
 
 @implementation BillRevisionTableViewController
 
-- (void)setItems:(NSMutableArray *)positions
+- (void)setEditableItems:(NSMutableArray *)items
 {
-    _items = positions;
-    [self setupEditablePositions];
+    _editableItems = items;
+    //[self setupEditablePositions];
     [self.billTableView reloadData];
 }
 
-- (void)setupEditablePositions
+- (void)willMoveToParentViewController:(UIViewController *)parent
 {
-    NSArray *itemsArray = [NSArray arrayWithArray:self.items];
-    NSMutableDictionary *itemDictionary = [[NSMutableDictionary alloc] init];
-    NSString *name = @"";
-    for (Item *pos in itemsArray) {
-        name = pos.name;
-        
-        //check whether item with name is already in dictionary
-        if ([itemDictionary objectForKey:name]) {
-            EditableItem *positionFromDict = [itemDictionary objectForKey:name];
-            positionFromDict.amount = positionFromDict.amount + 1;
-        } else {
-            EditableItem *newPosition = [[EditableItem alloc] initWithName:name amount:1 andPrice:pos.price];
-            [itemDictionary setObject:newPosition forKey:name];
-        }
-    }
     
-    NSEnumerator *itemEnum = [itemDictionary objectEnumerator];
-    self.editableItems = [NSMutableArray array];
-    EditableItem *nextPos;
-    while (nextPos = [itemEnum nextObject]) {
-        [self.editableItems addObject:nextPos];
+    if (self.parentController) {
+        [self.parentController updateBillWithRevisedItems:self.editableItems];
     }
 }
+
+//- (void)setupEditablePositions
+//{
+//    NSArray *itemsArray = [NSArray arrayWithArray:self.items];
+//    NSMutableDictionary *itemDictionary = [[NSMutableDictionary alloc] init];
+//    NSString *name = @"";
+//    for (Item *pos in itemsArray) {
+//        name = pos.name;
+//        
+//        //check whether item with name is already in dictionary
+//        if ([itemDictionary objectForKey:name]) {
+//            EditableItem *positionFromDict = [itemDictionary objectForKey:name];
+//            positionFromDict.amount = positionFromDict.amount + 1;
+//        } else {
+//            EditableItem *newPosition = [[EditableItem alloc] initWithName:name amount:1 andPrice:pos.price];
+//            [itemDictionary setObject:newPosition forKey:name];
+//        }
+//    }
+//    
+//    NSEnumerator *itemEnum = [itemDictionary objectEnumerator];
+//    self.editableItems = [NSMutableArray array];
+//    EditableItem *nextPos;
+//    while (nextPos = [itemEnum nextObject]) {
+//        [self.editableItems addObject:nextPos];
+//    }
+//}
 
 - (void)updateEditableItem:(EditableItem *)editableItem
 {

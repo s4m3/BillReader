@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "EditableItem.h"
+#import "BillReaderViewController.h"
 
 @interface BillRevisionTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) NSMutableArray * items; //of Items (of Person 0 = no Person)
+@property (strong, nonatomic) NSMutableArray *editableItems; //of EditableItems (of Person 0 = no Person)
+@property (nonatomic, strong) BillReaderViewController *parentController;
 
 - (void)updateEditableItem:(EditableItem *)editableItem;
 @end

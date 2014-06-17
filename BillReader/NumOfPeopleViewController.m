@@ -63,13 +63,13 @@
         // Get destination view
         [self updateItems];
         BillSplitTableViewController *bstvc = [segue destinationViewController];
-        [bstvc setItems:self.bill.items];
+        [bstvc setItems:[self.bill itemsAsDictionary]];
     } else if ([[segue identifier] isEqualToString:@"Show Swipe"]) {
         
         // Get destination view
         [self updateItems];
         BillSplitSwipeViewController *bssvc = [segue destinationViewController];
-        [bssvc setItems:self.bill.items];
+        [bssvc setItems:[self.bill itemsAsDictionary]];
     }
 }
 
@@ -77,7 +77,7 @@
 {
     [self.bill reset];
     long numOfPeople = [self.numOfPeoplePickerView selectedRowInComponent:0] + 1;
-    [self.bill addEmptyOwners:numOfPeople];
+    [self.bill setNumOfOwners:numOfPeople];
     
     
 }

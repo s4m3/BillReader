@@ -9,6 +9,8 @@
 #import "BillReaderViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "Item.h"
+#import "EditableItem.h"
+#import "ViewHelper.h"
 #import "BillSplitTableViewController.h"
 #import "BillSplitSwipeViewController.h"
 #import "NumOfPeopleViewController.h"
@@ -49,6 +51,7 @@
     if (_bill) {
         self.splitButton.enabled = YES;
         self.editingOfBillAllowed = YES;
+        [self updateBillPreviewText];
     }
 
 }
@@ -104,6 +107,13 @@
     }
 }
 
+- (void)updateBillWithRevisedItems:(NSMutableArray *)revisedItems
+{
+    //NSMutableDictionary *updatedItems = [NSMutableDictionary dictionaryWithObject:revisedItems forKey:[NSNumber numberWithInt:0]];
+    [self.bill setEditableItems:revisedItems];
+    [self updateBillPreviewText];
+}
+
 #define NO_PERSON 0
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -113,7 +123,8 @@
         [nopvc setInterfaceNum:[self.interfaceChoiseSegmentedControl selectedSegmentIndex]];
     } else if([[segue identifier] isEqualToString:@"Revise Bill"]) {
         BillRevisionTableViewController *brtvc = [segue destinationViewController];
-        [brtvc setItems:[self.bill itemsAtId:[NSNumber numberWithInt:NO_PERSON]]];
+        [brtvc setEditableItems:[self.bill editableItems]];
+        brtvc.parentController = self;
     }
 }
 
@@ -233,11 +244,6 @@
 /////// end referenz
 
 
-- (NSMutableDictionary *)latestItems
-{
-    return self.bill.items;
-}
-
 ////// EXAMPLE PICTURE (delete in the end, also at image action sheet)
 
 - (void)setupExamplePicture
@@ -248,7 +254,7 @@
 
 - (Bill *)tempUseTestData
 {
-    NSDecimalNumber *testTotal = [[NSDecimalNumber alloc] initWithInt:100];
+//    NSDecimalNumber *testTotal = [[NSDecimalNumber alloc] initWithInt:100];
     NSDecimalNumber *staropramenPrice = [[NSDecimalNumber alloc] initWithFloat:3.5];
     NSDecimalNumber *krombacherPrice = [[NSDecimalNumber alloc] initWithFloat:3.5];
     NSDecimalNumber *hefeDunkelPrice = [[NSDecimalNumber alloc] initWithFloat:3.5];
@@ -257,30 +263,36 @@
 
 
     
-    Item *staro1 = [[Item alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
-    Item *staro2 = [[Item alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
-    Item *staro3 = [[Item alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
-    Item *staro4 = [[Item alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
-    Item *staro5 = [[Item alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
+    EditableItem *staro = [[EditableItem alloc] initWithName:@"Staropramen 0,5l" amount:5 andPrice:staropramenPrice];
+    EditableItem *krom = [[EditableItem alloc] initWithName:@"Krombacher 0,5l" amount:1 andPrice:krombacherPrice];
+    EditableItem *hefe = [[EditableItem alloc] initWithName:@"Hefe dunkel" amount:1 andPrice:hefeDunkelPrice];
+    EditableItem *johnny = [[EditableItem alloc] initWithName:@"Johnny Walker Red Label" amount:1 andPrice:johnnyWalkerPrice];
+    EditableItem *tortilla = [[EditableItem alloc] initWithName:@"Tortillachips Cheesedip" amount:2 andPrice:tortillaPrice];
+                           //initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
+//    Item *staro2 = [[Item alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
+//    Item *staro3 = [[Item alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
+//    Item *staro4 = [[Item alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
+//    Item *staro5 = [[Item alloc] initTempWithTestData:@"Staropramen 0,5l" belongsToId:NO_PERSON andPrice:staropramenPrice];
     
-    Item *krom1 = [[Item alloc] initTempWithTestData:@"Krombacher 0,5l" belongsToId:NO_PERSON andPrice:krombacherPrice];
+//    Item *krom1 = [[Item alloc] initTempWithTestData:@"Krombacher 0,5l" belongsToId:NO_PERSON andPrice:krombacherPrice];
     
-    Item *hefe1 = [[Item alloc] initTempWithTestData:@"Hefe dunkel" belongsToId:NO_PERSON andPrice:hefeDunkelPrice];
+//    Item *hefe1 = [[Item alloc] initTempWithTestData:@"Hefe dunkel" belongsToId:NO_PERSON andPrice:hefeDunkelPrice];
     
-    Item *johnny1 = [[Item alloc] initTempWithTestData:@"Johnny Walker Red Label" belongsToId:NO_PERSON andPrice:johnnyWalkerPrice];
+//    Item *johnny1 = [[Item alloc] initTempWithTestData:@"Johnny Walker Red Label" belongsToId:NO_PERSON andPrice:johnnyWalkerPrice];
     
-    Item *tortilla1 = [[Item alloc] initTempWithTestData:@"Tortillachips Cheesedip" belongsToId:NO_PERSON andPrice:tortillaPrice];
-    Item *tortilla2 = [[Item alloc] initTempWithTestData:@"Tortillachips Cheesedip" belongsToId:NO_PERSON andPrice:tortillaPrice];
+//    Item *tortilla1 = [[Item alloc] initTempWithTestData:@"Tortillachips Cheesedip" belongsToId:NO_PERSON andPrice:tortillaPrice];
+//    Item *tortilla2 = [[Item alloc] initTempWithTestData:@"Tortillachips Cheesedip" belongsToId:NO_PERSON andPrice:tortillaPrice];
 
     
-    NSArray *objects = [[NSArray alloc] initWithObjects: staro1, staro2, staro3, staro4, staro5, krom1, hefe1, johnny1, tortilla1, tortilla2, nil];
-    NSMutableDictionary *testItems = [[NSMutableDictionary alloc] init];
+    NSArray *items = [[NSArray alloc] initWithObjects: staro, krom, hefe, johnny, tortilla, nil];
+    //NSMutableDictionary *testItems = [[NSMutableDictionary alloc] init];
     
     //NSMutableArray *emptyObjectsForKey1 = [[NSMutableArray alloc] init];
-    [testItems setObject:objects forKey:[NSNumber numberWithInt:0]];
+    //[testItems setObject:objects forKey:[NSNumber numberWithInt:0]];
     //[testPositions setObject:emptyObjectsForKey1 forKey:[NSNumber numberWithInt:1]];
     
-    Bill *testBill = [[Bill alloc] initWithItems:testItems andTotalAmount:testTotal];
+    //Bill *testBill = [[Bill alloc] initWithItems:testItems andTotalAmount:testTotal];
+    Bill *testBill = [[Bill alloc] initWithEditableItems:items];
     
     return testBill;
 }
@@ -354,6 +366,54 @@
     tesseract = nil;
     [self performSelectorOnMainThread:@selector(setLoaderProgress:) withObject:[NSNumber numberWithFloat:1.0] waitUntilDone:NO];
     
+    
+}
+
+//TODO: maybe let other object take care of this. this is a little bit copy pasted code from ItemEditingViewController
+- (void)updateBillPreviewText
+{
+    NSLog(@"updating bill preview text");
+    //self.billPreviewText.text =
+    //NSString *newTextBill = @"Rechnung: \n";
+    //NSString *newTextTotals = @"Totals \n\n";
+    NSString *appendingStringBill = @"Rechnung: \n";
+    //NSString *appendingStringTotals;
+    NSDecimalNumber *currentTotal;
+    NSArray *items = [self.bill editableItems];
+    
+    for (EditableItem *currentItem in items) {
+        appendingStringBill = [appendingStringBill stringByAppendingString:[NSString stringWithFormat:@"%lu✕%@ (à %@€) - ",
+                               (unsigned long)currentItem.amount,
+                               currentItem.name,
+                               currentItem.priceAsString]];
+        currentTotal = [currentItem.price decimalNumberByMultiplyingBy:[ViewHelper transformLongToDecimalNumber:currentItem.amount]];
+        appendingStringBill = [appendingStringBill stringByAppendingString:[NSString stringWithFormat:@"%@€ \n", [ViewHelper transformDecimalToString:currentTotal]]];
+    }
+    
+    NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+
+    [paragraphStyle setAlignment:NSTextAlignmentLeft];
+    [paragraphStyle setLineSpacing:4];
+    [attributes setObject:paragraphStyle forKey:NSParagraphStyleAttributeName];
+    
+    UIFont *titleFont = [UIFont systemFontOfSize:10];
+    [attributes setObject:titleFont forKey:NSFontAttributeName];
+    
+    UIColor *color = [UIColor colorWithWhite:0.2 alpha:1];
+    [attributes setObject:color forKey:NSForegroundColorAttributeName];
+
+    
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:appendingStringBill attributes:attributes];
+    self.billPreviewText.attributedText = attributedString;
+    //self.completeBillTextView.attributedText = [self generateBillText];
+    //self.completeBillTotalsTextView.attributedText = [self generateTotalText];
+}
+
+- (void)updateCompleteBillTextView
+{
+
     
 }
 
