@@ -15,8 +15,9 @@
 #import "BillSplitSwipeViewController.h"
 #import "NumOfPeopleViewController.h"
 #import "BillRevisionTableViewController.h"
+#import "DETAnimatedTransitioning.h"
 
-@interface BillReaderViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface BillReaderViewController () <UIImagePickerControllerDelegate, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *splitButton;
 
@@ -130,10 +131,48 @@
         [nopvc setInterfaceNum:[self.interfaceChoiseSegmentedControl selectedSegmentIndex]];
     } else if([[segue identifier] isEqualToString:@"Revise Bill"]) {
         BillRevisionTableViewController *brtvc = [segue destinationViewController];
+        self.navigationController.delegate = self;
+        brtvc.transitioningDelegate = self;
         [brtvc setEditableItems:[self.bill editableItems]];
         brtvc.parentController = self;
     }
 }
+
+//- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
+//{
+//    NSLog(@"animationControllerForPresentedController called");
+//    DETAnimatedTransitioning *transitioning = [DETAnimatedTransitioning new];
+//    return transitioning;
+//}
+//
+//
+//- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+//{
+//    NSLog(@"animationControllerForDismissedController called");
+//    DETAnimatedTransitioning *transitioning = [DETAnimatedTransitioning new];
+//    transitioning.reverse = YES;
+//    return transitioning;
+//}
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC
+{
+//    NSLog(@"navi: %@", [navigationController description]);
+//    NSLog(@"operation: %d", operation);
+//    NSLog(@"from vc: %@", [fromVC description]);
+//    NSLog(@"to vc: %@", [toVC description]);
+    if ([toVC isKindOfClass:[BillRevisionTableViewController class]] && [fromVC isKindOfClass:[BillReaderViewController class]]) {
+        DETAnimatedTransitioning *transitioning = [DETAnimatedTransitioning new];
+        transitioning.transitionCenterPoint = [self billPreviewText].center;
+        return transitioning;
+    } else if ([fromVC isKindOfClass:[BillRevisionTableViewController class]] && [toVC isKindOfClass:[BillReaderViewController class]] && operation == UINavigationControllerOperationPop) {
+        DETAnimatedTransitioning *transitioning = [DETAnimatedTransitioning new];
+        transitioning.transitionCenterPoint = [self billPreviewText].center;
+        transitioning.reverse = YES;
+        return transitioning;
+    }
+    return nil;
+}
+
 
 #define NEW_PHOTO @"Neues Photo"
 #define PICTURE_FROM_GALLERY @"Bild aus Galerie"
@@ -157,8 +196,7 @@
     if ([menuItem isEqualToString:NEW_PHOTO]) {
         [self prepareToTakePicture];
     } else if ([menuItem isEqualToString:PICTURE_FROM_GALLERY]) {
-        //TODO: go to galery and pick image
-        NSLog(@"get gallery picture");
+        [self choosePhotoFromPhotoLibrary];
     } else if ([menuItem isEqualToString:EXAMPLE_PICTURE_WITH_DATA]) {
         [self setupExamplePicture];
     }
@@ -171,7 +209,7 @@
         [self takePicture];
     }
 }
-//////////Referenz: iOS 7 Programming Cookbook pp 627 - 635 (but modified)
+//////////Referenz: iOS 7 Programming Cookbook pp 627 - 635 + 647f (but modified)
 - (BOOL)isCameraAvailable
 {
     return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
@@ -205,6 +243,33 @@
     return result;
 }
 
+- (BOOL)isPhotoLibraryAvailable
+{
+    return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary];
+}
+
+- (BOOL)canUserPickPhotosFromPhotoLibrary
+{
+    return [self cameraSupportsMedia:(__bridge NSString *)kUTTypeImage sourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+}
+
+- (void)choosePhotoFromPhotoLibrary
+{
+    if([self isPhotoLibraryAvailable]) {
+        UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+        controller.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        
+        NSMutableArray *mediaTypes = [[NSMutableArray alloc] init];
+        if ([self canUserPickPhotosFromPhotoLibrary]) {
+            [mediaTypes addObject:(__bridge NSString *)kUTTypeImage];
+        }
+        
+        controller.mediaTypes = mediaTypes;
+        controller.delegate = self;
+        [self presentViewController:controller animated:YES completion:nil];
+    }
+}
+
 - (void)takePicture
 {
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
@@ -215,6 +280,7 @@
     imagePickerController.delegate = self;
     
     [self presentViewController:imagePickerController animated:YES completion:nil];
+    
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -234,7 +300,12 @@
         NSLog(@"Image = %@", theImage);
         NSLog(@"Edited Image = %@", editedImage);
         
-        self.billImage = editedImage;
+        if (editedImage) {
+            self.billImage = editedImage;
+        } else {
+            self.billImage = theImage;
+        }
+        
     }
     
     [picker dismissViewControllerAnimated:YES completion:nil];

@@ -46,7 +46,7 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Article List" forIndexPath:indexPath];
     if([cell isKindOfClass:[ArticleListCollectionViewCell class]]) {
         ArticleListTextView *view = ((ArticleListCollectionViewCell *) cell).articleListTextView;
-        view.name = [NSString stringWithFormat:@"Person %ld", (indexPath.row + 1)];
+        view.name = [NSString stringWithFormat:@"Person %d", (indexPath.row + 1)];
         view.color = self.colors[indexPath.row];
         view.positions = [[self.items objectForKey:[NSNumber numberWithInt:(indexPath.row + 1.0)]] copy];
         

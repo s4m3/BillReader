@@ -17,6 +17,7 @@
 		F42EC84E1934AB33009798B5 /* BillSplitSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F42EC84D1934AB33009798B5 /* BillSplitSwipeViewController.m */; };
 		F42EC8541934ACB5009798B5 /* SwipeArticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F42EC8531934ACB5009798B5 /* SwipeArticleView.m */; };
 		F42EC8571934B0C6009798B5 /* BillSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F42EC8561934B0C6009798B5 /* BillSplitViewController.m */; };
+		F4311EA919583F5800B6332A /* DETAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = F4311EA819583F5800B6332A /* DETAnimatedTransitioning.m */; };
 		F4DE2A651932042A0043CCE2 /* NumOfPeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */; };
 		F4DE2A68193347BA0043CCE2 /* PersonArticleCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A67193347BA0043CCE2 /* PersonArticleCollectionViewController.m */; };
 		F4DE2A6B19336FAE0043CCE2 /* ArticleListTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A6A19336FAE0043CCE2 /* ArticleListTextView.m */; };
@@ -77,6 +78,8 @@
 		F42EC8531934ACB5009798B5 /* SwipeArticleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeArticleView.m; sourceTree = "<group>"; };
 		F42EC8551934B0C6009798B5 /* BillSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillSplitViewController.h; sourceTree = "<group>"; };
 		F42EC8561934B0C6009798B5 /* BillSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillSplitViewController.m; sourceTree = "<group>"; };
+		F4311EA719583F5800B6332A /* DETAnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DETAnimatedTransitioning.h; sourceTree = "<group>"; };
+		F4311EA819583F5800B6332A /* DETAnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DETAnimatedTransitioning.m; sourceTree = "<group>"; };
 		F4DE2A631932042A0043CCE2 /* NumOfPeopleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumOfPeopleViewController.h; sourceTree = "<group>"; };
 		F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumOfPeopleViewController.m; sourceTree = "<group>"; };
 		F4DE2A66193347BA0043CCE2 /* PersonArticleCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonArticleCollectionViewController.h; sourceTree = "<group>"; };
@@ -174,6 +177,8 @@
 		F42EC85A1934B17D009798B5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F4311EA719583F5800B6332A /* DETAnimatedTransitioning.h */,
+				F4311EA819583F5800B6332A /* DETAnimatedTransitioning.m */,
 				F40798A0194B1A1500CCCC88 /* ViewHelper.h */,
 				F40798A1194B1A1500CCCC88 /* ViewHelper.m */,
 				F421B4DA193C71F20004FB6E /* PersonCircleView.h */,
@@ -394,6 +399,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4311EA919583F5800B6332A /* DETAnimatedTransitioning.m in Sources */,
 				F4DE2A6B19336FAE0043CCE2 /* ArticleListTextView.m in Sources */,
 				F421B4DC193C71F20004FB6E /* PersonCircleView.m in Sources */,
 				F42EC8571934B0C6009798B5 /* BillSplitViewController.m in Sources */,
