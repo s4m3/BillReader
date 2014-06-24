@@ -33,6 +33,8 @@
 @property (nonatomic) BOOL imageProcessingRequired;
 @property (nonatomic) BOOL editingOfBillAllowed;
 
+@property (nonatomic, strong) Bill *loadedBill;
+
 @end
 
 @implementation BillReaderViewController
@@ -367,7 +369,7 @@
     NSMutableArray *recognizedTextArray = [NSMutableArray array];
     
     NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\d EU"
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(€ )?\\d+[\\,,\\.]\\d+( €)?$"
                                                                            options:NSRegularExpressionCaseInsensitive
                                                                              error:&error];
     
@@ -388,29 +390,73 @@
     //print array
     int iter = 0;
     for(NSString *obj in recognizedTextArray) {
-        NSLog(@"%i: %@", iter++, obj);
+        NSLog(@"pos %i: %@", iter++, obj);
+    }
+    
+    NSMutableArray *items = [[NSMutableArray alloc] init];
+    
+    NSRegularExpression *price = [NSRegularExpression regularExpressionWithPattern:@"\\d+[\\,,\\.]\\d+( €)?$"
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
+    
+    
+    //find items
+    NSRegularExpression *positionRegex = [NSRegularExpression regularExpressionWithPattern:@"(mwst|bar|total)"
+                                                                              options:NSRegularExpressionCaseInsensitive
+                                                                                error:&error];
+    
+    for (NSString *posString in recognizedTextArray) {
+        NSUInteger positionMatchNumberWithNoMWST = [positionRegex numberOfMatchesInString:posString
+                                                               options:0
+                                                                 range:NSMakeRange(0, [posString length])];
+        //if string does not contain "mwst"
+        if (positionMatchNumberWithNoMWST == 0) {
+            NSRange rangeOfFirstMatch = [price rangeOfFirstMatchInString:posString options:0 range:NSMakeRange(0, [posString length])];
+            if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))) {
+                NSString *priceSubstring = [posString substringWithRange:rangeOfFirstMatch];
+                NSDictionary    *l = [NSDictionary dictionaryWithObject:@"," forKey:NSLocaleDecimalSeparator];
+                NSDecimalNumber *total = [[NSDecimalNumber alloc] initWithString:priceSubstring locale:l];
+                
+                NSString *itemName = [posString substringWithRange:NSMakeRange(0, rangeOfFirstMatch.location)];
+                EditableItem *item = [[EditableItem alloc] initWithName:itemName amount:1 andPrice:total];
+                [items addObject:item];
+            }
+
+        }
     }
     
     //find total amount and print it out
     NSString *totalAmountString = nil;
-    NSRegularExpression *barRegex = [NSRegularExpression regularExpressionWithPattern:@"Bar"
+    NSRegularExpression *barRegex = [NSRegularExpression regularExpressionWithPattern:@"(bar|total|euro)"
                                                                               options:NSRegularExpressionCaseInsensitive
                                                                                 error:&error];
+    
+
+    
     for(NSString *billString in recognizedTextArray) {
         NSUInteger numberOfMatches = [barRegex numberOfMatchesInString:billString
                                                                options:0
                                                                  range:NSMakeRange(0, [billString length])];
         if(numberOfMatches > 0) {
             NSLog(@"bar: %@", billString);
-            totalAmountString = [self getSubstring:billString betweenString:@" "];
-            NSLog(@"%@", totalAmountString);
-            NSDictionary    *l = [NSDictionary dictionaryWithObject:@"," forKey:NSLocaleDecimalSeparator];
-            NSDecimalNumber *total = [[NSDecimalNumber alloc] initWithString:totalAmountString locale:l];
-            NSLog(@"total in decimal: %@", total);
+            NSRange rangeOfFirstMatch = [price rangeOfFirstMatchInString:billString options:0 range:NSMakeRange(0, [billString length])];
+            if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))) {
+                NSString *priceSubstring = [billString substringWithRange:rangeOfFirstMatch];
+                totalAmountString = priceSubstring;
+                NSLog(@"%@", totalAmountString);
+                NSDictionary    *l = [NSDictionary dictionaryWithObject:@"," forKey:NSLocaleDecimalSeparator];
+                NSDecimalNumber *total = [[NSDecimalNumber alloc] initWithString:totalAmountString locale:l];
+                NSLog(@"total in decimal: %@", [ViewHelper transformDecimalToString:total]);
+            }
+            
+
             
             //TEST NSLog(@"%@", [total decimalNumberBySubtracting:[[NSDecimalNumber alloc] initWithString:totalAmountString]]);
         }
     }
+    
+    //if all is evaluated
+    self.loadedBill = [[Bill alloc] initWithEditableItems:items];
     
     tesseract = nil;
     [self performSelectorOnMainThread:@selector(setLoaderProgress:) withObject:[NSNumber numberWithFloat:1.0] waitUntilDone:NO];
@@ -558,7 +604,7 @@
 - (BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract*)tesseract
 {
     NSNumber *progress = [NSNumber numberWithFloat:(tesseract.progress / 100.0)];
-    NSLog(@"progress: %d", tesseract.progress);
+    //NSLog(@"progress: %d", tesseract.progress);
     
     [self performSelectorOnMainThread:@selector(setLoaderProgress:) withObject:progress waitUntilDone:NO];
     return NO;  // return YES, if you need to interrupt tesseract before it finishes
@@ -566,14 +612,14 @@
 
 - (void)setLoaderProgress:(NSNumber *)progress
 {
-     NSLog(@"updating progress: %@", progress);
+     //NSLog(@"updating progress: %@", progress);
     [self.billRecognitionProgressBar setProgress:[progress floatValue] animated:YES];
     
     if ([progress floatValue] >= 1.0) {
         //TODO: proper setting of preview Text
         self.billRecognitionProgressBar.hidden = YES;
         self.imageProcessingRequired = NO;
-        self.billPreviewText.text = @"Rechnung geladen. Folgende Positionen....";
+        self.bill = self.loadedBill;
     }
 }
 

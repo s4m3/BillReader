@@ -9,6 +9,7 @@
 #import "NumOfPeopleViewController.h"
 #import "BillSplitTableViewController.h"
 #import "BillSplitSwipeViewController.h"
+#import "BillSplitCollectionViewController.h"
 
 @interface NumOfPeopleViewController ()
 @property (weak, nonatomic) IBOutlet UIPickerView *numOfPeoplePickerView;
@@ -49,7 +50,7 @@
             [self performSegueWithIdentifier:@"Show Table" sender:sender];
             break;
         case 1:
-            
+            [self performSegueWithIdentifier:@"Show Collection" sender:sender];
             break;
         case 2:
             [self performSegueWithIdentifier:@"Show Swipe" sender:sender];
@@ -75,6 +76,17 @@
         [self updateItems];
         BillSplitSwipeViewController *bssvc = [segue destinationViewController];
         [bssvc setItems:[self.bill itemsAsDictionary]];
+    } else if ([[segue identifier] isEqualToString:@"Show Collection"]) {
+        [self updateItems];
+        BillSplitCollectionViewController *bscvc = [segue destinationViewController];
+        [bscvc setItems:[self.bill itemsAsDictionary]];
+        NSMutableDictionary *itemSections = [[NSMutableDictionary alloc] init];
+        for (EditableItem *editableItem in self.bill.editableItems) {
+            [itemSections setObject:[NSNumber numberWithLong:editableItem.amount] forKey:editableItem.name];
+        }
+        [bscvc setItemSections:[itemSections copy]];
+        
+        [bscvc setEditableItems:self.bill.editableItems];
     }
 }
 

@@ -1,13 +1,13 @@
 //
-//  ArticleListTextView.h
+//  ArticleListTableView.h
 //  BillReader
 //
-//  Created by Simon Mary on 26.05.14.
+//  Created by Simon Mary on 24.06.14.
 //  Copyright (c) 2014 Simon Mary. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ArticleListTextView : UITextView
+@interface ArticleListTableView : UITableView
 
 @end

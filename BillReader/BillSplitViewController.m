@@ -8,6 +8,7 @@
 
 #import "BillSplitViewController.h"
 #import "PersonArticleCollectionViewController.h"
+#import "PersonArticleTableViewController.h"
 
 @interface BillSplitViewController ()
 
@@ -59,11 +60,16 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if([[segue identifier] isEqualToString:@"Person Article Overview"]) {
-        PersonArticleCollectionViewController *pacvc = [segue destinationViewController];
-        [pacvc setColors:[self.colors copy]];
-        [pacvc setItems:[self.items copy]];
-        
+//    if([[segue identifier] isEqualToString:@"Person Article Overview"]) {
+//        PersonArticleCollectionViewController *pacvc = [segue destinationViewController];
+//        [pacvc setColors:[self.colors copy]];
+//        [pacvc setItems:[self.items copy]];
+//        
+//    }
+    if ([[segue identifier] isEqualToString:@"Person Article Overview"]) {
+        PersonArticleTableViewController *patvc = [segue destinationViewController];
+        [patvc setColors:[self.colors copy]];
+        [patvc setItems:[self.items copy]];
     }
 }
 

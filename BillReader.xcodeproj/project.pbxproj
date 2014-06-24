@@ -18,6 +18,12 @@
 		F42EC8541934ACB5009798B5 /* SwipeArticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F42EC8531934ACB5009798B5 /* SwipeArticleView.m */; };
 		F42EC8571934B0C6009798B5 /* BillSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F42EC8561934B0C6009798B5 /* BillSplitViewController.m */; };
 		F4311EA919583F5800B6332A /* DETAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = F4311EA819583F5800B6332A /* DETAnimatedTransitioning.m */; };
+		F4311EAF195963D600B6332A /* PersonArticleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4311EAE195963D600B6332A /* PersonArticleTableViewController.m */; };
+		F4311EB219596BBB00B6332A /* ArticleListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4311EB119596BBB00B6332A /* ArticleListTableViewCell.m */; };
+		F4311EB5195970F800B6332A /* ArticleListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4311EB4195970F800B6332A /* ArticleListTableView.m */; };
+		F4311EB81959C2A800B6332A /* BillSplitCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4311EB71959C2A800B6332A /* BillSplitCollectionViewController.m */; };
+		F4311EBB1959D0DD00B6332A /* ItemSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F4311EBA1959D0DD00B6332A /* ItemSectionHeader.m */; };
+		F4311EBE1959E02900B6332A /* ItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4311EBD1959E02900B6332A /* ItemCollectionViewCell.m */; };
 		F4DE2A651932042A0043CCE2 /* NumOfPeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */; };
 		F4DE2A68193347BA0043CCE2 /* PersonArticleCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A67193347BA0043CCE2 /* PersonArticleCollectionViewController.m */; };
 		F4DE2A6B19336FAE0043CCE2 /* ArticleListTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A6A19336FAE0043CCE2 /* ArticleListTextView.m */; };
@@ -80,6 +86,18 @@
 		F42EC8561934B0C6009798B5 /* BillSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillSplitViewController.m; sourceTree = "<group>"; };
 		F4311EA719583F5800B6332A /* DETAnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DETAnimatedTransitioning.h; sourceTree = "<group>"; };
 		F4311EA819583F5800B6332A /* DETAnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DETAnimatedTransitioning.m; sourceTree = "<group>"; };
+		F4311EAD195963D600B6332A /* PersonArticleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonArticleTableViewController.h; sourceTree = "<group>"; };
+		F4311EAE195963D600B6332A /* PersonArticleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonArticleTableViewController.m; sourceTree = "<group>"; };
+		F4311EB019596BBA00B6332A /* ArticleListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleListTableViewCell.h; sourceTree = "<group>"; };
+		F4311EB119596BBB00B6332A /* ArticleListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleListTableViewCell.m; sourceTree = "<group>"; };
+		F4311EB3195970F800B6332A /* ArticleListTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleListTableView.h; sourceTree = "<group>"; };
+		F4311EB4195970F800B6332A /* ArticleListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleListTableView.m; sourceTree = "<group>"; };
+		F4311EB61959C2A800B6332A /* BillSplitCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillSplitCollectionViewController.h; sourceTree = "<group>"; };
+		F4311EB71959C2A800B6332A /* BillSplitCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillSplitCollectionViewController.m; sourceTree = "<group>"; };
+		F4311EB91959D0DD00B6332A /* ItemSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemSectionHeader.h; sourceTree = "<group>"; };
+		F4311EBA1959D0DD00B6332A /* ItemSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemSectionHeader.m; sourceTree = "<group>"; };
+		F4311EBC1959E02900B6332A /* ItemCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemCollectionViewCell.h; sourceTree = "<group>"; };
+		F4311EBD1959E02900B6332A /* ItemCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemCollectionViewCell.m; sourceTree = "<group>"; };
 		F4DE2A631932042A0043CCE2 /* NumOfPeopleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumOfPeopleViewController.h; sourceTree = "<group>"; };
 		F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumOfPeopleViewController.m; sourceTree = "<group>"; };
 		F4DE2A66193347BA0043CCE2 /* PersonArticleCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonArticleCollectionViewController.h; sourceTree = "<group>"; };
@@ -158,6 +176,8 @@
 				F407989E1949DC7E00CCCC88 /* ItemEditingViewController.m */,
 				F40798971949B70900CCCC88 /* BillRevisionTableViewController.h */,
 				F40798981949B70900CCCC88 /* BillRevisionTableViewController.m */,
+				F4311EAD195963D600B6332A /* PersonArticleTableViewController.h */,
+				F4311EAE195963D600B6332A /* PersonArticleTableViewController.m */,
 				F4DE2A66193347BA0043CCE2 /* PersonArticleCollectionViewController.h */,
 				F4DE2A67193347BA0043CCE2 /* PersonArticleCollectionViewController.m */,
 				F4DE2A631932042A0043CCE2 /* NumOfPeopleViewController.h */,
@@ -166,6 +186,8 @@
 				F42EC84D1934AB33009798B5 /* BillSplitSwipeViewController.m */,
 				F4E775CB191F9B270036FEB5 /* BillSplitTableViewController.h */,
 				F4E775CC191F9B270036FEB5 /* BillSplitTableViewController.m */,
+				F4311EB61959C2A800B6332A /* BillSplitCollectionViewController.h */,
+				F4311EB71959C2A800B6332A /* BillSplitCollectionViewController.m */,
 				F42EC8551934B0C6009798B5 /* BillSplitViewController.h */,
 				F42EC8561934B0C6009798B5 /* BillSplitViewController.m */,
 				F4F266821915134E001D0F93 /* BillReaderViewController.h */,
@@ -177,6 +199,10 @@
 		F42EC85A1934B17D009798B5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F4311EBC1959E02900B6332A /* ItemCollectionViewCell.h */,
+				F4311EBD1959E02900B6332A /* ItemCollectionViewCell.m */,
+				F4311EB91959D0DD00B6332A /* ItemSectionHeader.h */,
+				F4311EBA1959D0DD00B6332A /* ItemSectionHeader.m */,
 				F4311EA719583F5800B6332A /* DETAnimatedTransitioning.h */,
 				F4311EA819583F5800B6332A /* DETAnimatedTransitioning.m */,
 				F40798A0194B1A1500CCCC88 /* ViewHelper.h */,
@@ -187,8 +213,12 @@
 				F42EC8531934ACB5009798B5 /* SwipeArticleView.m */,
 				F4DE2A6F193370E40043CCE2 /* ArticleListCollectionViewCell.h */,
 				F4DE2A70193370E40043CCE2 /* ArticleListCollectionViewCell.m */,
+				F4311EB019596BBA00B6332A /* ArticleListTableViewCell.h */,
+				F4311EB119596BBB00B6332A /* ArticleListTableViewCell.m */,
 				F4DE2A6919336FAE0043CCE2 /* ArticleListTextView.h */,
 				F4DE2A6A19336FAE0043CCE2 /* ArticleListTextView.m */,
+				F4311EB3195970F800B6332A /* ArticleListTableView.h */,
+				F4311EB4195970F800B6332A /* ArticleListTableView.m */,
 				F4E775DA191FCFAB0036FEB5 /* PersonTableView.h */,
 				F4E775DB191FCFAB0036FEB5 /* PersonTableView.m */,
 				F4E775D7191FCF8E0036FEB5 /* BillTableView.h */,
@@ -400,15 +430,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4311EA919583F5800B6332A /* DETAnimatedTransitioning.m in Sources */,
+				F4311EBB1959D0DD00B6332A /* ItemSectionHeader.m in Sources */,
 				F4DE2A6B19336FAE0043CCE2 /* ArticleListTextView.m in Sources */,
 				F421B4DC193C71F20004FB6E /* PersonCircleView.m in Sources */,
+				F4311EBE1959E02900B6332A /* ItemCollectionViewCell.m in Sources */,
 				F42EC8571934B0C6009798B5 /* BillSplitViewController.m in Sources */,
+				F4311EB219596BBB00B6332A /* ArticleListTableViewCell.m in Sources */,
 				F4E775C71919430F0036FEB5 /* Bill.m in Sources */,
+				F4311EAF195963D600B6332A /* PersonArticleTableViewController.m in Sources */,
 				F42EC8541934ACB5009798B5 /* SwipeArticleView.m in Sources */,
 				F40798991949B70900CCCC88 /* BillRevisionTableViewController.m in Sources */,
 				F4DE2A651932042A0043CCE2 /* NumOfPeopleViewController.m in Sources */,
 				F4E775CD191F9B270036FEB5 /* BillSplitTableViewController.m in Sources */,
 				F4F2667B1915134E001D0F93 /* BillReaderAppDelegate.m in Sources */,
+				F4311EB5195970F800B6332A /* ArticleListTableView.m in Sources */,
 				F4DE2A71193370E40043CCE2 /* ArticleListCollectionViewCell.m in Sources */,
 				F40798A2194B1A1500CCCC88 /* ViewHelper.m in Sources */,
 				F4F266771915134E001D0F93 /* main.m in Sources */,
@@ -418,6 +453,7 @@
 				F407989F1949DC7E00CCCC88 /* ItemEditingViewController.m in Sources */,
 				F407989C1949CF0F00CCCC88 /* EditableItem.m in Sources */,
 				F4E775CA19194B140036FEB5 /* Item.m in Sources */,
+				F4311EB81959C2A800B6332A /* BillSplitCollectionViewController.m in Sources */,
 				F4E775DC191FCFAB0036FEB5 /* PersonTableView.m in Sources */,
 				F4E775D9191FCF8E0036FEB5 /* BillTableView.m in Sources */,
 			);
