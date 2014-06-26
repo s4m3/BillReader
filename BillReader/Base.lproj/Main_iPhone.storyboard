@@ -610,6 +610,7 @@
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="nextButtonAction:" destination="LuX-G9-87m" eventType="touchUpInside" id="hxu-s3-Iso"/>
                                     <action selector="nextPersonAction:" destination="nfq-bP-b3O" eventType="touchUpInside" id="JDS-Li-82J"/>
                                 </connections>
                             </button>
@@ -625,6 +626,7 @@
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="previousButtonAction:" destination="LuX-G9-87m" eventType="touchUpInside" id="HZP-Ca-6ch"/>
                                     <action selector="previousPersonAction:" destination="nfq-bP-b3O" eventType="touchUpInside" id="RSI-4F-dwS"/>
                                 </connections>
                             </button>
@@ -711,6 +713,9 @@
                     <navigationItem key="navigationItem" id="Mh9-8P-5FM"/>
                     <connections>
                         <outlet property="collectionView" destination="THS-p7-pmP" id="EyI-C2-oiy"/>
+                        <outlet property="nextButton" destination="IfC-Y6-ty0" id="HdK-bc-JVD"/>
+                        <outlet property="personLabel" destination="CXu-IO-hs1" id="WcR-J7-NTy"/>
+                        <outlet property="previousButton" destination="Qr2-m4-iwC" id="MAC-sx-X0I"/>
                         <segue destination="vF4-XO-Mxx" kind="push" identifier="Person Article Overview" id="eCU-1m-z75"/>
                     </connections>
                 </viewController>

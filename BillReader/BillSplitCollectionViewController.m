@@ -16,6 +16,12 @@
 //@property (nonatomic, strong) NSArray *sectionTitles;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
+@property (nonatomic, strong) NSMutableArray *selectedIndexPaths;
+
+@property (weak, nonatomic) IBOutlet UIButton *previousButton;
+@property (weak, nonatomic) IBOutlet UIButton *nextButton;
+@property (weak, nonatomic) IBOutlet UILabel *personLabel;
+
 
 @end
 
@@ -67,17 +73,17 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //TODO: fix, the color change does not work! maybe set what index is colored and in cellForItem... set color according to indexes
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    if ([cell isKindOfClass:[ItemCollectionViewCell class]]) {
-        ItemCollectionViewCell *itemCollectionViewCell = (ItemCollectionViewCell *) cell;
-        itemCollectionViewCell.layer.backgroundColor   = [UIColor clearColor].CGColor;
-        itemCollectionViewCell.contentView.layer.backgroundColor = ((UIColor *)self.colors[self.personId - 1]).CGColor;
-        itemCollectionViewCell.backgroundColor = self.colors[self.personId - 1];
-        itemCollectionViewCell.layer.shouldRasterize = YES;
-        
-        itemCollectionViewCell.cellView.backgroundColor = [UIColor blackColor];
-    }
+    [self addOrRemoveSelectedIndexPath:indexPath];
+//    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+//    if ([cell isKindOfClass:[ItemCollectionViewCell class]]) {
+//        ItemCollectionViewCell *itemCollectionViewCell = (ItemCollectionViewCell *) cell;
+//        itemCollectionViewCell.layer.backgroundColor   = [UIColor clearColor].CGColor;
+//        itemCollectionViewCell.contentView.layer.backgroundColor = ((UIColor *)self.colors[self.personId - 1]).CGColor;
+//        itemCollectionViewCell.backgroundColor = self.colors[self.personId - 1];
+//        itemCollectionViewCell.layer.shouldRasterize = YES;
+//        
+//        itemCollectionViewCell.cellView.backgroundColor = [UIColor blackColor];
+//    }
 
 }
 
@@ -94,6 +100,10 @@
     if ([cell isKindOfClass:[ItemCollectionViewCell class]]) {
         ItemCollectionViewCell *itemCollectionViewCell = (ItemCollectionViewCell *) cell;
         itemCollectionViewCell.label.text = [NSString stringWithFormat: @"%ld", indexPath.row + 1];
+        BOOL isSelected = [self.selectedIndexPaths containsObject:indexPath];
+        if (isSelected) {
+            itemCollectionViewCell.backgroundColor = self.colors[self.personId - 1];
+        }
         return itemCollectionViewCell;
     }
 
@@ -120,6 +130,24 @@
     return reusableview;
 }
 
+- (void)addOrRemoveSelectedIndexPath:(NSIndexPath *)indexPath
+{
+    if (!self.selectedIndexPaths) {
+        self.selectedIndexPaths = [NSMutableArray new];
+    }
+    
+    BOOL containsIndexPath = [self.selectedIndexPaths containsObject:indexPath];
+    
+    if (containsIndexPath) {
+        [self.selectedIndexPaths removeObject:indexPath];
+    }else{
+        [self.selectedIndexPaths addObject:indexPath];
+    }
+    
+    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    
+}
+
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     return UIEdgeInsetsMake(0, 0, 20, 0);
@@ -129,6 +157,50 @@
 //{
 //    return 5;
 //}
+
+- (IBAction)previousButtonAction:(UIButton *)sender
+{
+    if (self.personId <= 1) {
+        return;
+    }
+    
+    self.personId = self.personId - 1;
+    [self updateUI];
+}
+
+- (IBAction)nextButtonAction:(UIButton *)sender
+{
+    if(self.personId >= self.totalNumOfPersons) {
+        return;
+    }
+    
+    self.personId = self.personId + 1;
+    [self updateUI];
+}
+
+
+- (void)updateUI
+{
+    self.personLabel.text = [NSString stringWithFormat:@"%lu. Person", (unsigned long)self.personId];
+    [self updateButtons];
+}
+
+- (void)updateButtons
+{
+    if(self.personId <= 1) {
+        self.previousButton.enabled = NO;
+    } else {
+        self.previousButton.enabled = YES;
+    }
+    
+    if(self.personId >= self.totalNumOfPersons) {
+        self.nextButton.enabled = NO;
+    } else {
+        self.nextButton.enabled = YES;
+    }
+    
+}
+
 
 
 - (void)didReceiveMemoryWarning
