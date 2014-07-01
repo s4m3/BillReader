@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Bill.h"
 
-@interface NumOfPeopleViewController : UIViewController <UIPickerViewDelegate>
+@interface NumOfPeopleViewController : UIViewController
 
 @property (nonatomic, strong) Bill * bill; //of Item arrays with person id as key
 @property long interfaceNum;

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F4047A6819630A8000569C15 /* NumberViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4047A6719630A8000569C15 /* NumberViewCell.m */; };
 		F40798991949B70900CCCC88 /* BillRevisionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F40798981949B70900CCCC88 /* BillRevisionTableViewController.m */; };
 		F407989C1949CF0F00CCCC88 /* EditableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F407989B1949CF0F00CCCC88 /* EditableItem.m */; };
 		F407989F1949DC7E00CCCC88 /* ItemEditingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F407989E1949DC7E00CCCC88 /* ItemEditingViewController.m */; };
@@ -66,6 +67,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F4047A6619630A8000569C15 /* NumberViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberViewCell.h; sourceTree = "<group>"; };
+		F4047A6719630A8000569C15 /* NumberViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberViewCell.m; sourceTree = "<group>"; };
 		F40798971949B70900CCCC88 /* BillRevisionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillRevisionTableViewController.h; sourceTree = "<group>"; };
 		F40798981949B70900CCCC88 /* BillRevisionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillRevisionTableViewController.m; sourceTree = "<group>"; };
 		F407989A1949CF0F00CCCC88 /* EditableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditableItem.h; sourceTree = "<group>"; };
@@ -199,6 +202,8 @@
 		F42EC85A1934B17D009798B5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F4047A6619630A8000569C15 /* NumberViewCell.h */,
+				F4047A6719630A8000569C15 /* NumberViewCell.m */,
 				F4311EBC1959E02900B6332A /* ItemCollectionViewCell.h */,
 				F4311EBD1959E02900B6332A /* ItemCollectionViewCell.m */,
 				F4311EB91959D0DD00B6332A /* ItemSectionHeader.h */,
@@ -448,6 +453,7 @@
 				F40798A2194B1A1500CCCC88 /* ViewHelper.m in Sources */,
 				F4F266771915134E001D0F93 /* main.m in Sources */,
 				F4F266841915134E001D0F93 /* BillReaderViewController.m in Sources */,
+				F4047A6819630A8000569C15 /* NumberViewCell.m in Sources */,
 				F4DE2A68193347BA0043CCE2 /* PersonArticleCollectionViewController.m in Sources */,
 				F42EC84E1934AB33009798B5 /* BillSplitSwipeViewController.m in Sources */,
 				F407989F1949DC7E00CCCC88 /* ItemEditingViewController.m in Sources */,

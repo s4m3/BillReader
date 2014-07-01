@@ -10,9 +10,9 @@
 #import "BillSplitTableViewController.h"
 #import "BillSplitSwipeViewController.h"
 #import "BillSplitCollectionViewController.h"
+#import "NumberViewCell.h"
 
-@interface NumOfPeopleViewController ()
-@property (weak, nonatomic) IBOutlet UIPickerView *numOfPeoplePickerView;
+@interface NumOfPeopleViewController ()  <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @end
 
@@ -27,10 +27,14 @@
     return self;
 }
 
+#define TITLE_TEXT @"Personen"
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.numOfPeoplePickerView.delegate = self;
+    
+    self.title = TITLE_TEXT;
+    
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Zurück"
                                                                              style:self.navigationItem.backBarButtonItem.style
@@ -38,22 +42,43 @@
                                                                             action:nil];
 }
 
-- (void)didReceiveMemoryWarning
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    return 20;
 }
-- (IBAction)populateInterfaceOkButton:(UIButton *)sender
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Number" forIndexPath:indexPath];
+    if ([cell isKindOfClass:[NumberViewCell class]]) {
+        NumberViewCell *numberViewCell = (NumberViewCell *) cell;
+        numberViewCell.numberLabel.text = [NSString stringWithFormat: @"%ld", indexPath.row + 1];
+        return numberViewCell;
+    }
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    long numOfPeople = indexPath.row + 1;
+    NSLog(@"selected: %ld", numOfPeople);
+    [self.bill setNumOfOwners:numOfPeople];
+    [self pushSegue];
+}
+
+- (void)pushSegue
 {
     switch (self.interfaceNum) {
         case 0:
-            [self performSegueWithIdentifier:@"Show Table" sender:sender];
+            [self performSegueWithIdentifier:@"Show Table" sender:nil];
             break;
         case 1:
-            [self performSegueWithIdentifier:@"Show Collection" sender:sender];
+            [self performSegueWithIdentifier:@"Show Collection" sender:nil];
             break;
         case 2:
-            [self performSegueWithIdentifier:@"Show Swipe" sender:sender];
+            [self performSegueWithIdentifier:@"Show Swipe" sender:nil];
             break;
             
         default:
@@ -65,19 +90,12 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"Show Table"]) {
-        
-        // Get destination view
-        [self updateItems];
         BillSplitTableViewController *bstvc = [segue destinationViewController];
         [bstvc setItems:[self.bill itemsAsDictionary]];
     } else if ([[segue identifier] isEqualToString:@"Show Swipe"]) {
-        
-        // Get destination view
-        [self updateItems];
         BillSplitSwipeViewController *bssvc = [segue destinationViewController];
         [bssvc setItems:[self.bill itemsAsDictionary]];
     } else if ([[segue identifier] isEqualToString:@"Show Collection"]) {
-        [self updateItems];
         BillSplitCollectionViewController *bscvc = [segue destinationViewController];
         [bscvc setItems:[self.bill itemsAsDictionary]];
         NSMutableDictionary *itemSections = [[NSMutableDictionary alloc] init];
@@ -90,23 +108,15 @@
     }
 }
 
-- (void)updateItems
-{
-    //[self.bill reset];
-    long numOfPeople = [self.numOfPeoplePickerView selectedRowInComponent:0] + 1;
-    [self.bill setNumOfOwners:numOfPeople];
-    
-    
-}
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return 20;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    return [[NSString alloc] initWithFormat:@"%d", (row + 1) ];
-}
+//- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+//    return 20;
+//}
+//
+//- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+//{
+//    return [[NSString alloc] initWithFormat:@"%d", (row + 1) ];
+//}
 
 /*
 #pragma mark - Navigation
@@ -118,5 +128,9 @@
     // Pass the selected object to the new view controller.
 }
 */
-
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 @end
