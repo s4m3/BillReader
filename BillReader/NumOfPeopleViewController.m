@@ -28,14 +28,13 @@
 }
 
 #define TITLE_TEXT @"Personen"
+#define MAX_NUM_OF_PEOPLE 24
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     self.title = TITLE_TEXT;
-    
-    
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Zurück"
                                                                              style:self.navigationItem.backBarButtonItem.style
                                                                             target:nil
@@ -45,7 +44,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 20;
+    return MAX_NUM_OF_PEOPLE;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -53,7 +52,8 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Number" forIndexPath:indexPath];
     if ([cell isKindOfClass:[NumberViewCell class]]) {
         NumberViewCell *numberViewCell = (NumberViewCell *) cell;
-        numberViewCell.numberLabel.text = [NSString stringWithFormat: @"%ld", indexPath.row + 1];
+        long number = indexPath.row + 1;
+        numberViewCell.numberLabel.text = [NSString stringWithFormat: @"%li", number];
         return numberViewCell;
     }
     return cell;
@@ -63,7 +63,6 @@
 {
     
     long numOfPeople = indexPath.row + 1;
-    NSLog(@"selected: %ld", numOfPeople);
     [self.bill setNumOfOwners:numOfPeople];
     [self pushSegue];
 }
@@ -108,26 +107,6 @@
     }
 }
 
-
-//- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-//    return 20;
-//}
-//
-//- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-//{
-//    return [[NSString alloc] initWithFormat:@"%d", (row + 1) ];
-//}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -235,22 +235,14 @@
     CGFloat xPos = cosf(centerPos) * radius;
     CGFloat yPos = sinf(centerPos) * radius;
     CGPoint originalCenter = self.swipeArticleView.center;
-    PersonCircleView *circleView = [[PersonCircleView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height) AndCenter:originalCenter];
+    UIColor *color = [super createRandomColor];
+    [self.colors addObject:color];
+    PersonCircleView *circleView = [[PersonCircleView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)
+                                                                    center:originalCenter
+                                                                    number:num
+                                                                     color:color];
     circleView.goalPosition = CGPointMake(centerOfCircle.x + xPos, centerOfCircle.y + yPos);
     circleView.layer.cornerRadius = size.width / 2;
-
-    
-    circleView.backgroundColor = [super createRandomColor];
-    [self.colors addObject:circleView.backgroundColor];
-    UITextView *text = [[UITextView alloc] initWithFrame:circleView.bounds];
-    [circleView setAlpha:0];
-    [text setBackgroundColor:[UIColor clearColor]];
-    [text setTextColor:[UIColor whiteColor]];
-    [text setTextAlignment:NSTextAlignmentCenter];
-    [text setFont:[UIFont fontWithName:@"Helvetica" size:25]];
-    [text setText:[NSString stringWithFormat:@"%d", num + 1]];
-    [text setEditable:NO];
-    [circleView addSubview:text];
     return circleView;
 }
 

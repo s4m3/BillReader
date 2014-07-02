@@ -18,7 +18,8 @@
 
 #define INCREASE_FACTOR 1.6;
 
-- (id)initWithFrame:(CGRect)frame AndCenter:(CGPoint)originalCenter
+
+- (id)initWithFrame:(CGRect)frame center:(CGPoint)originalCenter number:(int)num color:(UIColor *)color
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -29,6 +30,26 @@
         self.increasedFrame = CGRectMake(frame.origin.x - newWidth / 2, frame.origin.y - newWidth / 2, newWidth, newWidth);
         self.center = originalCenter;
         self.originalCenter = originalCenter;
+        self.backgroundColor = color;
+        
+        [self setAlpha:0];
+        
+        CGRect iconBounds = CGRectInset(self.bounds, 8, 8);
+        NSString *iconPath = [NSString stringWithFormat:@"monster_icons/%d.png", num+1];
+        UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:iconPath]];
+        [icon setFrame:iconBounds];
+        [self addSubview:icon];
+        
+        UITextView *text = [[UITextView alloc] initWithFrame:self.bounds];
+        [text setBackgroundColor:[UIColor clearColor]];
+        [text setTextColor:[UIColor whiteColor]];
+        [text setTextAlignment:NSTextAlignmentCenter];
+        [text setFont:[UIFont fontWithName:@"Helvetica" size:25]];
+        [text setText:[NSString stringWithFormat:@"%d", num + 1]];
+        [text setEditable:NO];
+        [self addSubview:text];
+        
+
     }
     return self;
 }

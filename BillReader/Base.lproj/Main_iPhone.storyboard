@@ -119,6 +119,7 @@
                         <outlet property="splitButton" destination="Shr-iX-xa6" id="3fs-Zv-qzm"/>
                         <outlet property="toolbar" destination="mcH-OY-R3a" id="KfF-TN-7MF"/>
                         <segue destination="ppq-Dk-DzE" kind="push" identifier="Revise Bill" id="H94-vV-Rw7"/>
+                        <segue destination="tdv-XM-L7B" kind="modal" identifier="Crop Image" id="JUJ-MI-joW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -194,6 +195,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lyK-o7-cFt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="826" y="245"/>
+        </scene>
+        <!--Crop Image View Controller-->
+        <scene sceneID="ZQV-9u-TWp">
+            <objects>
+                <viewController id="tdv-XM-L7B" customClass="CropImageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jXd-M1-rqi"/>
+                        <viewControllerLayoutGuide type="bottom" id="viv-KW-CRD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pcW-Mt-NTN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLy-lo-sab">
+                                <rect key="frame" x="119" y="501" width="83" height="67"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Fertig">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneButton:" destination="tdv-XM-L7B" eventType="touchUpInside" id="Sq9-ZL-bCu"/>
+                                </connections>
+                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="una-dJ-EkC">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="493"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hdy-LX-Cqf">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="493"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="Hdy-LX-Cqf" id="3bP-Rz-qcU"/>
+                        <outlet property="scrollView" destination="una-dJ-EkC" id="W2n-oX-U5e"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zdq-AG-G7w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="896" y="-1274"/>
         </scene>
         <!--Bill Revision Table View Controller-->
         <scene sceneID="bog-bn-aSZ">

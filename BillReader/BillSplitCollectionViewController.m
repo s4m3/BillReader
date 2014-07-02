@@ -74,16 +74,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self addOrRemoveSelectedIndexPath:indexPath];
-//    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-//    if ([cell isKindOfClass:[ItemCollectionViewCell class]]) {
-//        ItemCollectionViewCell *itemCollectionViewCell = (ItemCollectionViewCell *) cell;
-//        itemCollectionViewCell.layer.backgroundColor   = [UIColor clearColor].CGColor;
-//        itemCollectionViewCell.contentView.layer.backgroundColor = ((UIColor *)self.colors[self.personId - 1]).CGColor;
-//        itemCollectionViewCell.backgroundColor = self.colors[self.personId - 1];
-//        itemCollectionViewCell.layer.shouldRasterize = YES;
-//        
-//        itemCollectionViewCell.cellView.backgroundColor = [UIColor blackColor];
-//    }
+    //NSLog(@"indexPath: %@", [indexPath description]);
 
 }
 
@@ -101,8 +92,11 @@
         ItemCollectionViewCell *itemCollectionViewCell = (ItemCollectionViewCell *) cell;
         itemCollectionViewCell.label.text = [NSString stringWithFormat: @"%ld", indexPath.row + 1];
         BOOL isSelected = [self.selectedIndexPaths containsObject:indexPath];
+        //NSLog(@"indexPath: %ld - %ld is selected: %d", (long)indexPath.section, (long)indexPath.row, isSelected);
         if (isSelected) {
             itemCollectionViewCell.backgroundColor = self.colors[self.personId - 1];
+        } else {
+            itemCollectionViewCell.backgroundColor = [UIColor lightGrayColor];
         }
         return itemCollectionViewCell;
     }
@@ -132,6 +126,7 @@
 
 - (void)addOrRemoveSelectedIndexPath:(NSIndexPath *)indexPath
 {
+    //NSLog(@"addOrRemove: %@", [indexPath description]);
     if (!self.selectedIndexPaths) {
         self.selectedIndexPaths = [NSMutableArray new];
     }

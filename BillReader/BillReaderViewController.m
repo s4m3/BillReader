@@ -16,6 +16,7 @@
 #import "NumOfPeopleViewController.h"
 #import "BillRevisionTableViewController.h"
 #import "DETAnimatedTransitioning.h"
+#import "CropImageViewController.h"
 
 @interface BillReaderViewController () <UIImagePickerControllerDelegate, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
@@ -35,6 +36,9 @@
 
 @property (nonatomic, strong) Bill *loadedBill;
 
+
+@property (nonatomic, strong) UIImage *TEMPimage;
+
 @end
 
 @implementation BillReaderViewController
@@ -47,6 +51,7 @@
     self.imageProcessingRequired = YES;
     [self.imagePreview setImage:billImage];
 }
+
 
 - (void)setBill:(Bill *)bill
 {
@@ -107,6 +112,10 @@
         self.billRecognitionProgressBar.progress = 0.0;
         [self performSelectorInBackground:@selector(processImage) withObject:nil];
     }
+    
+    if(self.TEMPimage) {
+        [self performSegueWithIdentifier:@"Crop Image" sender:nil];
+    }
 }
 
 
@@ -137,6 +146,10 @@
         brtvc.transitioningDelegate = self;
         [brtvc setEditableItems:[self.bill editableItems]];
         brtvc.parentController = self;
+    } else if([[segue identifier] isEqualToString:@"Crop Image"]) {
+        CropImageViewController *civc = [segue destinationViewController];
+
+        [civc setOriginalImage:self.TEMPimage];
     }
 }
 
@@ -278,8 +291,9 @@
     imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
     NSString *requiredMediaType = (__bridge NSString *)kUTTypeImage;
     imagePickerController.mediaTypes = [[NSArray alloc] initWithObjects:requiredMediaType, nil];
-    imagePickerController.allowsEditing = YES;
+    //imagePickerController.allowsEditing = YES;
     imagePickerController.delegate = self;
+    //imagePickerController.showsCameraControls = NO;
     
     [self presentViewController:imagePickerController animated:YES completion:nil];
     
@@ -302,11 +316,13 @@
         NSLog(@"Image = %@", theImage);
         NSLog(@"Edited Image = %@", editedImage);
         
-        if (editedImage) {
-            self.billImage = editedImage;
-        } else {
-            self.billImage = theImage;
-        }
+        //TODO REFACTOR
+//        if (editedImage) {
+//            self.billImage = editedImage;
+//        } else {
+//            self.billImage = theImage;
+//        }
+        self.TEMPimage = theImage;
         
     }
     
