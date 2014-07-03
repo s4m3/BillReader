@@ -37,7 +37,7 @@
 @property (nonatomic, strong) Bill *loadedBill;
 
 
-@property (nonatomic, strong) UIImage *TEMPimage;
+@property (nonatomic, strong) UIImage *imageToCrop;
 
 @end
 
@@ -68,6 +68,12 @@
     _editingOfBillAllowed = editingOfBillAllowed;
     self.navigationItem.rightBarButtonItem.enabled = editingOfBillAllowed;
     self.navigationItem.rightBarButtonItem.tintColor = editingOfBillAllowed ? [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] : [UIColor clearColor];
+}
+
+- (void)setCroppedImage:(UIImage *)croppedImage
+{
+    self.imageToCrop = nil;
+    self.billImage = croppedImage;
 }
 
 - (void)viewDidLoad
@@ -113,7 +119,7 @@
         [self performSelectorInBackground:@selector(processImage) withObject:nil];
     }
     
-    if(self.TEMPimage) {
+    if(self.imageToCrop) {
         [self performSegueWithIdentifier:@"Crop Image" sender:nil];
     }
 }
@@ -148,8 +154,8 @@
         brtvc.parentController = self;
     } else if([[segue identifier] isEqualToString:@"Crop Image"]) {
         CropImageViewController *civc = [segue destinationViewController];
-
-        [civc setOriginalImage:self.TEMPimage];
+        [civc setOriginalImage:self.imageToCrop];
+        [civc setParentBillReaderViewController:self];
     }
 }
 
@@ -322,7 +328,7 @@
 //        } else {
 //            self.billImage = theImage;
 //        }
-        self.TEMPimage = theImage;
+        self.imageToCrop = theImage;
         
     }
     

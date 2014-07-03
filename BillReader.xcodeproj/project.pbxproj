@@ -10,6 +10,7 @@
 		F4047A6819630A8000569C15 /* NumberViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4047A6719630A8000569C15 /* NumberViewCell.m */; };
 		F4047A6C196479E200569C15 /* monster_icons in Resources */ = {isa = PBXBuildFile; fileRef = F4047A6B196479E200569C15 /* monster_icons */; };
 		F4047A6F19648D7D00569C15 /* CropImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4047A6E19648D7D00569C15 /* CropImageViewController.m */; };
+		F4047A7219654E7A00569C15 /* CropRectangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4047A7119654E7A00569C15 /* CropRectangleView.m */; };
 		F40798991949B70900CCCC88 /* BillRevisionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F40798981949B70900CCCC88 /* BillRevisionTableViewController.m */; };
 		F407989C1949CF0F00CCCC88 /* EditableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F407989B1949CF0F00CCCC88 /* EditableItem.m */; };
 		F407989F1949DC7E00CCCC88 /* ItemEditingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F407989E1949DC7E00CCCC88 /* ItemEditingViewController.m */; };
@@ -74,6 +75,8 @@
 		F4047A6B196479E200569C15 /* monster_icons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = monster_icons; sourceTree = "<group>"; };
 		F4047A6D19648D7D00569C15 /* CropImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropImageViewController.h; sourceTree = "<group>"; };
 		F4047A6E19648D7D00569C15 /* CropImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropImageViewController.m; sourceTree = "<group>"; };
+		F4047A7019654E7A00569C15 /* CropRectangleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropRectangleView.h; sourceTree = "<group>"; };
+		F4047A7119654E7A00569C15 /* CropRectangleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropRectangleView.m; sourceTree = "<group>"; };
 		F40798971949B70900CCCC88 /* BillRevisionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillRevisionTableViewController.h; sourceTree = "<group>"; };
 		F40798981949B70900CCCC88 /* BillRevisionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillRevisionTableViewController.m; sourceTree = "<group>"; };
 		F407989A1949CF0F00CCCC88 /* EditableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditableItem.h; sourceTree = "<group>"; };
@@ -209,6 +212,8 @@
 		F42EC85A1934B17D009798B5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F4047A7019654E7A00569C15 /* CropRectangleView.h */,
+				F4047A7119654E7A00569C15 /* CropRectangleView.m */,
 				F4047A6619630A8000569C15 /* NumberViewCell.h */,
 				F4047A6719630A8000569C15 /* NumberViewCell.m */,
 				F4311EBC1959E02900B6332A /* ItemCollectionViewCell.h */,
@@ -445,6 +450,7 @@
 			files = (
 				F4311EA919583F5800B6332A /* DETAnimatedTransitioning.m in Sources */,
 				F4311EBB1959D0DD00B6332A /* ItemSectionHeader.m in Sources */,
+				F4047A7219654E7A00569C15 /* CropRectangleView.m in Sources */,
 				F4DE2A6B19336FAE0043CCE2 /* ArticleListTextView.m in Sources */,
 				F421B4DC193C71F20004FB6E /* PersonCircleView.m in Sources */,
 				F4311EBE1959E02900B6332A /* ItemCollectionViewCell.m in Sources */,

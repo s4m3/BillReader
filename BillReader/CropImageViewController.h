@@ -7,9 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BillReaderViewController.h"
 
 @interface CropImageViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) UIImage *originalImage;
-
+@property (strong, nonatomic) BillReaderViewController *parentBillReaderViewController;
+typedef enum {
+    TOP = 0,
+    BOTTOM = 1,
+    LEFT = 2,
+    RIGHT = 3,
+    NONE = 4
+} MinimumDistance;
 @end
