@@ -17,6 +17,11 @@
 
 @implementation CropRectangleView
 
+#define DEFAULT_TOP 80.0f
+#define DEFAULT_BOTTOM 40.0f
+#define DEFAULT_LEFT 40.0f;
+#define DEFAULT_RIGHT 40.0f;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -27,10 +32,10 @@
 //        [panRecognizer setMinimumNumberOfTouches:1];
 //        [panRecognizer setMaximumNumberOfTouches:2];
 //        [self addGestureRecognizer:panRecognizer];
-        self.top = self.originalTop = 40.0f;
-        self.bottom = self.originalBottom = frame.size.height - 40.0f;
-        self.left = self.originalLeft = 40.0f;
-        self.right = self.originalRight = frame.size.width - 40.0f;
+        self.top = self.originalTop = DEFAULT_TOP;
+        self.bottom = self.originalBottom = frame.size.height - DEFAULT_BOTTOM;
+        self.left = self.originalLeft = DEFAULT_LEFT;
+        self.right = self.originalRight = frame.size.width - DEFAULT_RIGHT;
     }
     return self;
 }
@@ -40,9 +45,9 @@
     
     self.cropRect = CGRectMake(self.left, self.top, self.right - self.left, self.bottom - self.top);
  
-    [[UIColor colorWithWhite:0.6f alpha:0.5f] setFill];
+    [[UIColor colorWithWhite:1.0f alpha:0.5f] setFill];
     
-    [[UIColor colorWithWhite:0.8f alpha:0.8f] setStroke];
+    [[UIColor colorWithWhite:1.0f alpha:0.8f] setStroke];
 
     
     UIRectFill( rect );

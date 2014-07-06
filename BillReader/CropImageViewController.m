@@ -54,6 +54,12 @@
     
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    self.cropView = nil;
+    self.imageView = nil;
+}
+
 
 
 - (IBAction)updateCropRectangle:(UIPanGestureRecognizer *)recognizer
@@ -103,43 +109,28 @@
 
 - (IBAction)doneButton:(UIButton *)sender
 {
+    
 
-//    CGImageRef imageRef = CGImageCreateWithImageInRect([self.originalImage CGImage], self.cropView.cropRect);
-//    UIImage *img = [UIImage imageWithCGImage:imageRef];
-//    CGImageRelease(imageRef);
-    
-    // Draw new image in current graphics context
-    
-//    NSLog(@"originalImage %f, %f", self.originalImage.size.width, self.originalImage.size.height);
-//    NSLog(@"resize factor %f", self.resizeFactor);
-//    NSLog(@"frame %f, %f", self.imageView.frame.size.width, self.imageView.frame.size.height);
-//    NSLog(@"a*b = %f", self.imageView.frame.size.width * self.resizeFactor);
-    
+    //normalize image for propper image orientation
+    UIImage *normalizedImage = self.originalImage;
+    if (self.originalImage.imageOrientation != UIImageOrientationUp) {
+        UIGraphicsBeginImageContextWithOptions(self.originalImage.size, NO, self.originalImage.scale);
+        [self.imageView.image drawInRect:(CGRect){0, 0, self.originalImage.size}];
+        normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+
+    //since picture is scaled down on display, cropping area must be scaled accordingly
     CGAffineTransform scale = CGAffineTransformMakeScale(self.resizeFactor, self.resizeFactor);
-    //CGAffineTransformRotate(scale, -M_PI_2);
     CGRect transformedRect = CGRectApplyAffineTransform(self.cropView.cropRect, scale);
-    
-    
-    
-    
-    
-//    CGRect temp = self.cropView.cropRect;
-//    CGRect resizedRect = CGRectMake(temp.origin.x * self.resizeFactor, temp.origin.y * self.resizeFactor, temp.size.width * self.resizeFactor, temp.size.height * self.resizeFactor);
-    
-    
-    
-    // Create new cropped UIImage
-    UIImage *croppedImage = [UIImage imageWithCGImage:[self.originalImage CGImage] scale:1.0 orientation:UIImageOrientationRight];//[UIImage imageWithCGImage:imageRef];
-//    // Create and show the new image from bitmap data
-//    CGSize size = [croppedImage size];
-//    UIImageView *imageView = [[UIImageView alloc] initWithImage:croppedImage];
-//    [imageView setFrame:CGRectMake(0, 200, size.width, size.height )];
-//    [[self view] addSubview:imageView];
+    UIImage *croppedImage = [UIImage imageWithCGImage:[normalizedImage CGImage] scale:1.0 orientation:normalizedImage.imageOrientation];
     CGImageRef imageRef = CGImageCreateWithImageInRect([croppedImage CGImage], transformedRect);
     
+    //populate image back to main view. (parent view)
     UIImage *finalImage = [UIImage imageWithCGImage:imageRef];
     [self.parentBillReaderViewController setCroppedImage:finalImage];
-    
+
+    //dismiss current controller
     [(UINavigationController *)self.presentingViewController  popViewControllerAnimated:NO];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -150,15 +141,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *billPreviewText;
 @property (weak, nonatomic) IBOutlet UIProgressView *billRecognitionProgressBar;
 
+@property (strong, nonatomic) UIImage *originalImage;
 @property (strong, nonatomic) UIImage *billImage;
 @property (nonatomic) BOOL imageProcessingRequired;
 @property (nonatomic) BOOL editingOfBillAllowed;
@@ -47,8 +48,9 @@
 {
     _billImage = billImage;
     NSLog(@"populating image to preview");
-    self.billPreviewText.text = @"Bild Text wird extrahiert...";
+    self.billPreviewText.text = @"Rechnungstext wird extrahiert...";
     self.imageProcessingRequired = YES;
+    self.bill = nil;
     [self.imagePreview setImage:billImage];
 }
 
@@ -85,7 +87,8 @@
     self.billRecognitionProgressBar.progress = 0.0;
     
     UIBarButtonItem *cameraButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(showImageActionSheet:)];
-    UITapGestureRecognizer *imageTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showImageActionSheet:)];
+    
+    UITapGestureRecognizer *imageTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openCropInterface)];
     [self.imagePreview addGestureRecognizer:imageTapRecognizer];
     
     //UIBarButtonItem *other buttons ??? TODO...
@@ -120,8 +123,17 @@
     }
     
     if(self.imageToCrop) {
+        [self openCropInterface];
+    }
+}
+
+- (void)openCropInterface
+{
+    if (self.originalImage) {
+        self.imageToCrop = self.originalImage;
         [self performSegueWithIdentifier:@"Crop Image" sender:nil];
     }
+    
 }
 
 
@@ -328,6 +340,7 @@
 //        } else {
 //            self.billImage = theImage;
 //        }
+        self.originalImage = theImage;
         self.imageToCrop = theImage;
         
     }

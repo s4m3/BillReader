@@ -90,7 +90,7 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     if ([cell isKindOfClass:[ItemCollectionViewCell class]]) {
         ItemCollectionViewCell *itemCollectionViewCell = (ItemCollectionViewCell *) cell;
-        itemCollectionViewCell.label.text = [NSString stringWithFormat: @"%ld", indexPath.row + 1];
+        itemCollectionViewCell.label.text = [NSString stringWithFormat: @"%d",indexPath.row + 1 ];
         BOOL isSelected = [self.selectedIndexPaths containsObject:indexPath];
         //NSLog(@"indexPath: %ld - %ld is selected: %d", (long)indexPath.section, (long)indexPath.row, isSelected);
         if (isSelected) {
@@ -135,13 +135,54 @@
     
     if (containsIndexPath) {
         [self.selectedIndexPaths removeObject:indexPath];
+        [self removeOwnershipOfItem:indexPath];
     }else{
         [self.selectedIndexPaths addObject:indexPath];
+        [self setOwnershipOfItem:indexPath toOwner:self.personId];
     }
     
     [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
     
 }
+
+- (void)setOwnershipOfItem:(NSIndexPath *)indexPath toOwner:(NSUInteger)newOwner
+{
+    if(newOwner == 0) {
+        return;
+    }
+    
+    EditableItem *selectedItem = [self.editableItems objectAtIndex:indexPath.section];
+    Item *currentItem = nil;
+    Item *foundItem = nil;
+    NSArray *itemsOfNoOwner = [self.items objectForKey:[NSNumber numberWithInt:0]];
+    BOOL itemFound = NO;
+    for (int i=0; i<[itemsOfNoOwner count] && !itemFound; i++) {
+        currentItem = [itemsOfNoOwner objectAtIndex:i];
+        if ([currentItem.name isEqualToString:selectedItem.name]) {
+            foundItem = currentItem;
+            itemFound = YES;
+        }
+    }
+    
+    if (foundItem) {
+        [foundItem setBelongsToId:newOwner];
+        NSMutableArray *changedItems = [[self.items objectForKey:[NSNumber numberWithInt:newOwner]] mutableCopy];
+        [changedItems addObject:foundItem];
+        [self.items setObject:changedItems forKey:[NSNumber numberWithInt:newOwner]];
+        
+        changedItems = [[self.items objectForKey:[NSNumber numberWithInt:0]] mutableCopy];
+        [changedItems removeObject:foundItem];
+        [self.items setObject:changedItems forKey:[NSNumber numberWithInt:0]];
+    }
+    
+}
+//TODO
+- (void)removeOwnershipOfItem:(NSIndexPath *)indexPath
+{
+    
+}
+
+//TODO: handle colors correctly
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
