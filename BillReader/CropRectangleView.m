@@ -45,9 +45,9 @@
     
     self.cropRect = CGRectMake(self.left, self.top, self.right - self.left, self.bottom - self.top);
  
-    [[UIColor colorWithWhite:1.0f alpha:0.5f] setFill];
+    [[UIColor colorWithWhite:0.7f alpha:0.5f] setFill];
     
-    [[UIColor colorWithWhite:1.0f alpha:0.8f] setStroke];
+    [[UIColor colorWithWhite:0.2f alpha:0.8f] setStroke];
 
     
     UIRectFill( rect );

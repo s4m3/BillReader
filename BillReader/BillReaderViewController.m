@@ -384,6 +384,38 @@
 
 ////////END EXAMPLE
 
+
+- (NSMutableArray *)getPositionTextLinesOfRecognizedText:(NSString *)recognizedText byRegularExpressionFilter:(NSRegularExpression *)regex
+{
+    NSMutableArray *regexedTextArray = [NSMutableArray array];
+    
+    NSArray *lines = [recognizedText componentsSeparatedByString:@"\n"];
+    for(NSString *word in lines) {
+        if ([word length] > 0) {
+            NSUInteger numberOfMatches = [regex numberOfMatchesInString:word
+                                                                options:0
+                                                                  range:NSMakeRange(0, [word length])];
+            if(numberOfMatches > 0) {
+                [regexedTextArray addObject:word];
+            }
+        }
+    }
+    
+    
+    return regexedTextArray;
+    
+}
+
+- (void)printRecognizedPositionArray:(NSArray *)positions
+{
+    //print array
+    int iter = 0;
+    for(NSString *obj in positions) {
+        NSLog(@"pos %i: %@", iter++, obj);
+    }
+}
+
+
 //TODO: implement proper image processing
 - (void)processImage
 {
@@ -393,44 +425,43 @@
     
     [tesseract setImage:self.billImage];
     
+    //[tesseract setVariableValue:@"TRUE" forKey:@"interactive_mode"];
+    
     self.billRecognitionProgressBar.progress = 0.5;
     [tesseract recognize];
     
     NSLog(@"%@", [tesseract recognizedText]);
-    
+    NSString *recognizedText = [tesseract recognizedText];
     
     //get only lines with numbers into array
-    NSString *recognizedText = [tesseract recognizedText];
-    NSMutableArray *recognizedTextArray = [NSMutableArray array];
     
+    
+    //1.try: filter for positions without € or EUR, etc.
+
     NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(€ )?\\d+[\\,,\\.]\\d+( €)?$"
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\d+[\\,,\\.]{1}\\d{1,2}"
                                                                            options:NSRegularExpressionCaseInsensitive
                                                                              error:&error];
     
-    
-    NSArray *lines = [recognizedText componentsSeparatedByString:@"\n"];
-    for(NSString *word in lines) {
-        if ([word length] > 0) {
-            NSUInteger numberOfMatches = [regex numberOfMatchesInString:word
-                                                                options:0
-                                                                  range:NSMakeRange(0, [word length])];
-            if(numberOfMatches > 0) {
-                [recognizedTextArray addObject:word];
-            }
-        }
-    }
+    NSMutableArray *recognizedTextArrayWithNoEuroSign = [self getPositionTextLinesOfRecognizedText:recognizedText byRegularExpressionFilter:regex];
+    [self printRecognizedPositionArray:[recognizedTextArrayWithNoEuroSign copy]];
     
     
-    //print array
-    int iter = 0;
-    for(NSString *obj in recognizedTextArray) {
-        NSLog(@"pos %i: %@", iter++, obj);
-    }
+    //2.try: filter for EUR and €, etc.
+    regex = [NSRegularExpression regularExpressionWithPattern:@"(EUR|€)?\\s*?\\d+[\\,,\\.]{1}\\d+\\s*?(EUR|€)?$"
+                                                      options:NSRegularExpressionCaseInsensitive
+                                                        error:&error];
+    
+    NSMutableArray *recognizedTextArrayWithSign = [self getPositionTextLinesOfRecognizedText:recognizedText byRegularExpressionFilter:regex];
+    //[self printRecognizedPositionArray:[recognizedTextArrayWithSign copy]];
+
+    
+    ////////
+    
     
     NSMutableArray *items = [[NSMutableArray alloc] init];
     
-    NSRegularExpression *price = [NSRegularExpression regularExpressionWithPattern:@"\\d+[\\,,\\.]\\d+( €)?$"
+    NSRegularExpression *price = [NSRegularExpression regularExpressionWithPattern:@"\\d+[\\,,\\.]{1}\\d+( €)?$"
                                                                            options:NSRegularExpressionCaseInsensitive
                                                                              error:&error];
     
@@ -440,7 +471,7 @@
                                                                               options:NSRegularExpressionCaseInsensitive
                                                                                 error:&error];
     
-    for (NSString *posString in recognizedTextArray) {
+    for (NSString *posString in recognizedTextArrayWithSign) {
         NSUInteger positionMatchNumberWithNoMWST = [positionRegex numberOfMatchesInString:posString
                                                                options:0
                                                                  range:NSMakeRange(0, [posString length])];
@@ -468,7 +499,7 @@
     
 
     
-    for(NSString *billString in recognizedTextArray) {
+    for(NSString *billString in recognizedTextArrayWithSign) {
         NSUInteger numberOfMatches = [barRegex numberOfMatchesInString:billString
                                                                options:0
                                                                  range:NSMakeRange(0, [billString length])];
@@ -547,83 +578,83 @@
 }
 
 //OLD, DEPRECATED?   TODO
-- (void)tempSetupAndUseTesseract
-{
-    // language are used for recognition. Ex: eng. Tesseract will search for a eng.traineddata file in the dataPath directory; eng+ita will search for a eng.traineddata and ita.traineddata.
-    
-    //Like in the Template Framework Project:
-    // Assumed that .traineddata files are in your "tessdata" folder and the folder is in the root of the project.
-    // Assumed, that you added a folder references "tessdata" into your xCode project tree, with the ‘Create folder references for any added folders’ options set up in the «Add files to project» dialog.
-    // Assumed that any .traineddata files is in the tessdata folder, like in the Template Framework Project
-    
-    //Create your tesseract using the initWithLanguage method:
-    // Tesseract* tesseract = [[Tesseract alloc] initWithLanguage:@"eng+ita"];
-    // set up the delegate to recieve tesseract's callback
-    // self should respond to TesseractDelegate and implement shouldCancelImageRecognitionForTesseract: method
-    // to have an ability to recieve callback and interrupt Tesseract before it finishes
-    
-    Tesseract* tesseract = [[Tesseract alloc] initWithLanguage:@"eng+ita+deu"];
-    tesseract.delegate = self;
-    
-    //[tesseract setVariableValue:@"0123456789" forKey:@"tessedit_char_whitelist"]; //limit search
-    [tesseract setImage:[UIImage imageNamed:@"rechnung2.jpg"]]; //image to check
-    [tesseract recognize];
-    
-    NSLog(@"%@", [tesseract recognizedText]);
-    
-    //get only lines with numbers into array
-    NSString *recognizedText = [tesseract recognizedText];
-    NSMutableArray *recognizedTextArray = [NSMutableArray array];
-    
-    NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\d EU"
-                                                                           options:NSRegularExpressionCaseInsensitive
-                                                                             error:&error];
-    
-    
-    NSArray *lines = [recognizedText componentsSeparatedByString:@"\n"];
-    for(NSString *word in lines) {
-        if ([word length] > 0) {
-            NSUInteger numberOfMatches = [regex numberOfMatchesInString:word
-                                                                options:0
-                                                                  range:NSMakeRange(0, [word length])];
-            if(numberOfMatches > 0) {
-                [recognizedTextArray addObject:word];
-            }
-        }
-    }
-    
-    
-    //print array
-    int iter = 0;
-    for(NSString *obj in recognizedTextArray) {
-        NSLog(@"%i: %@", iter++, obj);
-    }
-    
-    //find total amount and print it out
-    NSString *totalAmountString = nil;
-    NSRegularExpression *barRegex = [NSRegularExpression regularExpressionWithPattern:@"Bar"
-                                                                              options:NSRegularExpressionCaseInsensitive
-                                                                                error:&error];
-    for(NSString *billString in recognizedTextArray) {
-        NSUInteger numberOfMatches = [barRegex numberOfMatchesInString:billString
-                                                               options:0
-                                                                 range:NSMakeRange(0, [billString length])];
-        if(numberOfMatches > 0) {
-            NSLog(@"bar: %@", billString);
-            totalAmountString = [self getSubstring:billString betweenString:@" "];
-            NSLog(@"%@", totalAmountString);
-            NSDictionary    *l = [NSDictionary dictionaryWithObject:@"," forKey:NSLocaleDecimalSeparator];
-            NSDecimalNumber *total = [[NSDecimalNumber alloc] initWithString:totalAmountString locale:l];
-            NSLog(@"total in decimal: %@", total);
-            
-            //TEST NSLog(@"%@", [total decimalNumberBySubtracting:[[NSDecimalNumber alloc] initWithString:totalAmountString]]);
-        }
-    }
-    
-    tesseract = nil;
-
-}
+//- (void)tempSetupAndUseTesseract
+//{
+//    // language are used for recognition. Ex: eng. Tesseract will search for a eng.traineddata file in the dataPath directory; eng+ita will search for a eng.traineddata and ita.traineddata.
+//    
+//    //Like in the Template Framework Project:
+//    // Assumed that .traineddata files are in your "tessdata" folder and the folder is in the root of the project.
+//    // Assumed, that you added a folder references "tessdata" into your xCode project tree, with the ‘Create folder references for any added folders’ options set up in the «Add files to project» dialog.
+//    // Assumed that any .traineddata files is in the tessdata folder, like in the Template Framework Project
+//    
+//    //Create your tesseract using the initWithLanguage method:
+//    // Tesseract* tesseract = [[Tesseract alloc] initWithLanguage:@"eng+ita"];
+//    // set up the delegate to recieve tesseract's callback
+//    // self should respond to TesseractDelegate and implement shouldCancelImageRecognitionForTesseract: method
+//    // to have an ability to recieve callback and interrupt Tesseract before it finishes
+//    
+//    Tesseract* tesseract = [[Tesseract alloc] initWithLanguage:@"eng+ita+deu"];
+//    tesseract.delegate = self;
+//    
+//    //[tesseract setVariableValue:@"0123456789" forKey:@"tessedit_char_whitelist"]; //limit search
+//    [tesseract setImage:[UIImage imageNamed:@"rechnung2.jpg"]]; //image to check
+//    [tesseract recognize];
+//    
+//    NSLog(@"%@", [tesseract recognizedText]);
+//    
+//    //get only lines with numbers into array
+//    NSString *recognizedText = [tesseract recognizedText];
+//    NSMutableArray *recognizedTextArray = [NSMutableArray array];
+//    
+//    NSError *error = NULL;
+//    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\d EU"
+//                                                                           options:NSRegularExpressionCaseInsensitive
+//                                                                             error:&error];
+//    
+//    
+//    NSArray *lines = [recognizedText componentsSeparatedByString:@"\n"];
+//    for(NSString *word in lines) {
+//        if ([word length] > 0) {
+//            NSUInteger numberOfMatches = [regex numberOfMatchesInString:word
+//                                                                options:0
+//                                                                  range:NSMakeRange(0, [word length])];
+//            if(numberOfMatches > 0) {
+//                [recognizedTextArray addObject:word];
+//            }
+//        }
+//    }
+//    
+//    
+//    //print array
+//    int iter = 0;
+//    for(NSString *obj in recognizedTextArray) {
+//        NSLog(@"%i: %@", iter++, obj);
+//    }
+//    
+//    //find total amount and print it out
+//    NSString *totalAmountString = nil;
+//    NSRegularExpression *barRegex = [NSRegularExpression regularExpressionWithPattern:@"Bar"
+//                                                                              options:NSRegularExpressionCaseInsensitive
+//                                                                                error:&error];
+//    for(NSString *billString in recognizedTextArray) {
+//        NSUInteger numberOfMatches = [barRegex numberOfMatchesInString:billString
+//                                                               options:0
+//                                                                 range:NSMakeRange(0, [billString length])];
+//        if(numberOfMatches > 0) {
+//            NSLog(@"bar: %@", billString);
+//            totalAmountString = [self getSubstring:billString betweenString:@" "];
+//            NSLog(@"%@", totalAmountString);
+//            NSDictionary    *l = [NSDictionary dictionaryWithObject:@"," forKey:NSLocaleDecimalSeparator];
+//            NSDecimalNumber *total = [[NSDecimalNumber alloc] initWithString:totalAmountString locale:l];
+//            NSLog(@"total in decimal: %@", total);
+//            
+//            //TEST NSLog(@"%@", [total decimalNumberBySubtracting:[[NSDecimalNumber alloc] initWithString:totalAmountString]]);
+//        }
+//    }
+//    
+//    tesseract = nil;
+//
+//}
 
 
 

@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property (nonatomic, strong) NSMutableArray *selectedIndexPaths;
+@property (strong, nonatomic) NSMutableDictionary *cellColors; //key = indexPath, value = color
 
 @property (weak, nonatomic) IBOutlet UIButton *previousButton;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
@@ -43,6 +44,14 @@
 //    for (NSString *name in _itemSections) {
 //        <#statements#>
 //    }
+}
+
+- (NSMutableDictionary *)cellColors
+{
+    if (!_cellColors) {
+        _cellColors = [NSMutableDictionary dictionary];
+    }
+    return _cellColors;
 }
 
 
@@ -73,7 +82,13 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self addOrRemoveSelectedIndexPath:indexPath];
+    UIColor *colorOfCell = [self.cellColors objectForKey:indexPath];
+    
+    //only allow changing of cell if cell is not selected or in color of current person
+    if ( !colorOfCell || colorOfCell == [UIColor lightGrayColor] || colorOfCell == self.colors[self.personId - 1]) {
+        [self addOrRemoveSelectedIndexPath:indexPath];
+    }
+
     //NSLog(@"indexPath: %@", [indexPath description]);
 
 }
@@ -90,14 +105,12 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     if ([cell isKindOfClass:[ItemCollectionViewCell class]]) {
         ItemCollectionViewCell *itemCollectionViewCell = (ItemCollectionViewCell *) cell;
-        itemCollectionViewCell.label.text = [NSString stringWithFormat: @"%d",indexPath.row + 1 ];
-        BOOL isSelected = [self.selectedIndexPaths containsObject:indexPath];
-        //NSLog(@"indexPath: %ld - %ld is selected: %d", (long)indexPath.section, (long)indexPath.row, isSelected);
-        if (isSelected) {
-            itemCollectionViewCell.backgroundColor = self.colors[self.personId - 1];
-        } else {
-            itemCollectionViewCell.backgroundColor = [UIColor lightGrayColor];
+        itemCollectionViewCell.label.text = [NSString stringWithFormat: @"%ld",indexPath.row + 1 ];
+        UIColor *backgroundColor = [self.cellColors objectForKey:indexPath];
+        if (!backgroundColor) {
+            backgroundColor = [UIColor lightGrayColor];
         }
+        itemCollectionViewCell.backgroundColor = backgroundColor;
         return itemCollectionViewCell;
     }
 
@@ -135,26 +148,28 @@
     
     if (containsIndexPath) {
         [self.selectedIndexPaths removeObject:indexPath];
-        [self removeOwnershipOfItem:indexPath];
+        [self setOwnershipOfItem:indexPath fromOwner:self.personId toOwner:0];
+        [self.cellColors setObject:[UIColor lightGrayColor] forKey:indexPath];
     }else{
         [self.selectedIndexPaths addObject:indexPath];
-        [self setOwnershipOfItem:indexPath toOwner:self.personId];
+        [self setOwnershipOfItem:indexPath fromOwner:0 toOwner:self.personId];
+        [self.cellColors setObject:self.colors[self.personId - 1] forKey:indexPath];
     }
     
     [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
     
 }
 
-- (void)setOwnershipOfItem:(NSIndexPath *)indexPath toOwner:(NSUInteger)newOwner
+- (void)setOwnershipOfItem:(NSIndexPath *)indexPath fromOwner:(NSInteger)fromOwner toOwner:(NSInteger)newOwner
 {
-    if(newOwner == 0) {
+    if (fromOwner == newOwner) {
         return;
     }
     
     EditableItem *selectedItem = [self.editableItems objectAtIndex:indexPath.section];
     Item *currentItem = nil;
     Item *foundItem = nil;
-    NSArray *itemsOfNoOwner = [self.items objectForKey:[NSNumber numberWithInt:0]];
+    NSArray *itemsOfNoOwner = [self.items objectForKey:[NSNumber numberWithLong:fromOwner]];
     BOOL itemFound = NO;
     for (int i=0; i<[itemsOfNoOwner count] && !itemFound; i++) {
         currentItem = [itemsOfNoOwner objectAtIndex:i];
@@ -166,23 +181,16 @@
     
     if (foundItem) {
         [foundItem setBelongsToId:newOwner];
-        NSMutableArray *changedItems = [[self.items objectForKey:[NSNumber numberWithInt:newOwner]] mutableCopy];
+        NSMutableArray *changedItems = [[self.items objectForKey:[NSNumber numberWithLong:newOwner]] mutableCopy];
         [changedItems addObject:foundItem];
-        [self.items setObject:changedItems forKey:[NSNumber numberWithInt:newOwner]];
+        [self.items setObject:changedItems forKey:[NSNumber numberWithLong:newOwner]];
         
-        changedItems = [[self.items objectForKey:[NSNumber numberWithInt:0]] mutableCopy];
+        changedItems = [[self.items objectForKey:[NSNumber numberWithLong:fromOwner]] mutableCopy];
         [changedItems removeObject:foundItem];
-        [self.items setObject:changedItems forKey:[NSNumber numberWithInt:0]];
+        [self.items setObject:changedItems forKey:[NSNumber numberWithLong:fromOwner]];
     }
     
 }
-//TODO
-- (void)removeOwnershipOfItem:(NSIndexPath *)indexPath
-{
-    
-}
-
-//TODO: handle colors correctly
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
