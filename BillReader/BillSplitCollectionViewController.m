@@ -32,19 +32,11 @@
 {
     [super viewDidLoad];
     self.personId = 1;
+    [self updateUI];
 //    UICollectionViewFlowLayout *collectionViewLayout = (UICollectionViewFlowLayout*)self.collectionView.collectionViewLayout;
 //    collectionViewLayout.sectionInset = UIEdgeInsetsMake(10, 0, 10, 0);
 }
 
-- (void)setItemSections:(NSDictionary *)itemSections
-{
-    _itemSections = itemSections;
-//    itemSections allKeys
-//    NSMutableArray *titles = [[NSMutableArray alloc] init];
-//    for (NSString *name in _itemSections) {
-//        <#statements#>
-//    }
-}
 
 - (NSMutableDictionary *)cellColors
 {
@@ -89,15 +81,11 @@
         [self addOrRemoveSelectedIndexPath:indexPath];
     }
 
-    //NSLog(@"indexPath: %@", [indexPath description]);
-
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    
-    return [[self.itemSections objectForKey:[self.itemSections allKeys][section]] intValue];
-    //return [self.items objectForKey:[NSNumber numberWithLong:section]];
+    return ((EditableItem *)self.editableItems[section]).amount;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -139,7 +127,6 @@
 
 - (void)addOrRemoveSelectedIndexPath:(NSIndexPath *)indexPath
 {
-    //NSLog(@"addOrRemove: %@", [indexPath description]);
     if (!self.selectedIndexPaths) {
         self.selectedIndexPaths = [NSMutableArray new];
     }
@@ -225,7 +212,7 @@
 
 - (void)updateUI
 {
-    self.personLabel.text = [NSString stringWithFormat:@"%lu. Person", (unsigned long)self.personId];
+    self.personLabel.text = [NSString stringWithFormat:@"Person %lu/%lu ", (unsigned long)self.personId, self.totalNumOfPersons];
     [self updateButtons];
 }
 

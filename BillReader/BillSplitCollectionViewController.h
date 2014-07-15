@@ -10,7 +10,6 @@
 
 @interface BillSplitCollectionViewController : BillSplitViewController
 
-@property (nonatomic, strong) NSDictionary *itemSections; //key=name, value=amount
 @property (nonatomic, strong) NSArray *editableItems;
 
 @end

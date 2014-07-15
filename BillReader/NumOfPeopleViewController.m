@@ -97,12 +97,6 @@
     } else if ([[segue identifier] isEqualToString:@"Show Collection"]) {
         BillSplitCollectionViewController *bscvc = [segue destinationViewController];
         [bscvc setItems:[self.bill itemsAsDictionary]];
-        NSMutableDictionary *itemSections = [[NSMutableDictionary alloc] init];
-        for (EditableItem *editableItem in self.bill.editableItems) {
-            [itemSections setObject:[NSNumber numberWithLong:editableItem.amount] forKey:editableItem.name];
-        }
-        [bscvc setItemSections:[itemSections copy]];
-        
         [bscvc setEditableItems:self.bill.editableItems];
     }
 }
