@@ -45,6 +45,11 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.nameTextField becomeFirstResponder];
+}
+
 - (void)willMoveToParentViewController:(UIViewController *)parent
 {
     
@@ -104,9 +109,11 @@
 
 - (IBAction)priceEditingAction:(UITextField *)sender
 {
-    NSDecimalNumber *newAmount = [NSDecimalNumber decimalNumberWithString:sender.text];
+    NSDictionary    *l = [NSDictionary dictionaryWithObject:@"," forKey:NSLocaleDecimalSeparator];
+    NSDecimalNumber *newAmount = [NSDecimalNumber decimalNumberWithString:sender.text locale:l];
     if (newAmount) {
         self.editableItem.price = newAmount;
+        [self updateCompleteBillTextView];
     }
     
     self.priceTextField.text = [self.editableItem priceAsString];

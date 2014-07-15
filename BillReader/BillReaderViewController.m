@@ -350,7 +350,7 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    NSLog(@"Picker was cancelled");
+    //NSLog(@"Picker was cancelled");
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 /////// end referenz
@@ -467,10 +467,22 @@
     
     
     //find items
-    NSRegularExpression *positionRegex = [NSRegularExpression regularExpressionWithPattern:@"(mwst|bar|total)"
+    NSRegularExpression *positionRegex = [NSRegularExpression regularExpressionWithPattern:@"(mwst|bar|total|netto|%)"
                                                                               options:NSRegularExpressionCaseInsensitive
                                                                                 error:&error];
     
+    //amount regex
+    NSRegularExpression *amountRegex = [NSRegularExpression regularExpressionWithPattern:@"^\\d+"
+                                                                                   options:NSRegularExpressionCaseInsensitive
+                                                                                     error:&error];
+    
+    //itemName regex (search for names including all german characters)
+    NSRegularExpression *itemNameRegex = [NSRegularExpression regularExpressionWithPattern:@"[a-zäöüß]*"
+                                                                                 options:NSRegularExpressionCaseInsensitive
+                                                                                   error:&error];
+    
+    //TODO: get actual locale by checking prices
+    NSDictionary *germanLocale = [NSDictionary dictionaryWithObject:@"." forKey:NSLocaleDecimalSeparator];
     for (NSString *posString in recognizedTextArrayWithSign) {
         NSUInteger positionMatchNumberWithNoMWST = [positionRegex numberOfMatchesInString:posString
                                                                options:0
@@ -480,12 +492,53 @@
             NSRange rangeOfFirstMatch = [price rangeOfFirstMatchInString:posString options:0 range:NSMakeRange(0, [posString length])];
             if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))) {
                 NSString *priceSubstring = [posString substringWithRange:rangeOfFirstMatch];
-                NSDictionary    *l = [NSDictionary dictionaryWithObject:@"," forKey:NSLocaleDecimalSeparator];
-                NSDecimalNumber *total = [[NSDecimalNumber alloc] initWithString:priceSubstring locale:l];
                 
-                NSString *itemName = [posString substringWithRange:NSMakeRange(0, rangeOfFirstMatch.location)];
-                EditableItem *item = [[EditableItem alloc] initWithName:itemName amount:1 andPrice:total];
-                [items addObject:item];
+                NSDecimalNumber *total = [[NSDecimalNumber alloc] initWithString:priceSubstring locale:germanLocale];
+                
+                //get amount
+                NSUInteger amount = 1;
+                NSDecimalNumber *singleItemPrice = nil;
+                NSRange rangeOfFirstMatchOfAmount = [amountRegex rangeOfFirstMatchInString:posString options:0 range:NSMakeRange(0, [posString length])];
+                if (!NSEqualRanges(rangeOfFirstMatchOfAmount, NSMakeRange(NSNotFound, 0))) {
+                    NSString *amountSubstring = [posString substringWithRange:rangeOfFirstMatchOfAmount];
+                    NSLog(@"amount: %@", amountSubstring);
+                    amount = [amountSubstring integerValue];
+                    NSDecimalNumber *amountAsDecimal = [[NSDecimalNumber alloc] initWithString:amountSubstring locale:germanLocale];
+                    singleItemPrice = [total decimalNumberByDividingBy:amountAsDecimal];
+                }
+                
+                if (!singleItemPrice) {
+                    singleItemPrice = total;
+                }
+                
+                //if price is lower than 0,01 €, ignore item TODO: check locale and use string accordingly "0.01" or "0,01"
+                NSDecimalNumber *lowestPrice = [[NSDecimalNumber alloc] initWithString:@"0.01" locale:germanLocale];
+                if ([singleItemPrice doubleValue] >= [lowestPrice doubleValue]) {
+                    
+                    //get longest name as itemName
+                    NSArray *matchesOfItemName = [itemNameRegex matchesInString:posString options:0 range:NSMakeRange(0, [posString length])];
+                    NSRange longestRangeForItemName;
+                    NSUInteger maxOfLengths = 0;
+                    for (NSTextCheckingResult *match in matchesOfItemName) {
+                        NSRange tempRange = [match rangeAtIndex:0];
+                        if (tempRange.length > maxOfLengths) {
+                            maxOfLengths = tempRange.length;
+                            longestRangeForItemName = tempRange;
+                        }
+                    }
+                    
+                    
+                    
+                    if (!NSEqualRanges(longestRangeForItemName, NSMakeRange(NSNotFound, 0))) {
+                        NSString *itemName = [posString substringWithRange:longestRangeForItemName];
+                        //NSLog(@"itemName: %@", itemName);
+                        EditableItem *item = [[EditableItem alloc] initWithName:itemName amount:amount andPrice:singleItemPrice];
+                        [items addObject:item];
+                    }
+                }
+                
+
+
             }
 
         }
@@ -533,7 +586,7 @@
 //TODO: maybe let other object take care of this. this is a little bit copy pasted code from ItemEditingViewController TODO:FIX!!!
 - (void)updateBillPreviewText
 {
-    NSLog(@"updating bill preview text");
+    //NSLog(@"updating bill preview text");
     NSString *appendingStringBill = @"Rechnung: \n";
     NSDecimalNumber *currentTotal;
     NSArray *items = [self.bill editableItems];
