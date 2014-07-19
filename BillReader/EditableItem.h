@@ -15,4 +15,6 @@
 + (int)staticId;
 
 - (id)initWithName:(NSString *)name amount:(NSUInteger)amount andPrice:(NSDecimalNumber *)price;
+
+- (NSDecimalNumber *)getTotalPriceOfItem;
 @end

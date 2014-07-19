@@ -17,6 +17,7 @@
 #import "BillRevisionTableViewController.h"
 #import "DETAnimatedTransitioning.h"
 #import "CropImageViewController.h"
+#import "BillTextToBillObjectConverter.h"
 
 @interface BillReaderViewController () <UIImagePickerControllerDelegate, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
@@ -385,36 +386,6 @@
 ////////END EXAMPLE
 
 
-- (NSMutableArray *)getPositionTextLinesOfRecognizedText:(NSString *)recognizedText byRegularExpressionFilter:(NSRegularExpression *)regex
-{
-    NSMutableArray *regexedTextArray = [NSMutableArray array];
-    
-    NSArray *lines = [recognizedText componentsSeparatedByString:@"\n"];
-    for(NSString *word in lines) {
-        if ([word length] > 0) {
-            NSUInteger numberOfMatches = [regex numberOfMatchesInString:word
-                                                                options:0
-                                                                  range:NSMakeRange(0, [word length])];
-            if(numberOfMatches > 0) {
-                [regexedTextArray addObject:word];
-            }
-        }
-    }
-    
-    
-    return regexedTextArray;
-    
-}
-
-- (void)printRecognizedPositionArray:(NSArray *)positions
-{
-    //print array
-    int iter = 0;
-    for(NSString *obj in positions) {
-        NSLog(@"pos %i: %@", iter++, obj);
-    }
-}
-
 
 //TODO: implement proper image processing
 - (void)processImage
@@ -433,149 +404,10 @@
     NSLog(@"%@", [tesseract recognizedText]);
     NSString *recognizedText = [tesseract recognizedText];
     
-    //get only lines with numbers into array
-    
-    
-    //1.try: filter for positions without € or EUR, etc.
-
-    NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\d+[\\,,\\.]{1}\\d{1,2}"
-                                                                           options:NSRegularExpressionCaseInsensitive
-                                                                             error:&error];
-    
-    NSMutableArray *recognizedTextArrayWithNoEuroSign = [self getPositionTextLinesOfRecognizedText:recognizedText byRegularExpressionFilter:regex];
-    [self printRecognizedPositionArray:[recognizedTextArrayWithNoEuroSign copy]];
-    
-    
-    //2.try: filter for EUR and €, etc.
-    regex = [NSRegularExpression regularExpressionWithPattern:@"(EUR|€)?\\s*?\\d+[\\,,\\.]{1}\\d+\\s*?(EUR|€)?$"
-                                                      options:NSRegularExpressionCaseInsensitive
-                                                        error:&error];
-    
-    NSMutableArray *recognizedTextArrayWithSign = [self getPositionTextLinesOfRecognizedText:recognizedText byRegularExpressionFilter:regex];
-    //[self printRecognizedPositionArray:[recognizedTextArrayWithSign copy]];
-
-    
-    ////////
-    
-    
-    NSMutableArray *items = [[NSMutableArray alloc] init];
-    
-    NSRegularExpression *price = [NSRegularExpression regularExpressionWithPattern:@"\\d+[\\,,\\.]{1}\\d+( €)?$"
-                                                                           options:NSRegularExpressionCaseInsensitive
-                                                                             error:&error];
-    
-    
-    //find items
-    NSRegularExpression *positionRegex = [NSRegularExpression regularExpressionWithPattern:@"(mwst|bar|total|netto|%)"
-                                                                              options:NSRegularExpressionCaseInsensitive
-                                                                                error:&error];
-    
-    //amount regex
-    NSRegularExpression *amountRegex = [NSRegularExpression regularExpressionWithPattern:@"^\\d+"
-                                                                                   options:NSRegularExpressionCaseInsensitive
-                                                                                     error:&error];
-    
-    //itemName regex (search for names including all german characters)
-    NSRegularExpression *itemNameRegex = [NSRegularExpression regularExpressionWithPattern:@"[a-zäöüß]*"
-                                                                                 options:NSRegularExpressionCaseInsensitive
-                                                                                   error:&error];
-    
-    //TODO: get actual locale by checking prices
-    NSDictionary *germanLocale = [NSDictionary dictionaryWithObject:@"." forKey:NSLocaleDecimalSeparator];
-    for (NSString *posString in recognizedTextArrayWithSign) {
-        NSUInteger positionMatchNumberWithNoMWST = [positionRegex numberOfMatchesInString:posString
-                                                               options:0
-                                                                 range:NSMakeRange(0, [posString length])];
-        //if string does not contain "mwst"
-        if (positionMatchNumberWithNoMWST == 0) {
-            NSRange rangeOfFirstMatch = [price rangeOfFirstMatchInString:posString options:0 range:NSMakeRange(0, [posString length])];
-            if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))) {
-                NSString *priceSubstring = [posString substringWithRange:rangeOfFirstMatch];
-                
-                NSDecimalNumber *total = [[NSDecimalNumber alloc] initWithString:priceSubstring locale:germanLocale];
-                
-                //get amount
-                NSUInteger amount = 1;
-                NSDecimalNumber *singleItemPrice = nil;
-                NSRange rangeOfFirstMatchOfAmount = [amountRegex rangeOfFirstMatchInString:posString options:0 range:NSMakeRange(0, [posString length])];
-                if (!NSEqualRanges(rangeOfFirstMatchOfAmount, NSMakeRange(NSNotFound, 0))) {
-                    NSString *amountSubstring = [posString substringWithRange:rangeOfFirstMatchOfAmount];
-                    NSLog(@"amount: %@", amountSubstring);
-                    amount = [amountSubstring integerValue];
-                    NSDecimalNumber *amountAsDecimal = [[NSDecimalNumber alloc] initWithString:amountSubstring locale:germanLocale];
-                    singleItemPrice = [total decimalNumberByDividingBy:amountAsDecimal];
-                }
-                
-                if (!singleItemPrice) {
-                    singleItemPrice = total;
-                }
-                
-                //if price is lower than 0,01 €, ignore item TODO: check locale and use string accordingly "0.01" or "0,01"
-                NSDecimalNumber *lowestPrice = [[NSDecimalNumber alloc] initWithString:@"0.01" locale:germanLocale];
-                if ([singleItemPrice doubleValue] >= [lowestPrice doubleValue]) {
-                    
-                    //get longest name as itemName
-                    NSArray *matchesOfItemName = [itemNameRegex matchesInString:posString options:0 range:NSMakeRange(0, [posString length])];
-                    NSRange longestRangeForItemName;
-                    NSUInteger maxOfLengths = 0;
-                    for (NSTextCheckingResult *match in matchesOfItemName) {
-                        NSRange tempRange = [match rangeAtIndex:0];
-                        if (tempRange.length > maxOfLengths) {
-                            maxOfLengths = tempRange.length;
-                            longestRangeForItemName = tempRange;
-                        }
-                    }
-                    
-                    
-                    
-                    if (!NSEqualRanges(longestRangeForItemName, NSMakeRange(NSNotFound, 0))) {
-                        NSString *itemName = [posString substringWithRange:longestRangeForItemName];
-                        //NSLog(@"itemName: %@", itemName);
-                        EditableItem *item = [[EditableItem alloc] initWithName:itemName amount:amount andPrice:singleItemPrice];
-                        [items addObject:item];
-                    }
-                }
-                
-
-
-            }
-
-        }
-    }
-    
-    //find total amount and print it out
-    NSString *totalAmountString = nil;
-    NSRegularExpression *barRegex = [NSRegularExpression regularExpressionWithPattern:@"(bar|total|euro)"
-                                                                              options:NSRegularExpressionCaseInsensitive
-                                                                                error:&error];
-    
-
-    
-    for(NSString *billString in recognizedTextArrayWithSign) {
-        NSUInteger numberOfMatches = [barRegex numberOfMatchesInString:billString
-                                                               options:0
-                                                                 range:NSMakeRange(0, [billString length])];
-        if(numberOfMatches > 0) {
-            NSLog(@"bar: %@", billString);
-            NSRange rangeOfFirstMatch = [price rangeOfFirstMatchInString:billString options:0 range:NSMakeRange(0, [billString length])];
-            if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))) {
-                NSString *priceSubstring = [billString substringWithRange:rangeOfFirstMatch];
-                totalAmountString = priceSubstring;
-                NSLog(@"%@", totalAmountString);
-                NSDictionary    *l = [NSDictionary dictionaryWithObject:@"," forKey:NSLocaleDecimalSeparator];
-                NSDecimalNumber *total = [[NSDecimalNumber alloc] initWithString:totalAmountString locale:l];
-                NSLog(@"total in decimal: %@", [ViewHelper transformDecimalToString:total]);
-            }
-            
-
-            
-            //TEST NSLog(@"%@", [total decimalNumberBySubtracting:[[NSDecimalNumber alloc] initWithString:totalAmountString]]);
-        }
-    }
-    
+    BillTextToBillObjectConverter *converter = [[BillTextToBillObjectConverter alloc] init];
+        
     //if all is evaluated
-    self.loadedBill = [[Bill alloc] initWithEditableItems:items];
+    self.loadedBill = [converter transform:recognizedText];
     
     tesseract = nil;
     [self performSelectorOnMainThread:@selector(setLoaderProgress:) withObject:[NSNumber numberWithFloat:1.0] waitUntilDone:NO];
@@ -588,7 +420,6 @@
 {
     //NSLog(@"updating bill preview text");
     NSString *appendingStringBill = @"Rechnung: \n";
-    NSDecimalNumber *currentTotal;
     NSArray *items = [self.bill editableItems];
     
     for (EditableItem *currentItem in items) {
@@ -596,8 +427,7 @@
                                (unsigned long)currentItem.amount,
                                currentItem.name,
                                currentItem.priceAsString]];
-        currentTotal = [currentItem.price decimalNumberByMultiplyingBy:[ViewHelper transformLongToDecimalNumber:currentItem.amount]];
-        appendingStringBill = [appendingStringBill stringByAppendingString:[NSString stringWithFormat:@"%@€ \n", [ViewHelper transformDecimalToString:currentTotal]]];
+        appendingStringBill = [appendingStringBill stringByAppendingString:[NSString stringWithFormat:@"%@€ \n", [ViewHelper transformDecimalToString:[currentItem getTotalPriceOfItem]]]];
     }
     
     appendingStringBill = [appendingStringBill stringByAppendingString:@"\n------------\nTotal:"];

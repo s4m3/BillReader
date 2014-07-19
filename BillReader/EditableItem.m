@@ -7,6 +7,7 @@
 //
 
 #import "EditableItem.h"
+#import "ViewHelper.h"
 
 @implementation EditableItem
 
@@ -25,6 +26,12 @@ static int staticId = 0;
     }
     return self;
     
+}
+
+- (NSDecimalNumber *)getTotalPriceOfItem
+{
+    NSDecimalNumber *totalPrice = [self.price decimalNumberByMultiplyingBy:[ViewHelper transformLongToDecimalNumber:self.amount]];
+    return totalPrice;
 }
 
 @end
