@@ -8,6 +8,7 @@
 
 #import "CropImageViewController.h"
 #import "CropRectangleView.h"
+#import "UINormalizableImage.h"
 
 @interface CropImageViewController () <UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -29,10 +30,23 @@
     return self;
 }
 
+//UIImage *imageToDisplay =
+//[UIImage imageWithCGImage:[originalImage CGImage]
+//                    scale:1.0
+//              orientation: UIImageOrientationUp];
+
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"image orientation: %d", self.originalImage.imageOrientation);
+    
+    //normalize image for propper image orientation
+    UINormalizableImage *imageToNormalize = [[UINormalizableImage alloc] initWithCGImage:self.originalImage.CGImage scale:self.originalImage.scale orientation:self.originalImage.imageOrientation];
+    
+    
+    self.originalImage = [imageToNormalize normalizedImage];
     
     self.widthScale = self.imageView.bounds.size.width / self.originalImage.size.width;
     self.heightScale = self.imageView.bounds.size.height / self.originalImage.size.height;
@@ -113,15 +127,7 @@
 
 - (IBAction)doneButton:(UIButton *)sender
 {
-    
-    //normalize image for propper image orientation
-    UIImage *normalizedImage = self.originalImage;
-    if (self.originalImage.imageOrientation != UIImageOrientationUp) {
-        UIGraphicsBeginImageContextWithOptions(self.originalImage.size, NO, self.originalImage.scale);
-        [self.imageView.image drawInRect:(CGRect){0, 0, self.originalImage.size}];
-        normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-    }
+
     
     //since picture is scaled down on display, cropping area must be scaled accordingly
     CGRect frame = self.cropView.cropRect;
@@ -139,7 +145,7 @@
         w = frame.size.width / self.heightScale;
         h = frame.size.height / self.heightScale;
     }
-    UIImage *croppedImage = [UIImage imageWithCGImage:[normalizedImage CGImage]];
+    UIImage *croppedImage = [UIImage imageWithCGImage:[self.originalImage CGImage]];
     CGImageRef imageRef = CGImageCreateWithImageInRect([croppedImage CGImage], CGRectMake(x, y, w, h));
     
     

@@ -254,7 +254,7 @@
                                                                         options:0
                                                                           range:NSMakeRange(0, [pos length])];
     }
-    NSLog(@"num of points: %d, num of commas: %d", amountOfPointsPricesInPositions, amountOfCommasPricesInPositions);
+    NSLog(@"num of points: %lu, num of commas: %lu", (unsigned long)amountOfPointsPricesInPositions, (unsigned long)amountOfCommasPricesInPositions);
     NSString *locale = amountOfPointsPricesInPositions >= amountOfCommasPricesInPositions ? @"." : @",";
     
     
