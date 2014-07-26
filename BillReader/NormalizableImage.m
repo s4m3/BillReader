@@ -6,10 +6,11 @@
 //  Copyright (c) 2014 Simon Mary. All rights reserved.
 //
 
-#import "UINormalizableImage.h"
+#import "NormalizableImage.h"
 
-@implementation UINormalizableImage
+@implementation NormalizableImage
 
+//Ref: http://stackoverflow.com/a/10611036
 - (UIImage *)normalizedImage {
     if (self.imageOrientation == UIImageOrientationUp) return self;
     

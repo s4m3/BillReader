@@ -15,4 +15,7 @@
 - (void)animateToStartPosition;
 - (id)initWithFrame:(CGRect)frame center:(CGPoint)originalCenter number:(int)num color:(UIColor *)color;
 
+- (void)addItem;
+- (void)removeItem;
+
 @end

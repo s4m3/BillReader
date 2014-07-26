@@ -35,6 +35,7 @@
 @property (strong, nonatomic) UIImage *billImage;
 @property (nonatomic) BOOL imageProcessingRequired;
 @property (nonatomic) BOOL editingOfBillAllowed;
+@property (nonatomic) BOOL shouldCancelImageRecognition;
 
 @property (nonatomic, strong) Bill *loadedBill;
 
@@ -97,7 +98,7 @@
     self.toolbar.items = items;
     
     //Navigation Buttons
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Bearbeiten"
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Rechnung korrigieren"
                                                                               style:self.navigationItem.rightBarButtonItem.style
                                                                              target:self
                                                                              action:@selector(editBillAction:)];
@@ -126,6 +127,11 @@
     if(self.imageToCrop) {
         [self openCropInterface];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    self.shouldCancelImageRecognition = YES;
 }
 
 - (void)openCropInterface
@@ -390,6 +396,7 @@
 //TODO: implement proper image processing
 - (void)processImage
 {
+    self.shouldCancelImageRecognition = NO;
     
     Tesseract* tesseract = [[Tesseract alloc] initWithLanguage:@"deu"];
     tesseract.delegate = self;
@@ -552,6 +559,9 @@
 
 - (BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract*)tesseract
 {
+    if (self.shouldCancelImageRecognition) return YES;
+    
+    
     NSNumber *progress = [NSNumber numberWithFloat:(tesseract.progress / 100.0)];
     //NSLog(@"progress: %d", tesseract.progress);
     

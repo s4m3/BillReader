@@ -16,4 +16,5 @@
 @property (nonatomic, strong) NSArray *otherItems; //rest of positions to display full bill
 @property (nonatomic, strong) BillRevisionTableViewController *parentController;
 
++ (NSString *)defaultItemName;
 @end

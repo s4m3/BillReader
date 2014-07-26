@@ -110,7 +110,7 @@
                     
                     //get longest name as itemName
                     NSArray *matchesOfItemName = [itemNameRegex matchesInString:posString options:0 range:NSMakeRange(0, [posString length])];
-                    NSRange longestRangeForItemName;
+                    NSRange longestRangeForItemName = NSMakeRange(0, 0);
                     NSUInteger maxOfLengths = 0;
                     for (NSTextCheckingResult *match in matchesOfItemName) {
                         NSRange tempRange = [match rangeAtIndex:0];
@@ -185,16 +185,16 @@
     
     //if there is more than one item (so total price cannot be equal to price of single item), filter out items that have the same price as total
     //because these items are mistakenly identified as items, when they just show the total price. Sometimes bills show twice the total price
-    NSDecimalNumber *currentItemTotalPrice;
-    NSArray *itemsCopy = [items copy];
-    if (total && [items count] > 1) {
-        for (EditableItem *currentItem in itemsCopy) {
-            currentItemTotalPrice = [currentItem getTotalPriceOfItem];
-            if ([total compare:currentItemTotalPrice] == NSOrderedSame || [total compare:currentItemTotalPrice] == NSOrderedAscending) {
-                [items removeObject:currentItem];
-            }
-        }
-    }
+//    NSDecimalNumber *currentItemTotalPrice;
+//    NSArray *itemsCopy = [items copy];
+//    if (total && [items count] > 1) {
+//        for (EditableItem *currentItem in itemsCopy) {
+//            currentItemTotalPrice = [currentItem getTotalPriceOfItem];
+//            if ([total compare:currentItemTotalPrice] == NSOrderedSame || [total compare:currentItemTotalPrice] == NSOrderedAscending) {
+//                [items removeObject:currentItem];
+//            }
+//        }
+//    }
     
     
     return [[Bill alloc] initWithEditableItems:items];

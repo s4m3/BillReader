@@ -21,6 +21,8 @@
 
 @implementation ItemEditingViewController
 
+#define DEFAULT_ITEM_NAME @"Getränkename"
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -48,6 +50,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [self.nameTextField becomeFirstResponder];
+    if ([self.nameTextField.text isEqualToString:DEFAULT_ITEM_NAME]) {
+        [self.nameTextField selectAll:self];
+    }
 }
 
 - (void)willMoveToParentViewController:(UIViewController *)parent
@@ -280,6 +285,12 @@
     [attributes setObject:color forKey:NSForegroundColorAttributeName];
     
     return attributes;
+}
+
+
++ (NSString *)defaultItemName
+{
+    return DEFAULT_ITEM_NAME;
 }
 
 

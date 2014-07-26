@@ -29,7 +29,7 @@
 		F4311EBB1959D0DD00B6332A /* ItemSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F4311EBA1959D0DD00B6332A /* ItemSectionHeader.m */; };
 		F4311EBE1959E02900B6332A /* ItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4311EBD1959E02900B6332A /* ItemCollectionViewCell.m */; };
 		F43CBB1B197A8BD3001A848A /* BillTextToBillObjectConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = F43CBB1A197A8BD3001A848A /* BillTextToBillObjectConverter.m */; };
-		F4744C07197EB30100A55A8A /* UINormalizableImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F4744C06197EB30100A55A8A /* UINormalizableImage.m */; };
+		F4744C07197EB30100A55A8A /* NormalizableImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F4744C06197EB30100A55A8A /* NormalizableImage.m */; };
 		F4DE2A651932042A0043CCE2 /* NumOfPeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */; };
 		F4DE2A68193347BA0043CCE2 /* PersonArticleCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A67193347BA0043CCE2 /* PersonArticleCollectionViewController.m */; };
 		F4DE2A6B19336FAE0043CCE2 /* ArticleListTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A6A19336FAE0043CCE2 /* ArticleListTextView.m */; };
@@ -113,8 +113,8 @@
 		F4311EBD1959E02900B6332A /* ItemCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemCollectionViewCell.m; sourceTree = "<group>"; };
 		F43CBB19197A8BD3001A848A /* BillTextToBillObjectConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillTextToBillObjectConverter.h; sourceTree = "<group>"; };
 		F43CBB1A197A8BD3001A848A /* BillTextToBillObjectConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillTextToBillObjectConverter.m; sourceTree = "<group>"; };
-		F4744C05197EB30000A55A8A /* UINormalizableImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UINormalizableImage.h; sourceTree = "<group>"; };
-		F4744C06197EB30100A55A8A /* UINormalizableImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UINormalizableImage.m; sourceTree = "<group>"; };
+		F4744C05197EB30000A55A8A /* NormalizableImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NormalizableImage.h; sourceTree = "<group>"; };
+		F4744C06197EB30100A55A8A /* NormalizableImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NormalizableImage.m; sourceTree = "<group>"; };
 		F4DE2A631932042A0043CCE2 /* NumOfPeopleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumOfPeopleViewController.h; sourceTree = "<group>"; };
 		F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumOfPeopleViewController.m; sourceTree = "<group>"; };
 		F4DE2A66193347BA0043CCE2 /* PersonArticleCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonArticleCollectionViewController.h; sourceTree = "<group>"; };
@@ -248,8 +248,8 @@
 				F4E775DB191FCFAB0036FEB5 /* PersonTableView.m */,
 				F4E775D7191FCF8E0036FEB5 /* BillTableView.h */,
 				F4E775D8191FCF8E0036FEB5 /* BillTableView.m */,
-				F4744C05197EB30000A55A8A /* UINormalizableImage.h */,
-				F4744C06197EB30100A55A8A /* UINormalizableImage.m */,
+				F4744C05197EB30000A55A8A /* NormalizableImage.h */,
+				F4744C06197EB30100A55A8A /* NormalizableImage.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -475,7 +475,7 @@
 				F4F2667B1915134E001D0F93 /* BillReaderAppDelegate.m in Sources */,
 				F4311EB5195970F800B6332A /* ArticleListTableView.m in Sources */,
 				F4DE2A71193370E40043CCE2 /* ArticleListCollectionViewCell.m in Sources */,
-				F4744C07197EB30100A55A8A /* UINormalizableImage.m in Sources */,
+				F4744C07197EB30100A55A8A /* NormalizableImage.m in Sources */,
 				F4047A6F19648D7D00569C15 /* CropImageViewController.m in Sources */,
 				F40798A2194B1A1500CCCC88 /* ViewHelper.m in Sources */,
 				F4F266771915134E001D0F93 /* main.m in Sources */,

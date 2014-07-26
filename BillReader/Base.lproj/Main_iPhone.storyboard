@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Wlx-o4-5KK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Wlx-o4-5KK">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -25,10 +25,10 @@
                                 </constraints>
                             </progressView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Shr-iX-xa6">
-                                <rect key="frame" x="20" y="324" width="280" height="158"/>
+                                <rect key="frame" x="161" y="374" width="139" height="92"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="45"/>
-                                <state key="normal" title="Teilen"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Aufteilen"/>
                                 <connections>
                                     <segue destination="PBO-rU-BVT" kind="push" identifier="Pick Num of People" id="0Ds-RF-ifC"/>
                                 </connections>
@@ -51,7 +51,7 @@
                                 <items/>
                             </toolbar>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconImageBill.png" translatesAutoresizingMaskIntoConstraints="NO" id="EnS-8u-LUV">
-                                <rect key="frame" x="0.0" y="89" width="159" height="227"/>
+                                <rect key="frame" x="0.0" y="89" width="159" height="277"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -64,12 +64,12 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DWa-ux-LDY">
-                                <rect key="frame" x="161" y="89" width="159" height="227"/>
+                                <rect key="frame" x="161" y="89" width="159" height="277"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="159" id="JYg-Ab-uds"/>
-                                    <constraint firstAttribute="height" constant="227" id="vzw-oy-WOt"/>
+                                    <constraint firstAttribute="height" constant="277" id="vzw-oy-WOt"/>
                                 </constraints>
                                 <attributedString key="attributedText">
                                     <fragment content="Rechnung:">
@@ -86,27 +86,42 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vc-WB-WHt">
+                                <rect key="frame" x="20" y="374" width="133" height="92"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Neue Rechnung">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showImageActionSheet:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Ofa-Sg-hPd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Shr-iX-xa6" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" constant="119" id="0jr-f7-fdP"/>
-                            <constraint firstItem="Shr-iX-xa6" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="13g-lx-pO0"/>
+                            <constraint firstItem="Shr-iX-xa6" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" constant="136" id="0jr-f7-fdP"/>
+                            <constraint firstItem="Shr-iX-xa6" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="161" id="13g-lx-pO0"/>
                             <constraint firstAttribute="trailing" secondItem="NEg-rm-dyv" secondAttribute="trailing" constant="20" id="1mx-Bs-Utd"/>
                             <constraint firstItem="NEg-rm-dyv" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="2xW-82-1H4"/>
-                            <constraint firstItem="dIs-em-AP2" firstAttribute="leading" secondItem="Shr-iX-xa6" secondAttribute="leading" id="9Ey-AC-a1x"/>
+                            <constraint firstItem="dIs-em-AP2" firstAttribute="leading" secondItem="Shr-iX-xa6" secondAttribute="leading" constant="-141" id="9Ey-AC-a1x"/>
                             <constraint firstAttribute="bottom" secondItem="mcH-OY-R3a" secondAttribute="bottom" id="AtG-io-Vj2"/>
                             <constraint firstAttribute="trailing" secondItem="mcH-OY-R3a" secondAttribute="trailing" id="DuB-vs-sjV"/>
                             <constraint firstItem="NEg-rm-dyv" firstAttribute="top" secondItem="Nb7-TE-gUo" secondAttribute="bottom" constant="15" id="KxR-B3-6Da"/>
+                            <constraint firstItem="dIs-em-AP2" firstAttribute="top" secondItem="1vc-WB-WHt" secondAttribute="bottom" constant="24" id="Nun-OT-GMH"/>
                             <constraint firstItem="EnS-8u-LUV" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Pz9-Ib-WrA"/>
-                            <constraint firstItem="EnS-8u-LUV" firstAttribute="top" secondItem="NEg-rm-dyv" secondAttribute="bottom" constant="8" id="UDx-24-LVh"/>
                             <constraint firstAttribute="trailing" secondItem="Shr-iX-xa6" secondAttribute="trailing" constant="20" id="UIY-zO-voS"/>
                             <constraint firstItem="Shr-iX-xa6" firstAttribute="top" secondItem="DWa-ux-LDY" secondAttribute="bottom" constant="8" id="dYa-Nz-y1p"/>
+                            <constraint firstItem="1vc-WB-WHt" firstAttribute="top" secondItem="EnS-8u-LUV" secondAttribute="bottom" constant="8" id="don-tq-CIq"/>
                             <constraint firstItem="mcH-OY-R3a" firstAttribute="top" secondItem="dIs-em-AP2" secondAttribute="bottom" constant="5" id="fyL-a2-gHi"/>
                             <constraint firstItem="mcH-OY-R3a" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="gpC-oh-ap4"/>
                             <constraint firstAttribute="trailing" secondItem="DWa-ux-LDY" secondAttribute="trailing" id="hIK-y9-yes"/>
                             <constraint firstItem="Shr-iX-xa6" firstAttribute="top" secondItem="EnS-8u-LUV" secondAttribute="bottom" constant="8" id="i7e-YG-kDk"/>
+                            <constraint firstItem="Shr-iX-xa6" firstAttribute="leading" secondItem="1vc-WB-WHt" secondAttribute="trailing" constant="8" id="p0I-pd-O0s"/>
+                            <constraint firstItem="DWa-ux-LDY" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="89" id="qjm-1K-lV1"/>
+                            <constraint firstItem="1vc-WB-WHt" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="tVm-i5-gTN"/>
+                            <constraint firstItem="EnS-8u-LUV" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="89" id="uTr-KC-a1L"/>
                             <constraint firstItem="DWa-ux-LDY" firstAttribute="leading" secondItem="EnS-8u-LUV" secondAttribute="trailing" constant="2" id="xX7-XI-jxP"/>
-                            <constraint firstItem="DWa-ux-LDY" firstAttribute="top" secondItem="NEg-rm-dyv" secondAttribute="bottom" constant="8" id="xu7-Qg-M7R"/>
                             <constraint firstItem="dIs-em-AP2" firstAttribute="trailing" secondItem="Shr-iX-xa6" secondAttribute="trailing" id="y6b-Pt-3ql"/>
                         </constraints>
                     </view>

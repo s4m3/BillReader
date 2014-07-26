@@ -8,7 +8,7 @@
 
 #import "CropImageViewController.h"
 #import "CropRectangleView.h"
-#import "UINormalizableImage.h"
+#import "NormalizableImage.h"
 
 @interface CropImageViewController () <UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -40,11 +40,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"image orientation: %d", self.originalImage.imageOrientation);
     
     //normalize image for propper image orientation
-    UINormalizableImage *imageToNormalize = [[UINormalizableImage alloc] initWithCGImage:self.originalImage.CGImage scale:self.originalImage.scale orientation:self.originalImage.imageOrientation];
-    
+    NormalizableImage *imageToNormalize = [[NormalizableImage alloc] initWithCGImage:self.originalImage.CGImage scale:self.originalImage.scale orientation:self.originalImage.imageOrientation];
     
     self.originalImage = [imageToNormalize normalizedImage];
     
@@ -53,11 +51,6 @@
     [self.imageView setImage:self.originalImage];
     //self.imageView.frame = CGRectMake(0, 0, self.originalImage.size.width, self.originalImage.size.height);
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    //NSLog(@"%f", self.imageView.contentScaleFactor);
-    //    self.scrollView.zoomScale = 1.0;
-    //    self.scrollView.maximumZoomScale = 2.0;
-    //    self.scrollView.minimumZoomScale = 0.5;
-    //    self.scrollView.delegate = self;
     
     UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(updateCropRectangle:)];
     [panRecognizer setMinimumNumberOfTouches:1];
@@ -150,8 +143,7 @@
     
     
     //populate image back to main view. (parent view)
-    UIImage *finalImage = [UIImage imageWithCGImage:imageRef];
-    [self.parentBillReaderViewController setCroppedImage:finalImage];
+    [self.parentBillReaderViewController setCroppedImage:[UIImage imageWithCGImage:imageRef]];
     
     //dismiss current controller
     [(UINavigationController *)self.presentingViewController  popViewControllerAnimated:NO];

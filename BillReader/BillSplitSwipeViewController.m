@@ -67,6 +67,7 @@
     } else {
         if(self.intersectionObjectNumber > -1) {
             [self animateInCircleWithNumber:self.intersectionObjectNumber];
+            [self updateItemCounterInPersonCircleWithNumber:self.intersectionObjectNumber];
             [self setCurrentItemToNewOwner:self.intersectionObjectNumber + 1];
         } else {
             [self animateBackToOriginalPosition];
@@ -111,6 +112,11 @@
     self.currentItem = [itemsWithNoOwner count] > 0 ? itemsWithNoOwner[0] : nil;
 
     [self setItemOfSwipeArticle:self.currentItem];
+}
+
+- (void)updateItemCounterInPersonCircleWithNumber:(int)circleNumber
+{
+    [self.circles[circleNumber] addItem];
 }
 
 - (void)animateInCircleWithNumber:(int)circleNumber

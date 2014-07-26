@@ -12,6 +12,7 @@
 @property (nonatomic) CGRect increasedFrame;
 @property (nonatomic) CGPoint originalCenter;
 
+@property (nonatomic, strong) UITextView *numberTextView;
 @end
 
 @implementation PersonCircleView
@@ -40,13 +41,18 @@
         [icon setFrame:iconBounds];
         [self addSubview:icon];
         
-        UITextView *text = [[UITextView alloc] initWithFrame:self.bounds];
+        CGRect numberFrame = iconBounds;
+        numberFrame.origin.x += numberFrame.size.width / 2;
+        numberFrame.origin.y += numberFrame.size.height / 2;
+        UITextView *text = [[UITextView alloc] initWithFrame:numberFrame];
         [text setBackgroundColor:[UIColor clearColor]];
-        [text setTextColor:[UIColor whiteColor]];
+        [text setTextColor:[UIColor darkGrayColor]];
         [text setTextAlignment:NSTextAlignmentCenter];
-        [text setFont:[UIFont fontWithName:@"Helvetica" size:25]];
-        [text setText:[NSString stringWithFormat:@"%d", num + 1]];
+        [text setFont:[UIFont boldSystemFontOfSize:20]];
+        [text setText:@"0"];
         [text setEditable:NO];
+        [text setSelectable:NO];
+        self.numberTextView = text;
         [self addSubview:text];
         
 
@@ -131,6 +137,28 @@
                      completion:^(BOOL finished){
                          [self removeFromSuperview];
                      }];
+}
+
+-(void)addItem
+{
+    if(!self.numberTextView)
+        return;
+    
+    [self.numberTextView setText:[NSString stringWithFormat:@"%d",([self.numberTextView.text intValue] + 1)]];
+    
+}
+
+- (void)removeItem
+{
+    if(!self.numberTextView)
+        return;
+    
+    int currentValue = [self.numberTextView.text intValue];
+    
+    if (currentValue > 0) {
+        currentValue--;
+        [self.numberTextView setText:[NSString stringWithFormat:@"%d",currentValue]];
+    }
 }
 
 

@@ -73,7 +73,8 @@
 
 }
 
-#define EDIT_TITLE @"Bearbeiten"
+#define REMOVE_TITLE @"Löschen"
+#define ADD_TITLE @"Hinzufügen"
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -84,11 +85,12 @@
                                       style:self.navigationItem.backBarButtonItem.style
                                      target:nil
                                      action:nil];
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                                                              target:self
-                                                                              action:@selector(enterItemAddingMode)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:ADD_TITLE
+                                                                 style:self.navigationItem.rightBarButtonItem.style
+                                                                target:self
+                                                                action:@selector(enterItemAddingMode)];
     
-    UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:EDIT_TITLE
+    UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:REMOVE_TITLE
                                                                      style:self.navigationItem.rightBarButtonItem.style
                                                                     target:self
                                                                     action:@selector(enterEditingMode)];
@@ -112,7 +114,7 @@
 {
     if ([self.billTableView isEditing]) {
         [self.billTableView setEditing:NO animated:YES];
-        [self.navigationItem.rightBarButtonItems[0] setTitle:EDIT_TITLE];
+        [self.navigationItem.rightBarButtonItems[0] setTitle:REMOVE_TITLE];
     } else {
         [self.navigationItem.rightBarButtonItems[0] setTitle:@"Fertig"];
         [self.billTableView setEditing:YES animated:YES];
@@ -122,7 +124,7 @@
 - (void)enterItemAddingMode
 {
     NSLog(@"adding item");
-    EditableItem *newItem = [[EditableItem alloc] initWithName:@"Getränkename" amount:1 andPrice:[NSDecimalNumber decimalNumberWithString:@"0"]];
+    EditableItem *newItem = [[EditableItem alloc] initWithName:[ItemEditingViewController defaultItemName] amount:1 andPrice:[NSDecimalNumber decimalNumberWithString:@"0"]];
     [self.editableItems addObject:newItem];
     NSUInteger section = 0;
     NSUInteger row = [self.billTableView numberOfRowsInSection:0];
@@ -144,7 +146,7 @@
         // Additional code to configure the Edit Button, if any
         if (self.editableItems.count == 0) {
             self.navigationItem.rightBarButtonItem.enabled = NO;
-            [self.navigationItem.rightBarButtonItems[0] setTitle:EDIT_TITLE];
+            [self.navigationItem.rightBarButtonItems[0] setTitle:REMOVE_TITLE];
         }
     }
 }
