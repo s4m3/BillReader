@@ -13,7 +13,9 @@
 @interface BillReaderViewController : UIViewController <TesseractDelegate>
 @property (nonatomic, strong) Bill *bill;
 
+
 - (void)updateBillWithRevisedItems:(NSArray *)revisedItems;
 
 - (void)setCroppedImage:(UIImage *)croppedImage;
+
 @end

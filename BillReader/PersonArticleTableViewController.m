@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSMutableArray *itemTexts;
 @property (nonatomic, strong) NSMutableArray *totalStrings;
 
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @end
 
 @implementation PersonArticleTableViewController
@@ -38,8 +39,33 @@
 {
     [super viewDidLoad];
     
+    UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    UIBarButtonItem *resetButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(tryToReset:)];
+    
+    NSArray *items = [[NSArray alloc] initWithObjects:flexSpace, resetButton, nil];
+    
+    self.toolbar.items = items;
+    
     [self setTextArrayForDetailTextViewCells];
     [self.tableView reloadData];
+}
+
+- (void)tryToReset:(id)sender
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Neustart"
+                                                    message:@"Wollen Sie zum Startbildschirm zurückkehren?"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Ja"
+                                          otherButtonTitles:@"Nein", nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

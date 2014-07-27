@@ -30,6 +30,7 @@
 		F4311EBE1959E02900B6332A /* ItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4311EBD1959E02900B6332A /* ItemCollectionViewCell.m */; };
 		F43CBB1B197A8BD3001A848A /* BillTextToBillObjectConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = F43CBB1A197A8BD3001A848A /* BillTextToBillObjectConverter.m */; };
 		F4744C07197EB30100A55A8A /* NormalizableImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F4744C06197EB30100A55A8A /* NormalizableImage.m */; };
+		F4744C0A19851D4D00A55A8A /* CropCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = F4744C0919851D4D00A55A8A /* CropCircle.m */; };
 		F4DE2A651932042A0043CCE2 /* NumOfPeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */; };
 		F4DE2A68193347BA0043CCE2 /* PersonArticleCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A67193347BA0043CCE2 /* PersonArticleCollectionViewController.m */; };
 		F4DE2A6B19336FAE0043CCE2 /* ArticleListTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A6A19336FAE0043CCE2 /* ArticleListTextView.m */; };
@@ -115,6 +116,8 @@
 		F43CBB1A197A8BD3001A848A /* BillTextToBillObjectConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillTextToBillObjectConverter.m; sourceTree = "<group>"; };
 		F4744C05197EB30000A55A8A /* NormalizableImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NormalizableImage.h; sourceTree = "<group>"; };
 		F4744C06197EB30100A55A8A /* NormalizableImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NormalizableImage.m; sourceTree = "<group>"; };
+		F4744C0819851D4D00A55A8A /* CropCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropCircle.h; sourceTree = "<group>"; };
+		F4744C0919851D4D00A55A8A /* CropCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropCircle.m; sourceTree = "<group>"; };
 		F4DE2A631932042A0043CCE2 /* NumOfPeopleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumOfPeopleViewController.h; sourceTree = "<group>"; };
 		F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumOfPeopleViewController.m; sourceTree = "<group>"; };
 		F4DE2A66193347BA0043CCE2 /* PersonArticleCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonArticleCollectionViewController.h; sourceTree = "<group>"; };
@@ -222,6 +225,8 @@
 			children = (
 				F4047A7019654E7A00569C15 /* CropRectangleView.h */,
 				F4047A7119654E7A00569C15 /* CropRectangleView.m */,
+				F4744C0819851D4D00A55A8A /* CropCircle.h */,
+				F4744C0919851D4D00A55A8A /* CropCircle.m */,
 				F4047A6619630A8000569C15 /* NumberViewCell.h */,
 				F4047A6719630A8000569C15 /* NumberViewCell.m */,
 				F4311EBC1959E02900B6332A /* ItemCollectionViewCell.h */,
@@ -468,6 +473,7 @@
 				F4311EB219596BBB00B6332A /* ArticleListTableViewCell.m in Sources */,
 				F4E775C71919430F0036FEB5 /* Bill.m in Sources */,
 				F4311EAF195963D600B6332A /* PersonArticleTableViewController.m in Sources */,
+				F4744C0A19851D4D00A55A8A /* CropCircle.m in Sources */,
 				F42EC8541934ACB5009798B5 /* SwipeArticleView.m in Sources */,
 				F40798991949B70900CCCC88 /* BillRevisionTableViewController.m in Sources */,
 				F4DE2A651932042A0043CCE2 /* NumOfPeopleViewController.m in Sources */,

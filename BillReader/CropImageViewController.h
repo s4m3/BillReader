@@ -17,6 +17,10 @@ typedef enum {
     BOTTOM = 1,
     LEFT = 2,
     RIGHT = 3,
-    NONE = 4
+    TOP_LEFT = 4,
+    TOP_RIGHT = 5,
+    BOTTOM_LEFT = 6,
+    BOTTOM_RIGHT = 7,
+    NONE = 8
 } MinimumDistance;
 @end

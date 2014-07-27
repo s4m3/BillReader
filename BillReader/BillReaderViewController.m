@@ -19,7 +19,7 @@
 #import "CropImageViewController.h"
 #import "BillTextToBillObjectConverter.h"
 
-@interface BillReaderViewController () <UIImagePickerControllerDelegate, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface BillReaderViewController () <UIImagePickerControllerDelegate, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *splitButton;
 
@@ -46,6 +46,7 @@
 
 @implementation BillReaderViewController
 
+
 - (void)setBillImage:(UIImage *)billImage
 {
     _billImage = billImage;
@@ -60,10 +61,12 @@
 - (void)setBill:(Bill *)bill
 {
     _bill = bill;
-    if (_bill) {
+    if (bill) {
         self.splitButton.enabled = YES;
         self.editingOfBillAllowed = YES;
         [self updateBillPreviewText];
+    } else {
+        [self.billPreviewText setText:@"Rechnung:"];
     }
 }
 
@@ -83,19 +86,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.imageProcessingRequired = YES;
-    self.billRecognitionProgressBar.hidden = YES;
-    self.splitButton.enabled = NO;
-    self.billRecognitionProgressBar.progress = 0.0;
+    [self resetInterface];
     
     UIBarButtonItem *cameraButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(showImageActionSheet:)];
     
-    UITapGestureRecognizer *imageTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openCropInterface)];
-    [self.imagePreview addGestureRecognizer:imageTapRecognizer];
+    UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    UIBarButtonItem *resetButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(tryToReset:)];
     
     //UIBarButtonItem *other buttons ??? TODO...
-    NSArray *items = [[NSArray alloc] initWithObjects:cameraButton, nil];
+    NSArray *items = [[NSArray alloc] initWithObjects:cameraButton, flexSpace, resetButton, nil];
     self.toolbar.items = items;
+    
+    
+    UITapGestureRecognizer *imageTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openCropInterface)];
+    [self.imagePreview addGestureRecognizer:imageTapRecognizer];
     
     //Navigation Buttons
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Rechnung korrigieren"
@@ -108,10 +113,11 @@
                                                                             target:nil
                                                                             action:nil];
     
-    self.editingOfBillAllowed = NO;
     
     UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editBillAction:)];
     [self.billPreviewText addGestureRecognizer:recognizer];
+    
+    self.editingOfBillAllowed = NO;
     
 }
 
@@ -140,6 +146,20 @@
         self.imageToCrop = self.originalImage;
         [self performSegueWithIdentifier:@"Crop Image" sender:nil];
     }
+    
+}
+
+
+- (void)resetInterface
+{
+    self.bill = nil;
+    _billImage = [UIImage imageNamed:@"iconImageBill.png"];
+    [self.imagePreview setImage:_billImage];
+    self.imageProcessingRequired = NO;
+    self.billRecognitionProgressBar.hidden = YES;
+    self.splitButton.enabled = NO;
+    self.billRecognitionProgressBar.progress = 0.0;
+    self.editingOfBillAllowed = NO;
     
 }
 
@@ -213,6 +233,22 @@
     return nil;
 }
 
+- (IBAction)tryToReset:(id)sender
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Rechnung löschen"
+                                                    message:@"Wollen Sie die aktuelle Rechnung löschen und neu beginnen?"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Ja"
+                                          otherButtonTitles:@"Nein", nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self resetInterface];
+    }
+}
 
 #define NEW_PHOTO @"Neues Photo"
 #define PICTURE_FROM_GALLERY @"Bild aus Galerie"

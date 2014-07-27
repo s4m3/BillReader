@@ -28,7 +28,7 @@
         self.originalFrame = frame;
         CGFloat increase = INCREASE_FACTOR;
         CGFloat newWidth = frame.size.width * increase;
-        self.increasedFrame = CGRectMake(frame.origin.x - newWidth / 2, frame.origin.y - newWidth / 2, newWidth, newWidth);
+        self.increasedFrame = CGRectMake(frame.origin.x - newWidth / 2, frame.origin.y - newWidth / 2, newWidth, newWidth); //TODO:delete?
         self.center = originalCenter;
         self.originalCenter = originalCenter;
         self.backgroundColor = color;
