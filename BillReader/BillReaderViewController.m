@@ -152,6 +152,7 @@
 
 - (void)resetInterface
 {
+    self.shouldCancelImageRecognition = YES;
     self.bill = nil;
     _billImage = [UIImage imageNamed:@"iconImageBill.png"];
     [self.imagePreview setImage:_billImage];
@@ -160,6 +161,8 @@
     self.splitButton.enabled = NO;
     self.billRecognitionProgressBar.progress = 0.0;
     self.editingOfBillAllowed = NO;
+    self.originalImage = nil;
+    self.imageToCrop = nil;
     
 }
 
@@ -433,6 +436,7 @@
 - (void)processImage
 {
     self.shouldCancelImageRecognition = NO;
+    self.splitButton.enabled = NO;
     
     Tesseract* tesseract = [[Tesseract alloc] initWithLanguage:@"deu"];
     tesseract.delegate = self;

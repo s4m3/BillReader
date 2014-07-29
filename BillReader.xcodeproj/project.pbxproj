@@ -31,6 +31,8 @@
 		F43CBB1B197A8BD3001A848A /* BillTextToBillObjectConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = F43CBB1A197A8BD3001A848A /* BillTextToBillObjectConverter.m */; };
 		F4744C07197EB30100A55A8A /* NormalizableImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F4744C06197EB30100A55A8A /* NormalizableImage.m */; };
 		F4744C0A19851D4D00A55A8A /* CropCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = F4744C0919851D4D00A55A8A /* CropCircle.m */; };
+		F4744C0D19864D5000A55A8A /* beerIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = F4744C0B19864D5000A55A8A /* beerIcon.png */; };
+		F4744C0E19864D5000A55A8A /* waterIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = F4744C0C19864D5000A55A8A /* waterIcon.png */; };
 		F4DE2A651932042A0043CCE2 /* NumOfPeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */; };
 		F4DE2A68193347BA0043CCE2 /* PersonArticleCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A67193347BA0043CCE2 /* PersonArticleCollectionViewController.m */; };
 		F4DE2A6B19336FAE0043CCE2 /* ArticleListTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DE2A6A19336FAE0043CCE2 /* ArticleListTextView.m */; };
@@ -118,6 +120,8 @@
 		F4744C06197EB30100A55A8A /* NormalizableImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NormalizableImage.m; sourceTree = "<group>"; };
 		F4744C0819851D4D00A55A8A /* CropCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropCircle.h; sourceTree = "<group>"; };
 		F4744C0919851D4D00A55A8A /* CropCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropCircle.m; sourceTree = "<group>"; };
+		F4744C0B19864D5000A55A8A /* beerIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beerIcon.png; sourceTree = "<group>"; };
+		F4744C0C19864D5000A55A8A /* waterIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waterIcon.png; sourceTree = "<group>"; };
 		F4DE2A631932042A0043CCE2 /* NumOfPeopleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumOfPeopleViewController.h; sourceTree = "<group>"; };
 		F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumOfPeopleViewController.m; sourceTree = "<group>"; };
 		F4DE2A66193347BA0043CCE2 /* PersonArticleCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonArticleCollectionViewController.h; sourceTree = "<group>"; };
@@ -280,6 +284,8 @@
 				F4F266B319152712001D0F93 /* rechnung2.jpg */,
 				F41A461D194EF8750075174D /* exampleBillPicture2.png */,
 				F41A4619194EEFCB0075174D /* iconImageBill.png */,
+				F4744C0B19864D5000A55A8A /* beerIcon.png */,
+				F4744C0C19864D5000A55A8A /* waterIcon.png */,
 				F4F266AF191517D1001D0F93 /* tessdata */,
 				F4F266921915134E001D0F93 /* BillReaderTests */,
 				F4F266691915134E001D0F93 /* Frameworks */,
@@ -443,7 +449,9 @@
 				F4F266B0191517D1001D0F93 /* tessdata in Resources */,
 				F4F2667E1915134E001D0F93 /* Main_iPhone.storyboard in Resources */,
 				F4F266751915134E001D0F93 /* InfoPlist.strings in Resources */,
+				F4744C0E19864D5000A55A8A /* waterIcon.png in Resources */,
 				F4F266B219151945001D0F93 /* rechnung1.jpg in Resources */,
+				F4744C0D19864D5000A55A8A /* beerIcon.png in Resources */,
 				F4F266B419152712001D0F93 /* rechnung2.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

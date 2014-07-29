@@ -103,11 +103,25 @@
     
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:removeButton, addButton, nil];
     
+    UITapGestureRecognizer *recognizerForEmptyRows = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOnEmptyRow:)];
+    [self.billTableView addGestureRecognizer:recognizerForEmptyRows];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void)didTapOnEmptyRow:(UIGestureRecognizer*) recognizer {
+    CGPoint tapPoint = [recognizer locationInView:self.billTableView];
+    NSIndexPath *indexPath = [self.billTableView indexPathForRowAtPoint:tapPoint];
+    
+    if (indexPath) {
+        recognizer.cancelsTouchesInView = NO;
+    } else {
+        [self enterItemAddingMode];
+    }
 }
 
 - (void)enterEditingMode
@@ -123,7 +137,6 @@
 
 - (void)enterItemAddingMode
 {
-    NSLog(@"adding item");
     EditableItem *newItem = [[EditableItem alloc] initWithName:[ItemEditingViewController defaultItemName] amount:1 andPrice:[NSDecimalNumber decimalNumberWithString:@"0"]];
     [self.editableItems addObject:newItem];
     NSUInteger section = 0;
@@ -203,24 +216,30 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"section: %ld, row: %ld",(long)indexPath.section, (long)indexPath.row);
     [self performSegueWithIdentifier:@"Edit Position" sender:indexPath];
 }
 
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
  {
      NSUInteger index = ((NSIndexPath *)sender).row;
-     ItemEditingViewController *pevc = [segue destinationViewController];
-     pevc.editableItem = self.editableItems[index];
-     pevc.parentController = self;
-     
+     ItemEditingViewController *ievc = [segue destinationViewController];
+     ievc.editableItem = self.editableItems[index];
+     ievc.parentController = self;
+     ievc.title = @"Artikel";
      NSMutableArray *otherPositions = [NSMutableArray array];
      for (int i=0; i<[self.editableItems count]; i++) {
          if (i != index) {
              [otherPositions addObject:self.editableItems[i]];
          }
      }
-     pevc.otherItems = otherPositions;
+     ievc.otherItems = otherPositions;
  }
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"Löschen";
+}
 
 
 

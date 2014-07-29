@@ -539,12 +539,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sKX-FY-iX6">
-                                <rect key="frame" x="191" y="489" width="46" height="30"/>
+                                <rect key="frame" x="225" y="489" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="hmd-bs-pbX"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="46"/>
                                 <state key="normal" title="+"/>
                                 <state key="disabled" title=".">
                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -555,13 +555,13 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLh-ZX-NwQ">
-                                <rect key="frame" x="74" y="489" width="46" height="30"/>
+                                <rect key="frame" x="57" y="489" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="gOm-PL-XAh"/>
                                     <constraint firstAttribute="height" constant="30" id="yYV-KS-bZA"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="46"/>
                                 <state key="normal" title="-">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -574,13 +574,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1. Person" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aP7-PK-QV4">
-                                <rect key="frame" x="128" y="493" width="55" height="21"/>
+                                <rect key="frame" x="103" y="493" width="114" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FGc-ku-HzO"/>
-                                    <constraint firstAttribute="width" constant="55" id="fHy-AH-d8S"/>
+                                    <constraint firstAttribute="width" constant="114" id="fHy-AH-d8S"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -595,9 +595,9 @@
                             <constraint firstItem="S2h-I5-904" firstAttribute="top" secondItem="sKX-FY-iX6" secondAttribute="bottom" constant="14" id="AKx-If-9lw"/>
                             <constraint firstItem="YIe-jA-Bx7" firstAttribute="leading" secondItem="wKF-xt-O0w" secondAttribute="leading" id="BG1-0g-gK7"/>
                             <constraint firstItem="L07-r1-O24" firstAttribute="width" secondItem="sKX-FY-iX6" secondAttribute="height" multiplier="16:3" id="EUc-Qw-ucc"/>
-                            <constraint firstItem="aP7-PK-QV4" firstAttribute="leading" secondItem="nLh-ZX-NwQ" secondAttribute="trailing" constant="8" symbolic="YES" id="Ipi-m9-boM"/>
+                            <constraint firstItem="aP7-PK-QV4" firstAttribute="leading" secondItem="nLh-ZX-NwQ" secondAttribute="trailing" id="Ipi-m9-boM"/>
                             <constraint firstItem="aP7-PK-QV4" firstAttribute="top" secondItem="L07-r1-O24" secondAttribute="bottom" constant="26" id="JeD-v8-Rbz"/>
-                            <constraint firstAttribute="trailing" secondItem="sKX-FY-iX6" secondAttribute="trailing" constant="83" id="PRS-Pk-Wp8"/>
+                            <constraint firstAttribute="trailing" secondItem="sKX-FY-iX6" secondAttribute="trailing" constant="49" id="PRS-Pk-Wp8"/>
                             <constraint firstItem="S2h-I5-904" firstAttribute="baseline" secondItem="u64-U9-U8c" secondAttribute="baseline" id="Rwi-oD-Uv1"/>
                             <constraint firstItem="L07-r1-O24" firstAttribute="top" secondItem="Izz-Mz-NUQ" secondAttribute="bottom" constant="1" id="VAL-O7-zcR"/>
                             <constraint firstItem="sKX-FY-iX6" firstAttribute="leading" secondItem="aP7-PK-QV4" secondAttribute="trailing" constant="8" symbolic="YES" id="W52-EX-gh3"/>
@@ -676,9 +676,9 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IfC-Y6-ty0">
-                                <rect key="frame" x="210" y="518" width="46" height="30"/>
+                                <rect key="frame" x="221" y="513" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="46"/>
                                 <state key="normal" title="+"/>
                                 <state key="disabled" title=".">
                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -690,9 +690,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qr2-m4-iwC">
-                                <rect key="frame" x="64" y="518" width="46" height="30"/>
+                                <rect key="frame" x="50" y="513" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="46"/>
                                 <state key="normal" title="-">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -705,10 +705,18 @@
                                     <action selector="previousPersonAction:" destination="nfq-bP-b3O" eventType="touchUpInside" id="RSI-4F-dwS"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Person 1/x" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CXu-IO-hs1">
-                                <rect key="frame" x="118" y="522" width="84" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CXu-IO-hs1">
+                                <rect key="frame" x="108" y="518" width="105" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Person 1/x">
+                                        <attributes>
+                                            <color key="NSColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="15" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="THS-p7-pmP">
@@ -864,6 +872,13 @@
                                                     </attributedString>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="▾" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbB-8H-4py">
+                                                    <rect key="frame" x="139" y="27" width="42" height="11"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="UKL-JX-R9H" firstAttribute="top" secondItem="ZdX-0A-UYU" secondAttribute="top" constant="18" id="1c4-Ul-gxA"/>
@@ -877,6 +892,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="arrowLabel" destination="lbB-8H-4py" id="Kbb-Af-biT"/>
                                             <outlet property="itemTextView" destination="cZH-XG-fZ4" id="Osh-bY-qlf"/>
                                             <outlet property="nameLabel" destination="UKL-JX-R9H" id="S8X-qJ-DnB"/>
                                             <outlet property="totalLabel" destination="vdM-ov-RT0" id="eiQ-HF-GaH"/>
@@ -989,6 +1005,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="aEt-KE-4rv"/>
+        <segue reference="eCU-1m-z75"/>
     </inferredMetricsTieBreakers>
 </document>

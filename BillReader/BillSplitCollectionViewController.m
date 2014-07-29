@@ -93,7 +93,15 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     if ([cell isKindOfClass:[ItemCollectionViewCell class]]) {
         ItemCollectionViewCell *itemCollectionViewCell = (ItemCollectionViewCell *) cell;
-        itemCollectionViewCell.label.text = [NSString stringWithFormat: @"%ld",indexPath.row + 1 ];
+        //itemCollectionViewCell.label.text = [NSString stringWithFormat: @"%ld",indexPath.row + 1 ];
+        
+        CGRect iconBounds = CGRectInset(itemCollectionViewCell.bounds, 8, 8);
+        NSString *iconPath = @"beerIcon.png";
+        UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:iconPath]];
+        [icon setFrame:iconBounds];
+        [itemCollectionViewCell addSubview:icon];
+        
+        
         UIColor *backgroundColor = [self.cellColors objectForKey:indexPath];
         if (!backgroundColor) {
             backgroundColor = [UIColor lightGrayColor];
@@ -212,7 +220,12 @@
 
 - (void)updateUI
 {
-    self.personLabel.text = [NSString stringWithFormat:@"Person %lu/%lu ", (unsigned long)self.personId, self.totalNumOfPersons];
+    NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
+    UIFont *titleFont = [UIFont systemFontOfSize:20];
+    [attributes setObject:titleFont forKey:NSFontAttributeName];
+    [attributes setObject:self.colors[self.personId - 1] forKey:NSForegroundColorAttributeName];
+    NSAttributedString *personLabelText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Person %lu/%lu ", (unsigned long)self.personId, self.totalNumOfPersons] attributes:attributes];
+    self.personLabel.attributedText = personLabelText;
     [self updateButtons];
 }
 

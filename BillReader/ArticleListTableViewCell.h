@@ -12,6 +12,7 @@
 @interface ArticleListTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
+@property (weak, nonatomic) IBOutlet UILabel *arrowLabel;
 @property (weak, nonatomic) IBOutlet ArticleListTextView *itemTextView;
 
 

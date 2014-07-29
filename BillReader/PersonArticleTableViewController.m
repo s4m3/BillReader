@@ -124,6 +124,7 @@
         NSAttributedString *total = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ €", self.totalStrings[indexPath.row]] attributes:attributes];
         cell.totalLabel.attributedText = total;
         cell.totalLabel.hidden = isSelected;
+        cell.arrowLabel.hidden = isSelected;
         
         
         return cell;
