@@ -21,7 +21,7 @@
 
 @implementation ItemEditingViewController
 
-#define DEFAULT_ITEM_NAME @"Getränkename"
+#define DEFAULT_ITEM_NAME @"Artikelname"
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -91,7 +91,8 @@
 
 - (NSDecimalNumber *)getPriceAsDecimalNumber
 {
-    return [NSDecimalNumber decimalNumberWithString:self.priceTextField.text];
+    NSDictionary *germanLocale = [NSDictionary dictionaryWithObject:@"," forKey:NSLocaleDecimalSeparator];
+    return [NSDecimalNumber decimalNumberWithString:self.priceTextField.text locale:germanLocale];
 }
 
 - (IBAction)nameEditingAction:(UITextField *)sender
@@ -140,11 +141,13 @@
 
 - (IBAction)priceStepAction:(UIStepper *)sender
 {
-    if ([self getPriceAsDecimalNumber] <= 0 && sender.value < 0) {
+    NSDecimalNumber *newAmount = [[self getPriceAsDecimalNumber] decimalNumberByAdding:(NSDecimalNumber *)[NSDecimalNumber numberWithDouble:sender.value]];
+    NSComparisonResult comparison = [newAmount compare:[NSDecimalNumber zero]];
+    if ((comparison == NSOrderedSame || comparison == NSOrderedAscending) && sender.value < 0) {
         sender.value = 0;
         return;
     }
-    NSDecimalNumber *newAmount = [[self getPriceAsDecimalNumber] decimalNumberByAdding:(NSDecimalNumber *)[NSDecimalNumber numberWithDouble:sender.value]];
+    
     self.editableItem.price = newAmount;
     self.priceTextField.text = [self.editableItem priceAsString];
     sender.value = 0;

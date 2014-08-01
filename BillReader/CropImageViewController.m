@@ -303,7 +303,17 @@
     //populate image back to main view. (parent view)
     [self.parentBillReaderViewController setCroppedImage:[UIImage imageWithCGImage:imageRef]];
     
-    //dismiss current controller
+    [self dismissCropController];
+}
+
+- (IBAction)cancelButton:(UIButton *)sender
+{
+    [self.parentBillReaderViewController setCroppedImage:nil];
+    [self dismissCropController];
+}
+
+- (void)dismissCropController
+{
     [(UINavigationController *)self.presentingViewController  popViewControllerAnimated:NO];
     [self dismissViewControllerAnimated:YES completion:nil];
 }

@@ -33,14 +33,13 @@
 
 @property (strong, nonatomic) UIImage *originalImage;
 @property (strong, nonatomic) UIImage *billImage;
+@property (nonatomic, strong) UIImage *imageToCrop;
 @property (nonatomic) BOOL imageProcessingRequired;
 @property (nonatomic) BOOL editingOfBillAllowed;
 @property (nonatomic) BOOL shouldCancelImageRecognition;
 
 @property (nonatomic, strong) Bill *loadedBill;
 
-
-@property (nonatomic, strong) UIImage *imageToCrop;
 
 @end
 
@@ -50,11 +49,14 @@
 - (void)setBillImage:(UIImage *)billImage
 {
     _billImage = billImage;
-    NSLog(@"populating image to preview");
-    self.billPreviewText.text = @"Rechnungstext wird extrahiert...";
-    self.imageProcessingRequired = YES;
-    self.bill = nil;
-    [self.imagePreview setImage:billImage];
+    if(billImage) {
+        self.billPreviewText.text = @"Rechnungstext wird extrahiert...";
+        self.imageProcessingRequired = YES;
+        self.bill = nil;
+        [self.imagePreview setImage:billImage];
+    } else {
+        self.originalImage = nil;
+    }
 }
 
 
