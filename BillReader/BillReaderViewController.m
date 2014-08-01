@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imagePreview;
 @property (weak, nonatomic) IBOutlet UITextView *billPreviewText;
 @property (weak, nonatomic) IBOutlet UIProgressView *billRecognitionProgressBar;
+@property (weak, nonatomic) IBOutlet UIView *infoView;
 
 @property (strong, nonatomic) UIImage *originalImage;
 @property (strong, nonatomic) UIImage *billImage;
@@ -40,6 +41,17 @@
 
 @property (nonatomic, strong) Bill *loadedBill;
 
+
+
+
+typedef enum {
+    IMAGE_ONLY = 0,
+    BOTH = 1,
+    TEXT_ONLY = 2
+} InfoViewDisplayState;
+@property (nonatomic) InfoViewDisplayState infoViewDisplayState;
+@property (nonatomic) CGRect originalBillPreviewImageFrame;
+@property (nonatomic) CGRect originalBillPreviewTextFrame;
 
 @end
 
@@ -54,8 +66,6 @@
         self.imageProcessingRequired = YES;
         self.bill = nil;
         [self.imagePreview setImage:billImage];
-    } else {
-        self.originalImage = nil;
     }
 }
 
@@ -85,6 +95,25 @@
     self.billImage = croppedImage;
 }
 
+- (void)setInfoViewDisplayState:(InfoViewDisplayState)infoViewDisplayState
+{
+    _infoViewDisplayState = infoViewDisplayState;
+    
+    switch(infoViewDisplayState) {
+        case TEXT_ONLY:
+            [self switchToTextOnlyInfoView];
+            break;
+        
+        case BOTH:
+            [self switchToBothInfoView];
+            break;
+            
+        case IMAGE_ONLY:
+            [self switchToImageOnlyInfoView];
+            break;
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -104,6 +133,18 @@
     UITapGestureRecognizer *imageTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openCropInterface)];
     [self.imagePreview addGestureRecognizer:imageTapRecognizer];
     
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editBillAction:)];
+    [self.billPreviewText addGestureRecognizer:recognizer];
+    
+    UISwipeGestureRecognizer *infoViewLeftSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleInfoViewLeftSwipe:)];
+    [infoViewLeftSwipeRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
+    
+    UISwipeGestureRecognizer *infoViewRightSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleInfoViewRightSwipe:)];
+    [infoViewRightSwipeRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
+    
+    [self.infoView addGestureRecognizer:infoViewLeftSwipeRecognizer];
+    [self.infoView addGestureRecognizer:infoViewRightSwipeRecognizer];
+    
     //Navigation Buttons
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Rechnung korrigieren"
                                                                               style:self.navigationItem.rightBarButtonItem.style
@@ -116,10 +157,10 @@
                                                                             action:nil];
     
     
-    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editBillAction:)];
-    [self.billPreviewText addGestureRecognizer:recognizer];
+
     
     self.editingOfBillAllowed = NO;
+
     
 }
 
@@ -135,6 +176,17 @@
     if(self.imageToCrop) {
         [self openCropInterface];
     }
+    
+
+    if (CGRectIsEmpty(self.originalBillPreviewImageFrame)) {
+        self.originalBillPreviewImageFrame = self.imagePreview.frame;
+    }
+    
+    if (CGRectIsEmpty(self.originalBillPreviewTextFrame)) {
+        self.originalBillPreviewTextFrame = self.billPreviewText.frame;
+    }
+    
+    self.infoViewDisplayState = BOTH;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -168,6 +220,97 @@
     
 }
 
+- (void)handleInfoViewLeftSwipe:(UISwipeGestureRecognizer *)recognizer
+{
+    [self changeInfoViewToLeft:YES];
+}
+
+- (void)handleInfoViewRightSwipe:(UISwipeGestureRecognizer *)recognizer
+{
+    [self changeInfoViewToLeft:NO];
+
+}
+
+//change view state, if left = false -> direction is right
+- (void)changeInfoViewToLeft:(BOOL)left
+{
+    //cancel if view is already in state that cannot change further to one side
+    if ((left && self.infoViewDisplayState == TEXT_ONLY) || (!left && self.infoViewDisplayState == IMAGE_ONLY))
+        return;
+    
+    if (self.infoViewDisplayState == BOTH) {
+        if(left) {
+            self.infoViewDisplayState = TEXT_ONLY;
+        } else {
+            self.infoViewDisplayState = IMAGE_ONLY;
+        }
+    } else {
+        self.infoViewDisplayState = BOTH;
+    }
+}
+
+- (void)switchToTextOnlyInfoView
+{
+    CGRect newFrame = CGRectMake(0, 0, self.infoView.bounds.size.width, self.infoView.bounds.size.height);
+    
+    
+    
+    [UIView animateWithDuration:0.4
+                          delay:0.0
+         usingSpringWithDamping:0.84
+          initialSpringVelocity:12.0
+                        options:0
+                     animations:^{
+                         self.billPreviewText.frame = newFrame;
+                         self.billPreviewText.alpha = 1;
+                         self.imagePreview.alpha = 0;
+                     }
+                     completion:^(BOOL finished){
+                     }];
+    
+}
+
+- (void)switchToImageOnlyInfoView
+{
+    CGRect newFrame = CGRectMake(0, 0, self.infoView.bounds.size.width, self.infoView.bounds.size.height);
+    
+    
+    
+    [UIView animateWithDuration:0.4
+                          delay:0.0
+         usingSpringWithDamping:0.84
+          initialSpringVelocity:12.0
+                        options:0
+                     animations:^{
+                         self.imagePreview.frame = newFrame;
+                         self.imagePreview.alpha = 1;
+                         
+                         self.billPreviewText.alpha = 0;
+                         
+                     }
+                     completion:^(BOOL finished){
+                     }];
+}
+
+- (void)switchToBothInfoView
+{
+    [UIView animateWithDuration:0.4
+                          delay:0.0
+         usingSpringWithDamping:0.84
+          initialSpringVelocity:12.0
+                        options:0
+                     animations:^{
+                         self.imagePreview.frame = self.originalBillPreviewImageFrame;
+                         self.imagePreview.alpha = 1;
+                         
+                         self.billPreviewText.frame = self.originalBillPreviewTextFrame;
+                         self.billPreviewText.alpha = 1;
+                         
+                     }
+                     completion:^(BOOL finished){
+                     }];
+    
+}
 
 //get data back from bill revision controller
 - (void)updateBillWithRevisedItems:(NSMutableArray *)revisedItems
