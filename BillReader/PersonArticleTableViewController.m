@@ -39,16 +39,28 @@
 {
     [super viewDidLoad];
     
+    UIBarButtonItem *arrowDownButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"arrowDownIcon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(openAllDetailViews:)];
+    
+    UIBarButtonItem *arrowUpButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"arrowUpIcon.png"] style:UIBarButtonItemStylePlain target:self action:@selector(closeAllDetailViews:)];
+    
     UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
     UIBarButtonItem *resetButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(tryToReset:)];
     
-    NSArray *items = [[NSArray alloc] initWithObjects:flexSpace, resetButton, nil];
+    NSArray *items = [[NSArray alloc] initWithObjects:arrowDownButton, arrowUpButton, flexSpace, resetButton, nil];
     
     self.toolbar.items = items;
     
     [self setTextArrayForDetailTextViewCells];
     [self.tableView reloadData];
+}
+
+- (NSMutableArray *)selectedIndexPaths
+{
+    if (!_selectedIndexPaths) {
+        self.selectedIndexPaths = [NSMutableArray new];
+    }
+    return _selectedIndexPaths;
 }
 
 - (void)tryToReset:(id)sender
@@ -59,6 +71,27 @@
                                           cancelButtonTitle:@"Ja"
                                           otherButtonTitles:@"Nein", nil];
     [alert show];
+}
+
+- (void)openAllDetailViews:(id)sender
+{
+    NSArray *indexPathArray = [self.tableView indexPathsForRowsInRect:self.tableView.frame];
+    
+    for (NSIndexPath *indexPath in indexPathArray) {
+        if(![self.selectedIndexPaths containsObject:indexPath]) {
+            [self.selectedIndexPaths addObject:indexPath];
+            
+        }
+    }
+    [self.tableView reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
+}
+
+
+- (void)closeAllDetailViews:(id)sender
+{
+    [self.selectedIndexPaths removeAllObjects];
+    NSArray *indexPathArray = [self.tableView indexPathsForRowsInRect:self.tableView.frame];
+    [self.tableView reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -114,7 +147,7 @@
         [attributes setObject:titleFont forKey:NSFontAttributeName];
         [attributes setObject:self.colors[indexPath.row] forKey:NSForegroundColorAttributeName];
         
-        NSAttributedString *title = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Person %ld", (indexPath.row + 1)] attributes:attributes];
+        NSAttributedString *title = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Person %d", (indexPath.row + 1)] attributes:attributes];
         cell.nameLabel.attributedText = title;
 
         ArticleListTextView *articleListTextView = ((ArticleListTableViewCell *) cell).itemTextView;
@@ -136,9 +169,7 @@
 
 - (void)addOrRemoveSelectedIndexPath:(NSIndexPath *)indexPath
 {
-    if (!self.selectedIndexPaths) {
-        self.selectedIndexPaths = [NSMutableArray new];
-    }
+
     
     BOOL containsIndexPath = [self.selectedIndexPaths containsObject:indexPath];
     
