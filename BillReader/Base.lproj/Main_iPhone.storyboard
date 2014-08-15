@@ -25,7 +25,7 @@
                                 </constraints>
                             </progressView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Shr-iX-xa6">
-                                <rect key="frame" x="161" y="374" width="139" height="92"/>
+                                <rect key="frame" x="161" y="397" width="139" height="92"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="92" id="fwh-0B-Lhk"/>
@@ -36,26 +36,20 @@
                                     <segue destination="PBO-rU-BVT" kind="push" identifier="Pick Num of People" id="0Ds-RF-ifC"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dIs-em-AP2">
-                                <rect key="frame" x="20" y="490" width="280" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="29" id="zNo-wT-Xrc"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="Interface A"/>
-                                    <segment title="Interface B"/>
-                                    <segment title="Interface C"/>
-                                </segments>
-                            </segmentedControl>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mcH-OY-R3a">
                                 <rect key="frame" x="0.0" y="524" width="320" height="43"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="gjh-Zk-YtC"/>
+                                </constraints>
                                 <items/>
                             </toolbar>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vc-WB-WHt">
-                                <rect key="frame" x="20" y="374" width="133" height="92"/>
+                                <rect key="frame" x="20" y="397" width="133" height="92"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="92" id="JEy-So-rWD"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Neue Rechnung">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -125,19 +119,14 @@
                             <constraint firstItem="Shr-iX-xa6" firstAttribute="top" secondItem="1vc-WB-WHt" secondAttribute="top" id="5Ve-1n-0YL"/>
                             <constraint firstItem="kt2-a7-TKy" firstAttribute="leading" secondItem="mcH-OY-R3a" secondAttribute="leading" id="66X-PY-F6r"/>
                             <constraint firstItem="kt2-a7-TKy" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="89" id="7xK-C8-LJO"/>
-                            <constraint firstItem="dIs-em-AP2" firstAttribute="leading" secondItem="Shr-iX-xa6" secondAttribute="leading" constant="-141" id="9Ey-AC-a1x"/>
                             <constraint firstAttribute="bottom" secondItem="mcH-OY-R3a" secondAttribute="bottom" constant="1" id="AtG-io-Vj2"/>
                             <constraint firstAttribute="trailing" secondItem="mcH-OY-R3a" secondAttribute="trailing" id="DuB-vs-sjV"/>
                             <constraint firstItem="NEg-rm-dyv" firstAttribute="top" secondItem="Nb7-TE-gUo" secondAttribute="bottom" constant="15" id="KxR-B3-6Da"/>
-                            <constraint firstItem="dIs-em-AP2" firstAttribute="top" secondItem="1vc-WB-WHt" secondAttribute="bottom" constant="24" id="Nun-OT-GMH"/>
                             <constraint firstAttribute="trailing" secondItem="Shr-iX-xa6" secondAttribute="trailing" constant="20" id="UIY-zO-voS"/>
-                            <constraint firstItem="dIs-em-AP2" firstAttribute="top" secondItem="Shr-iX-xa6" secondAttribute="bottom" constant="24" id="YNd-e2-SWP"/>
-                            <constraint firstItem="mcH-OY-R3a" firstAttribute="top" secondItem="dIs-em-AP2" secondAttribute="bottom" constant="5" id="fyL-a2-gHi"/>
                             <constraint firstItem="mcH-OY-R3a" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="gpC-oh-ap4"/>
-                            <constraint firstItem="1vc-WB-WHt" firstAttribute="top" secondItem="kt2-a7-TKy" secondAttribute="bottom" constant="5" id="igt-dU-N4O"/>
+                            <constraint firstItem="1vc-WB-WHt" firstAttribute="top" secondItem="kt2-a7-TKy" secondAttribute="bottom" constant="28" id="igt-dU-N4O"/>
                             <constraint firstItem="Shr-iX-xa6" firstAttribute="leading" secondItem="1vc-WB-WHt" secondAttribute="trailing" constant="8" id="p0I-pd-O0s"/>
                             <constraint firstItem="1vc-WB-WHt" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="tVm-i5-gTN"/>
-                            <constraint firstItem="dIs-em-AP2" firstAttribute="trailing" secondItem="Shr-iX-xa6" secondAttribute="trailing" id="y6b-Pt-3ql"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Syc-7C-Ml8"/>
@@ -146,7 +135,6 @@
                         <outlet property="billRecognitionProgressBar" destination="NEg-rm-dyv" id="agM-1G-4yC"/>
                         <outlet property="imagePreview" destination="EnS-8u-LUV" id="nD6-uV-WFM"/>
                         <outlet property="infoView" destination="kt2-a7-TKy" id="oIj-pp-B6K"/>
-                        <outlet property="interfaceChoiseSegmentedControl" destination="dIs-em-AP2" id="Kha-LH-fGh"/>
                         <outlet property="splitButton" destination="Shr-iX-xa6" id="3fs-Zv-qzm"/>
                         <outlet property="toolbar" destination="mcH-OY-R3a" id="KfF-TN-7MF"/>
                         <segue destination="ppq-Dk-DzE" kind="push" identifier="Revise Bill" id="H94-vV-Rw7"/>
@@ -221,6 +209,7 @@
                         <segue destination="fIE-79-D1T" kind="push" identifier="Show Swipe" id="hn8-Ka-vjx"/>
                         <segue destination="nfq-bP-b3O" kind="push" identifier="Show Table" id="bVh-Oi-GLe"/>
                         <segue destination="LuX-G9-87m" kind="push" identifier="Show Collection" id="aqc-j2-gjN"/>
+                        <segue destination="Bn6-hv-Cdi" kind="push" identifier="Show Custom" id="MuS-qb-rGV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lyK-o7-cFt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -854,6 +843,40 @@
             </objects>
             <point key="canvasLocation" x="1321" y="1493"/>
         </scene>
+        <!--Bill Split Custom View Controller-->
+        <scene sceneID="ZEx-vi-qER">
+            <objects>
+                <viewController id="Bn6-hv-Cdi" customClass="BillSplitCustomViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8mU-vH-B8w"/>
+                        <viewControllerLayoutGuide type="bottom" id="gEL-Rt-yGn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="O9f-f0-nuJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oIe-tx-ZGB" userLabel="ItemScrollView">
+                                <rect key="frame" x="0.0" y="0.0" width="160" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </scrollView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0U2-0s-LnB" userLabel="PersonScrollView">
+                                <rect key="frame" x="170" y="65" width="150" height="503"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="sSx-CI-Qls"/>
+                    <connections>
+                        <outlet property="itemScrollView" destination="oIe-tx-ZGB" id="yJv-MC-yQI"/>
+                        <outlet property="personScrollView" destination="0U2-0s-LnB" id="heU-rh-E9P"/>
+                        <segue destination="vF4-XO-Mxx" kind="push" identifier="Person Article Overview" id="Tbs-s0-At1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CBn-ko-p0N" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1325" y="2205"/>
+        </scene>
         <!--Person Article Table View Controller-->
         <scene sceneID="kBU-GO-9of">
             <objects>
@@ -1043,24 +1066,6 @@
             </objects>
             <point key="canvasLocation" x="-88" y="-314"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="NbQ-Oq-u7H">
-            <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="YPz-WQ-ic1" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="tqI-md-a9y"/>
-                        <viewControllerLayoutGuide type="bottom" id="76l-Ud-li9"/>
-                    </layoutGuides>
-                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Yo0-mq-eos">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <toolbarItems/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TBd-xD-jeX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
     </scenes>
     <resources>
         <image name="iconImageBill.png" width="256" height="256"/>
@@ -1071,6 +1076,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="eCU-1m-z75"/>
+        <segue reference="Tbs-s0-At1"/>
     </inferredMetricsTieBreakers>
 </document>

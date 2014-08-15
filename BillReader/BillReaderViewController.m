@@ -23,7 +23,6 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *splitButton;
 
-@property (weak, nonatomic) IBOutlet UISegmentedControl *interfaceChoiseSegmentedControl;
 
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 
@@ -332,7 +331,7 @@ typedef enum {
     if([[segue identifier] isEqualToString:@"Pick Num of People"]) {
         NumOfPeopleViewController *nopvc = [segue destinationViewController];
         [nopvc setBill:self.bill];
-        [nopvc setInterfaceNum:[self.interfaceChoiseSegmentedControl selectedSegmentIndex]];
+        [nopvc setInterfaceNum:0];
     } else if([[segue identifier] isEqualToString:@"Revise Bill"]) {
         BillRevisionTableViewController *brtvc = [segue destinationViewController];
         self.navigationController.delegate = self;

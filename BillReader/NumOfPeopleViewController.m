@@ -10,6 +10,7 @@
 #import "BillSplitTableViewController.h"
 #import "BillSplitSwipeViewController.h"
 #import "BillSplitCollectionViewController.h"
+#import "BillSplitCustomViewController.h"
 #import "NumberViewCell.h"
 
 @interface NumOfPeopleViewController ()  <UICollectionViewDataSource, UICollectionViewDelegate>
@@ -71,12 +72,15 @@
 {
     switch (self.interfaceNum) {
         case 0:
-            [self performSegueWithIdentifier:@"Show Table" sender:nil];
+            [self performSegueWithIdentifier:@"Show Custom" sender:nil];
             break;
         case 1:
-            [self performSegueWithIdentifier:@"Show Collection" sender:nil];
+            [self performSegueWithIdentifier:@"Show Table" sender:nil];
             break;
         case 2:
+            [self performSegueWithIdentifier:@"Show Collection" sender:nil];
+            break;
+        case 3:
             [self performSegueWithIdentifier:@"Show Swipe" sender:nil];
             break;
             
@@ -88,7 +92,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"Show Table"]) {
+    if ([[segue identifier] isEqualToString:@"Show Custom"]) {
+        BillSplitCustomViewController *bscvc = [segue destinationViewController];
+        [bscvc setItems:[self.bill itemsAsDictionary]];
+    } else if ([[segue identifier] isEqualToString:@"Show Table"]) {
         BillSplitTableViewController *bstvc = [segue destinationViewController];
         [bstvc setItems:[self.bill itemsAsDictionary]];
     } else if ([[segue identifier] isEqualToString:@"Show Swipe"]) {
