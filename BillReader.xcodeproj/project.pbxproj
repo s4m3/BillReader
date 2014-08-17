@@ -29,6 +29,7 @@
 		F4311EBB1959D0DD00B6332A /* ItemSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F4311EBA1959D0DD00B6332A /* ItemSectionHeader.m */; };
 		F4311EBE1959E02900B6332A /* ItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4311EBD1959E02900B6332A /* ItemCollectionViewCell.m */; };
 		F43CBB1B197A8BD3001A848A /* BillTextToBillObjectConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = F43CBB1A197A8BD3001A848A /* BillTextToBillObjectConverter.m */; };
+		F44BBC5519A1181E002311FE /* DefinedColors.m in Sources */ = {isa = PBXBuildFile; fileRef = F44BBC5419A1181E002311FE /* DefinedColors.m */; };
 		F4744C07197EB30100A55A8A /* NormalizableImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F4744C06197EB30100A55A8A /* NormalizableImage.m */; };
 		F4744C0A19851D4D00A55A8A /* CropCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = F4744C0919851D4D00A55A8A /* CropCircle.m */; };
 		F4744C0D19864D5000A55A8A /* beerIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = F4744C0B19864D5000A55A8A /* beerIcon.png */; };
@@ -121,6 +122,8 @@
 		F4311EBD1959E02900B6332A /* ItemCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemCollectionViewCell.m; sourceTree = "<group>"; };
 		F43CBB19197A8BD3001A848A /* BillTextToBillObjectConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillTextToBillObjectConverter.h; sourceTree = "<group>"; };
 		F43CBB1A197A8BD3001A848A /* BillTextToBillObjectConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillTextToBillObjectConverter.m; sourceTree = "<group>"; };
+		F44BBC5319A1181D002311FE /* DefinedColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefinedColors.h; sourceTree = "<group>"; };
+		F44BBC5419A1181E002311FE /* DefinedColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefinedColors.m; sourceTree = "<group>"; };
 		F4744C05197EB30000A55A8A /* NormalizableImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NormalizableImage.h; sourceTree = "<group>"; };
 		F4744C06197EB30100A55A8A /* NormalizableImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NormalizableImage.m; sourceTree = "<group>"; };
 		F4744C0819851D4D00A55A8A /* CropCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropCircle.h; sourceTree = "<group>"; };
@@ -291,6 +294,8 @@
 				F407989B1949CF0F00CCCC88 /* EditableItem.m */,
 				F4E775C51919430F0036FEB5 /* Bill.h */,
 				F4E775C61919430F0036FEB5 /* Bill.m */,
+				F44BBC5319A1181D002311FE /* DefinedColors.h */,
+				F44BBC5419A1181E002311FE /* DefinedColors.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -520,6 +525,7 @@
 				F4F266841915134E001D0F93 /* BillReaderViewController.m in Sources */,
 				F4047A6819630A8000569C15 /* NumberViewCell.m in Sources */,
 				F4DE2A68193347BA0043CCE2 /* PersonArticleCollectionViewController.m in Sources */,
+				F44BBC5519A1181E002311FE /* DefinedColors.m in Sources */,
 				F42EC84E1934AB33009798B5 /* BillSplitSwipeViewController.m in Sources */,
 				F407989F1949DC7E00CCCC88 /* ItemEditingViewController.m in Sources */,
 				F4881BF2199E4516005ACA2F /* BillSplitCustomViewController.m in Sources */,

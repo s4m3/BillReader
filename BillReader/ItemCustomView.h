@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "Item.h"
-#import "BillSplitCustomViewController.h"
 
+@class BillSplitCustomViewController;
 @interface ItemCustomView : UIView
 - (id)initWithFrame:(CGRect)frame andItem:(Item *)item andNumber:(int)num;
-- (IBAction)respondToSwipeGesture:(UIPanGestureRecognizer *)recognizer;
+- (id)initWithFrame:(CGRect)frame andItem:(Item *)item andColor:(UIColor *)color;
+- (IBAction)respondToPanGesture:(UIPanGestureRecognizer *)recognizer;
+- (IBAction)respondToTapGesture:(UITapGestureRecognizer *)recognizer;
 - (void)updatePosition:(CGRect)newRect;
-@property (strong, nonatomic) BillSplitCustomViewController *parentController;
+@property (weak, nonatomic) BillSplitCustomViewController *parentController;
 @property (strong, nonatomic) Item *item;
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ItemCustomView.h"
+#import "BillSplitCustomViewController.h"
 @interface ItemCustomView ()
 @property (nonatomic) CGRect originalFrame;
 @property (nonatomic) CGPoint lastLocation;
@@ -18,9 +19,10 @@
 {
     self = [super initWithFrame:CGRectMake(frame.origin.x - frame.size.width, frame.origin.y, frame.size.width, frame.size.height)];
     if (self) {
-        self.backgroundColor = [UIColor grayColor];
+        self.backgroundColor = [UIColor lightGrayColor];
+        self.layer.cornerRadius = 5;
         self.item = item;
-        self.originalFrame = frame;
+        self.originalFrame = CGRectInset(frame, 10, 0);
         CGFloat delay = 0.1 * num;
         [self animateToStartPosition:delay];
         UILabel *articleLabel = [[UILabel alloc] initWithFrame:self.bounds];
@@ -30,7 +32,42 @@
     return self;
 }
 
-- (IBAction)respondToSwipeGesture:(UIPanGestureRecognizer *)recognizer
+- (id)initWithFrame:(CGRect)frame andItem:(Item *)item andColor:(UIColor *)color
+{
+    self = [super initWithFrame:CGRectMake(frame.origin.x - frame.size.width, frame.origin.y, frame.size.width, frame.size.height)];
+    if (self) {
+        self.backgroundColor = color;
+        self.layer.cornerRadius = 5;
+        self.item = item;
+        self.originalFrame = frame;
+        [self animateToStartPosition:0];
+        
+        NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
+        UIFont *font = [UIFont systemFontOfSize:20];
+        [attributes setObject:font forKey:NSFontAttributeName];
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        [paragraphStyle setAlignment:NSTextAlignmentLeft];
+        [attributes setObject:paragraphStyle forKey:NSParagraphStyleAttributeName];
+        NSAttributedString *xAttributedString = [[NSAttributedString alloc] initWithString:@"✖️" attributes:attributes];
+        UILabel *xLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width / 4, self.bounds.size.height)];
+        [xLabel setAttributedText:xAttributedString];
+        [self addSubview:xLabel];
+        
+        font = [UIFont systemFontOfSize:12];
+        [attributes setObject:font forKey:NSFontAttributeName];
+        NSMutableParagraphStyle *paragraphStyle2 = [[NSMutableParagraphStyle alloc] init];
+        [paragraphStyle2 setAlignment:NSTextAlignmentRight];
+        [attributes setObject:paragraphStyle2 forKey:NSParagraphStyleAttributeName];
+        
+        UILabel *articleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + self.bounds.size.width * 0.25, self.bounds.origin.y, self.bounds.size.width * 0.7, self.bounds.size.height)];
+        NSAttributedString *articleAttributedString = [[NSAttributedString alloc] initWithString:self.item.name attributes:attributes];
+        [articleLabel setAttributedText:articleAttributedString];
+        [self addSubview:articleLabel];
+    }
+    return self;
+}
+
+- (IBAction)respondToPanGesture:(UIPanGestureRecognizer *)recognizer
 {
     //NSLog(@"velocity: %f:%f", [recognizer velocityInView:self.view].x, [recognizer velocityInView:self.view].y);
     //NSLog(@"translation: %f:%f", [recognizer translationInView:self.view].x, [recognizer translationInView:self.view].y);
@@ -50,21 +87,37 @@
     }
 }
 
+- (IBAction)respondToTapGesture:(UITapGestureRecognizer *)recognizer
+{
+    [self.parentController removeItemView:self];
+}
+
 - (void)moveToOriginalPosition
 {
-    self.frame = self.originalFrame;
+
+    [UIView animateWithDuration:0.5
+                          delay:0
+         usingSpringWithDamping:0.7
+          initialSpringVelocity:1.0
+                        options:0
+                     animations:^{
+                        self.frame = self.originalFrame;
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }];
 }
 
 - (void)updatePosition:(CGRect)newRect
 {
-    self.originalFrame = newRect;
+    self.originalFrame = CGRectInset(newRect, 10, 0);
     [UIView animateWithDuration:0.5
                           delay:0.0
          usingSpringWithDamping:0.7
           initialSpringVelocity:1.0
                         options:0
                      animations:^{
-                         self.frame = newRect;
+                         self.frame = self.originalFrame;
                      }
                      completion:^(BOOL finished){
                          

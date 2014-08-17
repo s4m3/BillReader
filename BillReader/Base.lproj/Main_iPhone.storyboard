@@ -863,11 +863,16 @@
                                 <rect key="frame" x="170" y="65" width="150" height="503"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </scrollView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dv3-bu-cbW" userLabel="DetailScrollView">
+                                <rect key="frame" x="320" y="65" width="160" height="503"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="sSx-CI-Qls"/>
                     <connections>
+                        <outlet property="detailScrollView" destination="dv3-bu-cbW" id="ZBr-1o-THg"/>
                         <outlet property="itemScrollView" destination="oIe-tx-ZGB" id="yJv-MC-yQI"/>
                         <outlet property="personScrollView" destination="0U2-0s-LnB" id="heU-rh-E9P"/>
                         <segue destination="vF4-XO-Mxx" kind="push" identifier="Person Article Overview" id="Tbs-s0-At1"/>
