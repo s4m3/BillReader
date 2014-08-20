@@ -10,10 +10,11 @@
 #import "Item.h"
 #import "PersonCustomView.h"
 #import "DefinedColors.h"
+#import "ItemScrollView.h"
 
 @interface BillSplitCustomViewController ()
 
-@property (weak, nonatomic) IBOutlet UIScrollView *itemScrollView;
+@property (weak, nonatomic) IBOutlet ItemScrollView *itemScrollView;
 @property (weak, nonatomic) IBOutlet UIScrollView *personScrollView;
 @property (weak, nonatomic) IBOutlet UIScrollView *detailScrollView;
 @property (strong, nonatomic) NSArray *personViews;
@@ -58,7 +59,7 @@
     [self initControllerView];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)viewDidDisappear:(BOOL)animated
 {
     for (ItemCustomView *itemCustomView in self.itemViews) {
         [itemCustomView removeFromSuperview];
@@ -91,6 +92,8 @@
         CGRect itemViewBounds = CGRectMake(0, j*(height+margin), self.itemScrollView.bounds.size.width, height);
         ItemCustomView *icv = [[ItemCustomView alloc] initWithFrame:itemViewBounds andItem:itemsWithNoOwner[j] andNumber:j];
         UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:icv action:@selector(respondToPanGesture:)];
+//        [recognizer requireGestureRecognizerToFail:self.itemScrollView.panGestureRecognizer];
+//        [recognizer setCancelsTouchesInView:NO];
         [icv addGestureRecognizer:recognizer];
         [icv setParentController:self];
         [self.itemScrollView addSubview:icv];
@@ -99,6 +102,7 @@
         [self.itemViews addObject:icv];
     }
     [self.itemScrollView setContentSize:CGSizeMake(self.itemScrollView.bounds.size.width, amountOfItems*(height+margin))];
+    //self.itemScrollView.delegate = self;
     
     //init Person ScrollView
     long totalAmountOfPeople = self.totalNumOfPersons;
@@ -330,6 +334,7 @@
     }
 
 }
+
 
 - (void)didReceiveMemoryWarning
 {

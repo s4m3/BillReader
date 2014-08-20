@@ -87,6 +87,16 @@
     }
 }
 
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)panGestureRecognizer {
+    CGPoint velocity = [panGestureRecognizer velocityInView:self.superview];
+    return fabs(velocity.y) < fabs(velocity.x);
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
 - (IBAction)respondToTapGesture:(UITapGestureRecognizer *)recognizer
 {
     [self.parentController removeItemView:self];
