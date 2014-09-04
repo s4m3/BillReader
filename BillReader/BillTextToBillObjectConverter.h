@@ -10,5 +10,18 @@
 #import "Bill.h"
 
 @interface BillTextToBillObjectConverter : NSObject
+
+/**
+ Transforms multiple lines of text into a Bill object by extracting the information.
+ Example usage:
+ @code
+ NSString *billText;
+ Bill *billObject = [BillTextToBillObjectConverter
+        transform:billText];
+ @endcode
+ @param billText
+        The text, that is beeing converted into a bill object.
+ @return An object of type Bill.
+ */
 - (Bill *)transform:(NSString *)billText;
 @end

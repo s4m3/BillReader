@@ -16,6 +16,7 @@
     return [[self class] colors][number];
 }
 
+//all predefined colors in RGB color space.
 + (NSArray *)colors
 {
     static NSArray *_colors;

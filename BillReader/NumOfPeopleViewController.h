@@ -12,5 +12,5 @@
 @interface NumOfPeopleViewController : UIViewController
 
 @property (nonatomic, strong) Bill * bill; //of Item arrays with person id as key
-@property long interfaceNum;
+@property long interfaceNum; //if more than one split controller is used, this property holds the information, which one to use
 @end

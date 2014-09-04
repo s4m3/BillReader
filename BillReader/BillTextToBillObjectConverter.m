@@ -223,6 +223,7 @@
     
 }
 
+////DEBUG
 - (void)printRecognizedPositionArray:(NSArray *)positions
 {
     //print array
@@ -231,6 +232,7 @@
         NSLog(@"pos %i: %@", iter++, obj);
     }
 }
+/////////
 
 - (NSString *)getLocaleCharOfPositions:(NSArray *)positions
 {

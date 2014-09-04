@@ -576,7 +576,6 @@ typedef enum {
 
 
 
-//TODO: implement proper image processing
 - (void)processImage
 {
     self.shouldCancelImageRecognition = NO;

@@ -17,6 +17,7 @@ static int staticId = 0;
 {
     return staticId++;
 }
+
 - (id)initWithName:(NSString *)name amount:(NSUInteger)amount andPrice:(NSDecimalNumber *)price
 {
     self = [super initWithName:name belongsToId:0 andPrice:price];
@@ -25,7 +26,6 @@ static int staticId = 0;
         self.identification = EditableItem.staticId;
     }
     return self;
-    
 }
 
 - (NSDecimalNumber *)getTotalPriceOfItem

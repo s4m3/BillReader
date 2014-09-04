@@ -19,6 +19,11 @@
 
 @implementation NumOfPeopleViewController
 
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////INITIALIZING////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -43,11 +48,17 @@
 }
 
 
+/////////////////////////////////////////////////////////////////////////////
+/////////////////COLLECTION VIEW/////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+
+//maximum amount of people to be selected.
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return MAX_NUM_OF_PEOPLE;
 }
 
+//sets view of collection view cells. Square cells with amount of people as Label.
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Number" forIndexPath:indexPath];
@@ -60,6 +71,7 @@
     return cell;
 }
 
+//reacts to tap on people selection cell. Initializing of bill for selected amount of people. Push to new controller initiated.
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -68,6 +80,14 @@
     [self pushSegue];
 }
 
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////SEGUE CONTROL///////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+
+//push to bill split controller. Table, Collection and Swipe are just left for demonstration purpose
 - (void)pushSegue
 {
     switch (self.interfaceNum) {
@@ -90,6 +110,8 @@
     
 }
 
+//prepare to switch to bill split controller. Table, Collection and Swipe are just left for demonstration purpose.
+//bill is passed on to controller
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"Show Custom"]) {
@@ -108,9 +130,13 @@
     }
 }
 
+
+//MEMORY//
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 @end

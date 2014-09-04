@@ -445,11 +445,11 @@
 			isa = PBXGroup;
 			children = (
 				F4269F7019B8BB54001F7F62 /* Bill Correction Controllers */,
-				F4269F7119B8BB77001F7F62 /* Final Overview Controllers */,
-				F4269F7319B8BBD8001F7F62 /* People Amount Controllers */,
 				F4269F7419B8BBF6001F7F62 /* Bill Image Crop Controllers */,
 				F4269F6E19B8BAD4001F7F62 /* Bill Split Controllers */,
+				F4269F7119B8BB77001F7F62 /* Final Overview Controllers */,
 				F4269F7519B8BC1D001F7F62 /* Main Controller */,
+				F4269F7319B8BBD8001F7F62 /* People Amount Controllers */,
 				F4269F7619B8BC2C001F7F62 /* Helper */,
 			);
 			name = ViewControllers;
@@ -458,11 +458,11 @@
 		F42EC85A1934B17D009798B5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F4269F7A19B8BE25001F7F62 /* Crop Views */,
-				F4269F7B19B8BE48001F7F62 /* People Amount Views */,
 				F4269F8219B8C062001F7F62 /* Bill Split Views */,
-				F4269F8019B8BF8E001F7F62 /* Helper */,
+				F4269F7A19B8BE25001F7F62 /* Crop Views */,
 				F4269F8319B8C1B5001F7F62 /* Final Overview Views */,
+				F4269F7B19B8BE48001F7F62 /* People Amount Views */,
+				F4269F8019B8BF8E001F7F62 /* Helper */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -470,8 +470,8 @@
 		F42EC85B1934B193009798B5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F4269F7719B8BDF8001F7F62 /* Item Models */,
 				F4269F7819B8BE0A001F7F62 /* Bill Models */,
+				F4269F7719B8BDF8001F7F62 /* Item Models */,
 				F4269F7D19B8BED8001F7F62 /* Helper */,
 			);
 			name = Models;
