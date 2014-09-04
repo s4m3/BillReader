@@ -145,7 +145,7 @@ typedef enum {
     [self.infoView addGestureRecognizer:infoViewRightSwipeRecognizer];
     
     //Navigation Buttons
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Rechnung korrigieren"
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Posten bearbeiten"
                                                                               style:self.navigationItem.rightBarButtonItem.style
                                                                              target:self
                                                                              action:@selector(editBillAction:)];

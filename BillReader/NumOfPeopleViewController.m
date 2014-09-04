@@ -36,10 +36,10 @@
     [super viewDidLoad];
     
     self.title = TITLE_TEXT;
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Zurück"
-                                                                             style:self.navigationItem.backBarButtonItem.style
-                                                                            target:nil
-                                                                            action:nil];
+//    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Zurück"
+//                                                                             style:self.navigationItem.backBarButtonItem.style
+//                                                                            target:nil
+//                                                                            action:nil];
 }
 
 

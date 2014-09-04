@@ -52,6 +52,28 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"Zurück"
+                                                                      style:UIBarButtonItemStylePlain
+                                                                     target:self
+                                                                     action:@selector(willGoBackToPersonView:)];
+    self.navigationItem.leftBarButtonItem = newBackButton;
+}
+
+-(void)willGoBackToPersonView:(UIBarButtonItem *)sender {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Zurück"
+                                                    message:@"Wollen Sie die aktuelle Aufteilung abbrechen und zur Personenauswahl zurückkehren?"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Ja"
+                                          otherButtonTitles:@"Nein", nil];
+    [alert show];
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -59,7 +81,7 @@
     [self initControllerView];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     for (ItemCustomView *itemCustomView in self.itemViews) {
         [itemCustomView removeFromSuperview];
@@ -73,7 +95,7 @@
 }
 
 #define ITEMVIEW_HEIGHT 50.0;
-#define ITEMVIEW_Y_MARGIN 14.0;
+#define ITEMVIEW_Y_MARGIN 18.0;
 
 #define PERSONVIEW_HEIGHT 80.0;
 #define PERSONVIEW_Y_MARGIN 20.0;
@@ -89,11 +111,12 @@
     float margin = ITEMVIEW_Y_MARGIN;
     for (int j=0; j<amountOfItems; j++) {
 
-        CGRect itemViewBounds = CGRectMake(0, j*(height+margin), self.itemScrollView.bounds.size.width, height);
+        CGRect itemViewBounds = CGRectMake(0, j*(height+margin), self.itemScrollView.bounds.size.width * 0.9, height);
         ItemCustomView *icv = [[ItemCustomView alloc] initWithFrame:itemViewBounds andItem:itemsWithNoOwner[j] andNumber:j];
         UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:icv action:@selector(respondToPanGesture:)];
 //        [recognizer requireGestureRecognizerToFail:self.itemScrollView.panGestureRecognizer];
 //        [recognizer setCancelsTouchesInView:NO];
+//        [recognizer setDelaysTouchesBegan:YES];
         [icv addGestureRecognizer:recognizer];
         [icv setParentController:self];
         [self.itemScrollView addSubview:icv];
@@ -113,6 +136,7 @@
         CGRect personViewBounds = CGRectMake(0, i*(height+margin), self.personScrollView.bounds.size.width, height);
         PersonCustomView *pcv = [[PersonCustomView alloc] initWithFrame:personViewBounds number:i color:self.colors[i]];
         UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:pcv action:@selector(respondToTapGesture:)];
+
         [pcv addGestureRecognizer:recognizer];
         [pcv setParentController:self];
         [self.personScrollView addSubview:pcv];
@@ -125,10 +149,11 @@
     }
     
     UISwipeGestureRecognizer *swipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(respondToSwipeGesture:)];
-    swipeGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:swipeGestureRecognizer];
+    [swipeGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
+    [self.personScrollView addGestureRecognizer:swipeGestureRecognizer];
     
 }
+
 
 - (IBAction)respondToSwipeGesture:(UISwipeGestureRecognizer *)recognizer
 {
@@ -137,7 +162,6 @@
         [self goToOriginalView];
     }
 }
-
 
 - (BOOL)checkForIntersection:(ItemCustomView *)itemCustomView
 {
@@ -257,7 +281,7 @@
     float height = ITEMVIEW_HEIGHT;
     float margin = ITEMVIEW_Y_MARGIN;
     int j = (int) self.itemViews.count;
-    CGRect itemViewBounds = CGRectMake(0, j*(height+margin), self.itemScrollView.bounds.size.width, height);
+    CGRect itemViewBounds = CGRectMake(0, j*(height+margin), self.itemScrollView.bounds.size.width * 0.9, height);
     ItemCustomView *icv = [[ItemCustomView alloc] initWithFrame:itemViewBounds andItem:itemCustomView.item andNumber:j];
     UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:icv action:@selector(respondToPanGesture:)];
     [icv addGestureRecognizer:recognizer];
@@ -312,7 +336,7 @@
         ItemCustomView *customView = self.itemViews[i];
         float height = ITEMVIEW_HEIGHT;
         float margin = ITEMVIEW_Y_MARGIN;
-        CGRect newRect = CGRectMake(0, i*(height+margin), self.itemScrollView.bounds.size.width, height);
+        CGRect newRect = CGRectMake(0, i*(height+margin), self.itemScrollView.bounds.size.width * 0.9, height);
         [customView updatePosition:newRect];
     }
 }

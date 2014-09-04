@@ -34,7 +34,7 @@
                                                                              style:self.navigationItem.backBarButtonItem.style
                                                                             target:nil
                                                                             action:nil];
-    UIBarButtonItem *overviewButton = [[UIBarButtonItem alloc] initWithTitle:@"Überblick"
+    UIBarButtonItem *overviewButton = [[UIBarButtonItem alloc] initWithTitle:@"Zahlen"
                                                                    style:self.navigationItem.rightBarButtonItem.style
                                                                   target:self
                                                                   action:@selector(showOverview)];

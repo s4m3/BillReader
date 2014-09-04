@@ -87,14 +87,14 @@
     }
 }
 
-- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)panGestureRecognizer {
-    CGPoint velocity = [panGestureRecognizer velocityInView:self.superview];
-    return fabs(velocity.y) < fabs(velocity.x);
-}
+//- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)panGestureRecognizer {
+//    CGPoint velocity = [panGestureRecognizer velocityInView:self.superview];
+//    return fabs(velocity.y) < fabs(velocity.x);
+//}
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-    return YES;
+    return NO;
 }
 
 - (IBAction)respondToTapGesture:(UITapGestureRecognizer *)recognizer
