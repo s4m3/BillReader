@@ -18,6 +18,7 @@
 		F41A461A194EEFCB0075174D /* iconImageBill.png in Resources */ = {isa = PBXBuildFile; fileRef = F41A4619194EEFCB0075174D /* iconImageBill.png */; };
 		F41A461E194EF8750075174D /* exampleBillPicture2.png in Resources */ = {isa = PBXBuildFile; fileRef = F41A461D194EF8750075174D /* exampleBillPicture2.png */; };
 		F421B4DC193C71F20004FB6E /* PersonCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F421B4DB193C71F20004FB6E /* PersonCircleView.m */; };
+		F4269F6D19B8AB93001F7F62 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = F4269F6C19B8AB93001F7F62 /* tessdata */; };
 		F42EC84E1934AB33009798B5 /* BillSplitSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F42EC84D1934AB33009798B5 /* BillSplitSwipeViewController.m */; };
 		F42EC8541934ACB5009798B5 /* SwipeArticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F42EC8531934ACB5009798B5 /* SwipeArticleView.m */; };
 		F42EC8571934B0C6009798B5 /* BillSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F42EC8561934B0C6009798B5 /* BillSplitViewController.m */; };
@@ -66,7 +67,6 @@
 		F4F266991915134E001D0F93 /* BillReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F266981915134E001D0F93 /* BillReaderTests.m */; };
 		F4F266A31915147E001D0F93 /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F266A21915147E001D0F93 /* TesseractOCR.framework */; };
 		F4F266A5191515C3001D0F93 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F266A4191515C3001D0F93 /* libstdc++.6.0.9.dylib */; };
-		F4F266B0191517D1001D0F93 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = F4F266AF191517D1001D0F93 /* tessdata */; };
 		F4F266B219151945001D0F93 /* rechnung1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F4F266B119151945001D0F93 /* rechnung1.jpg */; };
 		F4F266B419152712001D0F93 /* rechnung2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F4F266B319152712001D0F93 /* rechnung2.jpg */; };
 /* End PBXBuildFile section */
@@ -101,6 +101,7 @@
 		F41A461D194EF8750075174D /* exampleBillPicture2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exampleBillPicture2.png; sourceTree = "<group>"; };
 		F421B4DA193C71F20004FB6E /* PersonCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonCircleView.h; sourceTree = "<group>"; };
 		F421B4DB193C71F20004FB6E /* PersonCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonCircleView.m; sourceTree = "<group>"; };
+		F4269F6C19B8AB93001F7F62 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		F42EC84C1934AB33009798B5 /* BillSplitSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillSplitSwipeViewController.h; sourceTree = "<group>"; };
 		F42EC84D1934AB33009798B5 /* BillSplitSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillSplitSwipeViewController.m; sourceTree = "<group>"; };
 		F42EC8521934ACB5009798B5 /* SwipeArticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeArticleView.h; sourceTree = "<group>"; };
@@ -181,7 +182,6 @@
 		F4F266981915134E001D0F93 /* BillReaderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BillReaderTests.m; sourceTree = "<group>"; };
 		F4F266A21915147E001D0F93 /* TesseractOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = "<group>"; };
 		F4F266A4191515C3001D0F93 /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
-		F4F266AF191517D1001D0F93 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tessdata; path = "../../Downloads/Tesseract-OCR-iOS-master/Template Framework Project/Template Framework Project/tessdata"; sourceTree = "<group>"; };
 		F4F266B119151945001D0F93 /* rechnung1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = rechnung1.jpg; path = ../../Downloads/rechnung1.jpg; sourceTree = "<group>"; };
 		F4F266B319152712001D0F93 /* rechnung2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = rechnung2.jpg; path = ../../Downloads/rechnung2.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -308,6 +308,7 @@
 		F4F2665E1915134E001D0F93 = {
 			isa = PBXGroup;
 			children = (
+				F4269F6C19B8AB93001F7F62 /* tessdata */,
 				F4F266701915134E001D0F93 /* BillReader */,
 				F4F266B119151945001D0F93 /* rechnung1.jpg */,
 				F4F266B319152712001D0F93 /* rechnung2.jpg */,
@@ -317,7 +318,6 @@
 				F41A4619194EEFCB0075174D /* iconImageBill.png */,
 				F4744C0B19864D5000A55A8A /* beerIcon.png */,
 				F4744C0C19864D5000A55A8A /* waterIcon.png */,
-				F4F266AF191517D1001D0F93 /* tessdata */,
 				F4F266921915134E001D0F93 /* BillReaderTests */,
 				F4F266691915134E001D0F93 /* Frameworks */,
 				F4F266681915134E001D0F93 /* Products */,
@@ -475,9 +475,9 @@
 				F4F266811915134E001D0F93 /* Main_iPad.storyboard in Resources */,
 				F41A461A194EEFCB0075174D /* iconImageBill.png in Resources */,
 				F41A461E194EF8750075174D /* exampleBillPicture2.png in Resources */,
+				F4269F6D19B8AB93001F7F62 /* tessdata in Resources */,
 				F4F266861915134E001D0F93 /* Images.xcassets in Resources */,
 				F4047A6C196479E200569C15 /* monster_icons in Resources */,
-				F4F266B0191517D1001D0F93 /* tessdata in Resources */,
 				F4F2667E1915134E001D0F93 /* Main_iPhone.storyboard in Resources */,
 				F4F266751915134E001D0F93 /* InfoPlist.strings in Resources */,
 				F4744C0E19864D5000A55A8A /* waterIcon.png in Resources */,
