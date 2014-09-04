@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F4047A6819630A8000569C15 /* NumberViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4047A6719630A8000569C15 /* NumberViewCell.m */; };
-		F4047A6C196479E200569C15 /* monster_icons in Resources */ = {isa = PBXBuildFile; fileRef = F4047A6B196479E200569C15 /* monster_icons */; };
 		F4047A6F19648D7D00569C15 /* CropImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4047A6E19648D7D00569C15 /* CropImageViewController.m */; };
 		F4047A7219654E7A00569C15 /* CropRectangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4047A7119654E7A00569C15 /* CropRectangleView.m */; };
 		F40798991949B70900CCCC88 /* BillRevisionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F40798981949B70900CCCC88 /* BillRevisionTableViewController.m */; };
@@ -34,8 +33,6 @@
 		F44BBC5B19A4B3E2002311FE /* ItemScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F44BBC5A19A4B3E2002311FE /* ItemScrollView.m */; };
 		F4744C07197EB30100A55A8A /* NormalizableImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F4744C06197EB30100A55A8A /* NormalizableImage.m */; };
 		F4744C0A19851D4D00A55A8A /* CropCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = F4744C0919851D4D00A55A8A /* CropCircle.m */; };
-		F4744C0D19864D5000A55A8A /* beerIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = F4744C0B19864D5000A55A8A /* beerIcon.png */; };
-		F4744C0E19864D5000A55A8A /* waterIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = F4744C0C19864D5000A55A8A /* waterIcon.png */; };
 		F4744C1B198D252900A55A8A /* arrowDownIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = F4744C1A198D252900A55A8A /* arrowDownIcon.png */; };
 		F4744C1F198D271B00A55A8A /* arrowUpIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = F4744C1E198D271B00A55A8A /* arrowUpIcon.png */; };
 		F4881BF2199E4516005ACA2F /* BillSplitCustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4881BF1199E4516005ACA2F /* BillSplitCustomViewController.m */; };
@@ -57,7 +54,6 @@
 		F4F266771915134E001D0F93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F266761915134E001D0F93 /* main.m */; };
 		F4F2667B1915134E001D0F93 /* BillReaderAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F2667A1915134E001D0F93 /* BillReaderAppDelegate.m */; };
 		F4F2667E1915134E001D0F93 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4F2667C1915134E001D0F93 /* Main_iPhone.storyboard */; };
-		F4F266811915134E001D0F93 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4F2667F1915134E001D0F93 /* Main_iPad.storyboard */; };
 		F4F266841915134E001D0F93 /* BillReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F266831915134E001D0F93 /* BillReaderViewController.m */; };
 		F4F266861915134E001D0F93 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4F266851915134E001D0F93 /* Images.xcassets */; };
 		F4F2668D1915134E001D0F93 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F2668C1915134E001D0F93 /* XCTest.framework */; };
@@ -67,8 +63,6 @@
 		F4F266991915134E001D0F93 /* BillReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F266981915134E001D0F93 /* BillReaderTests.m */; };
 		F4F266A31915147E001D0F93 /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F266A21915147E001D0F93 /* TesseractOCR.framework */; };
 		F4F266A5191515C3001D0F93 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F266A4191515C3001D0F93 /* libstdc++.6.0.9.dylib */; };
-		F4F266B219151945001D0F93 /* rechnung1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F4F266B119151945001D0F93 /* rechnung1.jpg */; };
-		F4F266B419152712001D0F93 /* rechnung2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F4F266B319152712001D0F93 /* rechnung2.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,7 +78,6 @@
 /* Begin PBXFileReference section */
 		F4047A6619630A8000569C15 /* NumberViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberViewCell.h; sourceTree = "<group>"; };
 		F4047A6719630A8000569C15 /* NumberViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberViewCell.m; sourceTree = "<group>"; };
-		F4047A6B196479E200569C15 /* monster_icons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = monster_icons; sourceTree = "<group>"; };
 		F4047A6D19648D7D00569C15 /* CropImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropImageViewController.h; sourceTree = "<group>"; };
 		F4047A6E19648D7D00569C15 /* CropImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropImageViewController.m; sourceTree = "<group>"; };
 		F4047A7019654E7A00569C15 /* CropRectangleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropRectangleView.h; sourceTree = "<group>"; };
@@ -97,8 +90,8 @@
 		F407989E1949DC7E00CCCC88 /* ItemEditingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemEditingViewController.m; sourceTree = "<group>"; };
 		F40798A0194B1A1500CCCC88 /* ViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewHelper.h; sourceTree = "<group>"; };
 		F40798A1194B1A1500CCCC88 /* ViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewHelper.m; sourceTree = "<group>"; };
-		F41A4619194EEFCB0075174D /* iconImageBill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconImageBill.png; sourceTree = "<group>"; };
-		F41A461D194EF8750075174D /* exampleBillPicture2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exampleBillPicture2.png; sourceTree = "<group>"; };
+		F41A4619194EEFCB0075174D /* iconImageBill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iconImageBill.png; path = ../iconImageBill.png; sourceTree = "<group>"; };
+		F41A461D194EF8750075174D /* exampleBillPicture2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = exampleBillPicture2.png; path = ../exampleBillPicture2.png; sourceTree = "<group>"; };
 		F421B4DA193C71F20004FB6E /* PersonCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonCircleView.h; sourceTree = "<group>"; };
 		F421B4DB193C71F20004FB6E /* PersonCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonCircleView.m; sourceTree = "<group>"; };
 		F4269F6C19B8AB93001F7F62 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
@@ -132,10 +125,8 @@
 		F4744C06197EB30100A55A8A /* NormalizableImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NormalizableImage.m; sourceTree = "<group>"; };
 		F4744C0819851D4D00A55A8A /* CropCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropCircle.h; sourceTree = "<group>"; };
 		F4744C0919851D4D00A55A8A /* CropCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CropCircle.m; sourceTree = "<group>"; };
-		F4744C0B19864D5000A55A8A /* beerIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = beerIcon.png; sourceTree = "<group>"; };
-		F4744C0C19864D5000A55A8A /* waterIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waterIcon.png; sourceTree = "<group>"; };
-		F4744C1A198D252900A55A8A /* arrowDownIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowDownIcon.png; sourceTree = "<group>"; };
-		F4744C1E198D271B00A55A8A /* arrowUpIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowUpIcon.png; sourceTree = "<group>"; };
+		F4744C1A198D252900A55A8A /* arrowDownIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrowDownIcon.png; path = ../arrowDownIcon.png; sourceTree = "<group>"; };
+		F4744C1E198D271B00A55A8A /* arrowUpIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrowUpIcon.png; path = ../arrowUpIcon.png; sourceTree = "<group>"; };
 		F4881BF0199E4516005ACA2F /* BillSplitCustomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillSplitCustomViewController.h; sourceTree = "<group>"; };
 		F4881BF1199E4516005ACA2F /* BillSplitCustomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillSplitCustomViewController.m; sourceTree = "<group>"; };
 		F4881BF3199E4F9F005ACA2F /* PersonCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonCustomView.h; sourceTree = "<group>"; };
@@ -171,7 +162,6 @@
 		F4F266791915134E001D0F93 /* BillReaderAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BillReaderAppDelegate.h; sourceTree = "<group>"; };
 		F4F2667A1915134E001D0F93 /* BillReaderAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BillReaderAppDelegate.m; sourceTree = "<group>"; };
 		F4F2667D1915134E001D0F93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		F4F266801915134E001D0F93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		F4F266821915134E001D0F93 /* BillReaderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BillReaderViewController.h; sourceTree = "<group>"; };
 		F4F266831915134E001D0F93 /* BillReaderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BillReaderViewController.m; sourceTree = "<group>"; };
 		F4F266851915134E001D0F93 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -182,8 +172,6 @@
 		F4F266981915134E001D0F93 /* BillReaderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BillReaderTests.m; sourceTree = "<group>"; };
 		F4F266A21915147E001D0F93 /* TesseractOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = "<group>"; };
 		F4F266A4191515C3001D0F93 /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
-		F4F266B119151945001D0F93 /* rechnung1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = rechnung1.jpg; path = ../../Downloads/rechnung1.jpg; sourceTree = "<group>"; };
-		F4F266B319152712001D0F93 /* rechnung2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = rechnung2.jpg; path = ../../Downloads/rechnung2.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,35 +200,257 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F42EC8591934B15A009798B5 /* ViewControllers */ = {
+		F4269F6E19B8BAD4001F7F62 /* Bill Split Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F407989D1949DC7E00CCCC88 /* ItemEditingViewController.h */,
-				F407989E1949DC7E00CCCC88 /* ItemEditingViewController.m */,
-				F40798971949B70900CCCC88 /* BillRevisionTableViewController.h */,
-				F40798981949B70900CCCC88 /* BillRevisionTableViewController.m */,
-				F4311EAD195963D600B6332A /* PersonArticleTableViewController.h */,
-				F4311EAE195963D600B6332A /* PersonArticleTableViewController.m */,
-				F4DE2A66193347BA0043CCE2 /* PersonArticleCollectionViewController.h */,
-				F4DE2A67193347BA0043CCE2 /* PersonArticleCollectionViewController.m */,
-				F4DE2A631932042A0043CCE2 /* NumOfPeopleViewController.h */,
-				F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */,
-				F4047A6D19648D7D00569C15 /* CropImageViewController.h */,
-				F4047A6E19648D7D00569C15 /* CropImageViewController.m */,
+				F42EC8551934B0C6009798B5 /* BillSplitViewController.h */,
+				F42EC8561934B0C6009798B5 /* BillSplitViewController.m */,
 				F4881BF0199E4516005ACA2F /* BillSplitCustomViewController.h */,
 				F4881BF1199E4516005ACA2F /* BillSplitCustomViewController.m */,
+				F4269F6F19B8BB08001F7F62 /* Deprecated Prototypes */,
+			);
+			name = "Bill Split Controllers";
+			sourceTree = "<group>";
+		};
+		F4269F6F19B8BB08001F7F62 /* Deprecated Prototypes */ = {
+			isa = PBXGroup;
+			children = (
 				F42EC84C1934AB33009798B5 /* BillSplitSwipeViewController.h */,
 				F42EC84D1934AB33009798B5 /* BillSplitSwipeViewController.m */,
 				F4E775CB191F9B270036FEB5 /* BillSplitTableViewController.h */,
 				F4E775CC191F9B270036FEB5 /* BillSplitTableViewController.m */,
 				F4311EB61959C2A800B6332A /* BillSplitCollectionViewController.h */,
 				F4311EB71959C2A800B6332A /* BillSplitCollectionViewController.m */,
-				F42EC8551934B0C6009798B5 /* BillSplitViewController.h */,
-				F42EC8561934B0C6009798B5 /* BillSplitViewController.m */,
+			);
+			name = "Deprecated Prototypes";
+			sourceTree = "<group>";
+		};
+		F4269F7019B8BB54001F7F62 /* Bill Correction Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F407989D1949DC7E00CCCC88 /* ItemEditingViewController.h */,
+				F407989E1949DC7E00CCCC88 /* ItemEditingViewController.m */,
+				F40798971949B70900CCCC88 /* BillRevisionTableViewController.h */,
+				F40798981949B70900CCCC88 /* BillRevisionTableViewController.m */,
+			);
+			name = "Bill Correction Controllers";
+			sourceTree = "<group>";
+		};
+		F4269F7119B8BB77001F7F62 /* Final Overview Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F4311EAD195963D600B6332A /* PersonArticleTableViewController.h */,
+				F4311EAE195963D600B6332A /* PersonArticleTableViewController.m */,
+				F4269F7219B8BBAA001F7F62 /* Deprecated Prototypes */,
+			);
+			name = "Final Overview Controllers";
+			sourceTree = "<group>";
+		};
+		F4269F7219B8BBAA001F7F62 /* Deprecated Prototypes */ = {
+			isa = PBXGroup;
+			children = (
+				F4DE2A66193347BA0043CCE2 /* PersonArticleCollectionViewController.h */,
+				F4DE2A67193347BA0043CCE2 /* PersonArticleCollectionViewController.m */,
+			);
+			name = "Deprecated Prototypes";
+			sourceTree = "<group>";
+		};
+		F4269F7319B8BBD8001F7F62 /* People Amount Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F4DE2A631932042A0043CCE2 /* NumOfPeopleViewController.h */,
+				F4DE2A641932042A0043CCE2 /* NumOfPeopleViewController.m */,
+			);
+			name = "People Amount Controllers";
+			sourceTree = "<group>";
+		};
+		F4269F7419B8BBF6001F7F62 /* Bill Image Crop Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F4047A6D19648D7D00569C15 /* CropImageViewController.h */,
+				F4047A6E19648D7D00569C15 /* CropImageViewController.m */,
+			);
+			name = "Bill Image Crop Controllers";
+			sourceTree = "<group>";
+		};
+		F4269F7519B8BC1D001F7F62 /* Main Controller */ = {
+			isa = PBXGroup;
+			children = (
 				F4F266821915134E001D0F93 /* BillReaderViewController.h */,
 				F4F266831915134E001D0F93 /* BillReaderViewController.m */,
+			);
+			name = "Main Controller";
+			sourceTree = "<group>";
+		};
+		F4269F7619B8BC2C001F7F62 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
 				F43CBB19197A8BD3001A848A /* BillTextToBillObjectConverter.h */,
 				F43CBB1A197A8BD3001A848A /* BillTextToBillObjectConverter.m */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
+		F4269F7719B8BDF8001F7F62 /* Item Models */ = {
+			isa = PBXGroup;
+			children = (
+				F4E775C819194B140036FEB5 /* Item.h */,
+				F4E775C919194B140036FEB5 /* Item.m */,
+				F407989A1949CF0F00CCCC88 /* EditableItem.h */,
+				F407989B1949CF0F00CCCC88 /* EditableItem.m */,
+			);
+			name = "Item Models";
+			sourceTree = "<group>";
+		};
+		F4269F7819B8BE0A001F7F62 /* Bill Models */ = {
+			isa = PBXGroup;
+			children = (
+				F4E775C51919430F0036FEB5 /* Bill.h */,
+				F4E775C61919430F0036FEB5 /* Bill.m */,
+			);
+			name = "Bill Models";
+			sourceTree = "<group>";
+		};
+		F4269F7919B8BE16001F7F62 /* Color Models */ = {
+			isa = PBXGroup;
+			children = (
+				F44BBC5319A1181D002311FE /* DefinedColors.h */,
+				F44BBC5419A1181E002311FE /* DefinedColors.m */,
+			);
+			name = "Color Models";
+			sourceTree = "<group>";
+		};
+		F4269F7A19B8BE25001F7F62 /* Crop Views */ = {
+			isa = PBXGroup;
+			children = (
+				F4047A7019654E7A00569C15 /* CropRectangleView.h */,
+				F4047A7119654E7A00569C15 /* CropRectangleView.m */,
+				F4744C0819851D4D00A55A8A /* CropCircle.h */,
+				F4744C0919851D4D00A55A8A /* CropCircle.m */,
+			);
+			name = "Crop Views";
+			sourceTree = "<group>";
+		};
+		F4269F7B19B8BE48001F7F62 /* People Amount Views */ = {
+			isa = PBXGroup;
+			children = (
+				F4047A6619630A8000569C15 /* NumberViewCell.h */,
+				F4047A6719630A8000569C15 /* NumberViewCell.m */,
+			);
+			name = "People Amount Views";
+			sourceTree = "<group>";
+		};
+		F4269F7C19B8BEC6001F7F62 /* Image Models */ = {
+			isa = PBXGroup;
+			children = (
+				F4744C05197EB30000A55A8A /* NormalizableImage.h */,
+				F4744C06197EB30100A55A8A /* NormalizableImage.m */,
+			);
+			name = "Image Models";
+			sourceTree = "<group>";
+		};
+		F4269F7D19B8BED8001F7F62 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				F4269F7C19B8BEC6001F7F62 /* Image Models */,
+				F4269F7919B8BE16001F7F62 /* Color Models */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
+		F4269F7E19B8BF57001F7F62 /* Decimal to String Helper */ = {
+			isa = PBXGroup;
+			children = (
+				F40798A0194B1A1500CCCC88 /* ViewHelper.h */,
+				F40798A1194B1A1500CCCC88 /* ViewHelper.m */,
+			);
+			name = "Decimal to String Helper";
+			sourceTree = "<group>";
+		};
+		F4269F7F19B8BF79001F7F62 /* Animated Transitioning Helper */ = {
+			isa = PBXGroup;
+			children = (
+				F4311EA719583F5800B6332A /* DETAnimatedTransitioning.h */,
+				F4311EA819583F5800B6332A /* DETAnimatedTransitioning.m */,
+			);
+			name = "Animated Transitioning Helper";
+			sourceTree = "<group>";
+		};
+		F4269F8019B8BF8E001F7F62 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				F4269F7F19B8BF79001F7F62 /* Animated Transitioning Helper */,
+				F4269F7E19B8BF57001F7F62 /* Decimal to String Helper */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
+		F4269F8119B8BFF0001F7F62 /* Deprecated Bill Split Views */ = {
+			isa = PBXGroup;
+			children = (
+				F4E775DA191FCFAB0036FEB5 /* PersonTableView.h */,
+				F4E775DB191FCFAB0036FEB5 /* PersonTableView.m */,
+				F4E775D7191FCF8E0036FEB5 /* BillTableView.h */,
+				F4E775D8191FCF8E0036FEB5 /* BillTableView.m */,
+				F42EC8521934ACB5009798B5 /* SwipeArticleView.h */,
+				F42EC8531934ACB5009798B5 /* SwipeArticleView.m */,
+				F4311EBC1959E02900B6332A /* ItemCollectionViewCell.h */,
+				F4311EBD1959E02900B6332A /* ItemCollectionViewCell.m */,
+				F4311EB91959D0DD00B6332A /* ItemSectionHeader.h */,
+				F4311EBA1959D0DD00B6332A /* ItemSectionHeader.m */,
+				F421B4DA193C71F20004FB6E /* PersonCircleView.h */,
+				F421B4DB193C71F20004FB6E /* PersonCircleView.m */,
+			);
+			name = "Deprecated Bill Split Views";
+			sourceTree = "<group>";
+		};
+		F4269F8219B8C062001F7F62 /* Bill Split Views */ = {
+			isa = PBXGroup;
+			children = (
+				F4881BF3199E4F9F005ACA2F /* PersonCustomView.h */,
+				F4881BF4199E4FA0005ACA2F /* PersonCustomView.m */,
+				F4881BF6199E527E005ACA2F /* ItemCustomView.h */,
+				F4881BF7199E527E005ACA2F /* ItemCustomView.m */,
+				F44BBC5919A4B3E2002311FE /* ItemScrollView.h */,
+				F44BBC5A19A4B3E2002311FE /* ItemScrollView.m */,
+				F4269F8119B8BFF0001F7F62 /* Deprecated Bill Split Views */,
+			);
+			name = "Bill Split Views";
+			sourceTree = "<group>";
+		};
+		F4269F8319B8C1B5001F7F62 /* Final Overview Views */ = {
+			isa = PBXGroup;
+			children = (
+				F4311EB019596BBA00B6332A /* ArticleListTableViewCell.h */,
+				F4311EB119596BBB00B6332A /* ArticleListTableViewCell.m */,
+				F4311EB3195970F800B6332A /* ArticleListTableView.h */,
+				F4311EB4195970F800B6332A /* ArticleListTableView.m */,
+				F4DE2A6919336FAE0043CCE2 /* ArticleListTextView.h */,
+				F4DE2A6A19336FAE0043CCE2 /* ArticleListTextView.m */,
+				F4269F8419B8C1D0001F7F62 /* Deprecated Collection View */,
+			);
+			name = "Final Overview Views";
+			sourceTree = "<group>";
+		};
+		F4269F8419B8C1D0001F7F62 /* Deprecated Collection View */ = {
+			isa = PBXGroup;
+			children = (
+				F4DE2A6F193370E40043CCE2 /* ArticleListCollectionViewCell.h */,
+				F4DE2A70193370E40043CCE2 /* ArticleListCollectionViewCell.m */,
+			);
+			name = "Deprecated Collection View";
+			sourceTree = "<group>";
+		};
+		F42EC8591934B15A009798B5 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F4269F7019B8BB54001F7F62 /* Bill Correction Controllers */,
+				F4269F7119B8BB77001F7F62 /* Final Overview Controllers */,
+				F4269F7319B8BBD8001F7F62 /* People Amount Controllers */,
+				F4269F7419B8BBF6001F7F62 /* Bill Image Crop Controllers */,
+				F4269F6E19B8BAD4001F7F62 /* Bill Split Controllers */,
+				F4269F7519B8BC1D001F7F62 /* Main Controller */,
+				F4269F7619B8BC2C001F7F62 /* Helper */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -248,44 +458,11 @@
 		F42EC85A1934B17D009798B5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F4047A7019654E7A00569C15 /* CropRectangleView.h */,
-				F4047A7119654E7A00569C15 /* CropRectangleView.m */,
-				F4744C0819851D4D00A55A8A /* CropCircle.h */,
-				F4744C0919851D4D00A55A8A /* CropCircle.m */,
-				F4047A6619630A8000569C15 /* NumberViewCell.h */,
-				F4047A6719630A8000569C15 /* NumberViewCell.m */,
-				F4311EBC1959E02900B6332A /* ItemCollectionViewCell.h */,
-				F4311EBD1959E02900B6332A /* ItemCollectionViewCell.m */,
-				F4881BF6199E527E005ACA2F /* ItemCustomView.h */,
-				F4881BF7199E527E005ACA2F /* ItemCustomView.m */,
-				F44BBC5919A4B3E2002311FE /* ItemScrollView.h */,
-				F44BBC5A19A4B3E2002311FE /* ItemScrollView.m */,
-				F4311EB91959D0DD00B6332A /* ItemSectionHeader.h */,
-				F4311EBA1959D0DD00B6332A /* ItemSectionHeader.m */,
-				F4311EA719583F5800B6332A /* DETAnimatedTransitioning.h */,
-				F4311EA819583F5800B6332A /* DETAnimatedTransitioning.m */,
-				F40798A0194B1A1500CCCC88 /* ViewHelper.h */,
-				F40798A1194B1A1500CCCC88 /* ViewHelper.m */,
-				F421B4DA193C71F20004FB6E /* PersonCircleView.h */,
-				F421B4DB193C71F20004FB6E /* PersonCircleView.m */,
-				F4881BF3199E4F9F005ACA2F /* PersonCustomView.h */,
-				F4881BF4199E4FA0005ACA2F /* PersonCustomView.m */,
-				F42EC8521934ACB5009798B5 /* SwipeArticleView.h */,
-				F42EC8531934ACB5009798B5 /* SwipeArticleView.m */,
-				F4DE2A6F193370E40043CCE2 /* ArticleListCollectionViewCell.h */,
-				F4DE2A70193370E40043CCE2 /* ArticleListCollectionViewCell.m */,
-				F4311EB019596BBA00B6332A /* ArticleListTableViewCell.h */,
-				F4311EB119596BBB00B6332A /* ArticleListTableViewCell.m */,
-				F4DE2A6919336FAE0043CCE2 /* ArticleListTextView.h */,
-				F4DE2A6A19336FAE0043CCE2 /* ArticleListTextView.m */,
-				F4311EB3195970F800B6332A /* ArticleListTableView.h */,
-				F4311EB4195970F800B6332A /* ArticleListTableView.m */,
-				F4E775DA191FCFAB0036FEB5 /* PersonTableView.h */,
-				F4E775DB191FCFAB0036FEB5 /* PersonTableView.m */,
-				F4E775D7191FCF8E0036FEB5 /* BillTableView.h */,
-				F4E775D8191FCF8E0036FEB5 /* BillTableView.m */,
-				F4744C05197EB30000A55A8A /* NormalizableImage.h */,
-				F4744C06197EB30100A55A8A /* NormalizableImage.m */,
+				F4269F7A19B8BE25001F7F62 /* Crop Views */,
+				F4269F7B19B8BE48001F7F62 /* People Amount Views */,
+				F4269F8219B8C062001F7F62 /* Bill Split Views */,
+				F4269F8019B8BF8E001F7F62 /* Helper */,
+				F4269F8319B8C1B5001F7F62 /* Final Overview Views */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -293,14 +470,9 @@
 		F42EC85B1934B193009798B5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F4E775C819194B140036FEB5 /* Item.h */,
-				F4E775C919194B140036FEB5 /* Item.m */,
-				F407989A1949CF0F00CCCC88 /* EditableItem.h */,
-				F407989B1949CF0F00CCCC88 /* EditableItem.m */,
-				F4E775C51919430F0036FEB5 /* Bill.h */,
-				F4E775C61919430F0036FEB5 /* Bill.m */,
-				F44BBC5319A1181D002311FE /* DefinedColors.h */,
-				F44BBC5419A1181E002311FE /* DefinedColors.m */,
+				F4269F7719B8BDF8001F7F62 /* Item Models */,
+				F4269F7819B8BE0A001F7F62 /* Bill Models */,
+				F4269F7D19B8BED8001F7F62 /* Helper */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -310,14 +482,6 @@
 			children = (
 				F4269F6C19B8AB93001F7F62 /* tessdata */,
 				F4F266701915134E001D0F93 /* BillReader */,
-				F4F266B119151945001D0F93 /* rechnung1.jpg */,
-				F4F266B319152712001D0F93 /* rechnung2.jpg */,
-				F4744C1E198D271B00A55A8A /* arrowUpIcon.png */,
-				F4744C1A198D252900A55A8A /* arrowDownIcon.png */,
-				F41A461D194EF8750075174D /* exampleBillPicture2.png */,
-				F41A4619194EEFCB0075174D /* iconImageBill.png */,
-				F4744C0B19864D5000A55A8A /* beerIcon.png */,
-				F4744C0C19864D5000A55A8A /* waterIcon.png */,
 				F4F266921915134E001D0F93 /* BillReaderTests */,
 				F4F266691915134E001D0F93 /* Frameworks */,
 				F4F266681915134E001D0F93 /* Products */,
@@ -349,13 +513,11 @@
 		F4F266701915134E001D0F93 /* BillReader */ = {
 			isa = PBXGroup;
 			children = (
-				F4047A6B196479E200569C15 /* monster_icons */,
 				F42EC85B1934B193009798B5 /* Models */,
 				F42EC85A1934B17D009798B5 /* Views */,
 				F42EC8591934B15A009798B5 /* ViewControllers */,
 				F4F266791915134E001D0F93 /* BillReaderAppDelegate.h */,
 				F4F2667A1915134E001D0F93 /* BillReaderAppDelegate.m */,
-				F4F2667F1915134E001D0F93 /* Main_iPad.storyboard */,
 				F4F2667C1915134E001D0F93 /* Main_iPhone.storyboard */,
 				F4F266851915134E001D0F93 /* Images.xcassets */,
 				F4F266711915134E001D0F93 /* Supporting Files */,
@@ -366,6 +528,10 @@
 		F4F266711915134E001D0F93 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F4744C1E198D271B00A55A8A /* arrowUpIcon.png */,
+				F4744C1A198D252900A55A8A /* arrowDownIcon.png */,
+				F41A461D194EF8750075174D /* exampleBillPicture2.png */,
+				F41A4619194EEFCB0075174D /* iconImageBill.png */,
 				F4F266721915134E001D0F93 /* BillReader-Info.plist */,
 				F4F266731915134E001D0F93 /* InfoPlist.strings */,
 				F4F266761915134E001D0F93 /* main.m */,
@@ -472,20 +638,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4F266811915134E001D0F93 /* Main_iPad.storyboard in Resources */,
 				F41A461A194EEFCB0075174D /* iconImageBill.png in Resources */,
 				F41A461E194EF8750075174D /* exampleBillPicture2.png in Resources */,
 				F4269F6D19B8AB93001F7F62 /* tessdata in Resources */,
 				F4F266861915134E001D0F93 /* Images.xcassets in Resources */,
-				F4047A6C196479E200569C15 /* monster_icons in Resources */,
 				F4F2667E1915134E001D0F93 /* Main_iPhone.storyboard in Resources */,
 				F4F266751915134E001D0F93 /* InfoPlist.strings in Resources */,
-				F4744C0E19864D5000A55A8A /* waterIcon.png in Resources */,
-				F4F266B219151945001D0F93 /* rechnung1.jpg in Resources */,
 				F4744C1F198D271B00A55A8A /* arrowUpIcon.png in Resources */,
 				F4744C1B198D252900A55A8A /* arrowDownIcon.png in Resources */,
-				F4744C0D19864D5000A55A8A /* beerIcon.png in Resources */,
-				F4F266B419152712001D0F93 /* rechnung2.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,14 +738,6 @@
 				F4F2667D1915134E001D0F93 /* Base */,
 			);
 			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		F4F2667F1915134E001D0F93 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F4F266801915134E001D0F93 /* Base */,
-			);
-			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		F4F266951915134E001D0F93 /* InfoPlist.strings */ = {
