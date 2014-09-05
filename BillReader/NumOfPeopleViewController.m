@@ -130,9 +130,6 @@
     }
 }
 
-
-//MEMORY//
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

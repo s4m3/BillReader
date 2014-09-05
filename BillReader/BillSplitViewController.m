@@ -7,7 +7,6 @@
 //
 
 #import "BillSplitViewController.h"
-#import "PersonArticleCollectionViewController.h"
 #import "PersonArticleTableViewController.h"
 
 @interface BillSplitViewController ()
@@ -15,18 +14,6 @@
 @end
 
 @implementation BillSplitViewController
-- (void)setItems:(NSMutableDictionary *)items
-{
-    _items = items;
-}
-
-- (long)totalNumOfPersons
-{
-    if (_totalNumOfPersons == 0) {
-        _totalNumOfPersons = [self.items count] - 1;
-    }
-    return _totalNumOfPersons;
-}
 
 - (void)viewDidLoad
 {
@@ -42,16 +29,6 @@
     
 }
 
-//- (NSMutableArray *)colors
-//{
-//    if (!_colors) {
-//        _colors = [NSMutableArray array];
-//        for (int i=0; i<self.totalNumOfPersons; i++) {
-//            [_colors addObject:[self createRandomColor]];
-//        }
-//    }
-//    return _colors;
-//}
 
 - (void)showOverview
 {
@@ -60,12 +37,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-//    if([[segue identifier] isEqualToString:@"Person Article Overview"]) {
-//        PersonArticleCollectionViewController *pacvc = [segue destinationViewController];
-//        [pacvc setColors:[self.colors copy]];
-//        [pacvc setItems:[self.items copy]];
-//        
-//    }
+    //segue to overview
     if ([[segue identifier] isEqualToString:@"Person Article Overview"]) {
         PersonArticleTableViewController *patvc = [segue destinationViewController];
         [patvc setColors:[self.colors copy]];
@@ -73,7 +45,21 @@
     }
 }
 
+//global setter that is mainly used by NumOfPeopleViewController to set the items that where extracted from bill image
+- (void)setItems:(NSMutableDictionary *)items
+{
+    _items = items;
+}
 
+- (long)totalNumOfPersons
+{
+    if (_totalNumOfPersons == 0) {
+        _totalNumOfPersons = [self.items count] - 1;
+    }
+    return _totalNumOfPersons;
+}
+
+//DEPRECATED due to predefined colors
 - (UIColor *)createRandomColor
 {
     CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0

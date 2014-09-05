@@ -15,13 +15,13 @@
 
 @interface PersonArticleTableViewController () <UITableViewDelegate, UITableViewDataSource>
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView; //the table view for storing the overview text
 
-@property (nonatomic, strong) NSMutableArray *selectedIndexPaths;
-@property (nonatomic, strong) NSMutableArray *itemTexts;
-@property (nonatomic, strong) NSMutableArray *totalStrings;
+@property (nonatomic, strong) NSMutableArray *selectedIndexPaths; //selected rows of table, all selected rows show detail view
+@property (nonatomic, strong) NSMutableArray *itemTexts; //array of item text strings
+@property (nonatomic, strong) NSMutableArray *totalStrings; //array of item price strings
 
-@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar; //the bottom toolbar for returning to main screen and batch opening/closing detail views
 @end
 
 @implementation PersonArticleTableViewController
@@ -55,14 +55,9 @@
     [self.tableView reloadData];
 }
 
-- (NSMutableArray *)selectedIndexPaths
-{
-    if (!_selectedIndexPaths) {
-        self.selectedIndexPaths = [NSMutableArray new];
-    }
-    return _selectedIndexPaths;
-}
 
+
+//Return to Main Screen and dismiss all split actions in order to restart.
 - (void)tryToReset:(id)sender
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Neustart"
@@ -73,6 +68,15 @@
     [alert show];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
+
+
+//batch open all detail views of the displayed person view rows.
 - (void)openAllDetailViews:(id)sender
 {
     NSArray *indexPathArray = [self.tableView indexPathsForRowsInRect:self.tableView.frame];
@@ -87,6 +91,7 @@
 }
 
 
+//batch close all detail views of the displayed person view rows.
 - (void)closeAllDetailViews:(id)sender
 {
     [self.selectedIndexPaths removeAllObjects];
@@ -94,18 +99,14 @@
     [self.tableView reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    }
-}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.items count] - 1;
 }
 
+//set height according to state of table row
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BOOL isSelected = [self.selectedIndexPaths containsObject:indexPath];
@@ -123,20 +124,15 @@
     return 1;
 }
 
+//change selected state of table row
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     [self addOrRemoveSelectedIndexPath:indexPath];
-    
-//    ArticleListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Person" forIndexPath:indexPath];
-//    
-//    cell.textLabel.text = [NSString stringWithFormat:@"Person %ld", (indexPath.row + 1)];
-//    //cell.detailTextLabel.text = [self subtitleForRow:indexPath.row inTableWithPersonId:self.personId];
-//    
-//    cell.backgroundColor = self.colors[indexPath.row];
 }
 
+//draw table row
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([tableView isKindOfClass:[ArticleListTableView class]]) {
@@ -167,6 +163,7 @@
 
 }
 
+//changes display state of table row
 - (void)addOrRemoveSelectedIndexPath:(NSIndexPath *)indexPath
 {
 
@@ -184,6 +181,18 @@
     
 }
 
+- (NSMutableArray *)selectedIndexPaths
+{
+    if (!_selectedIndexPaths) {
+        self.selectedIndexPaths = [NSMutableArray new];
+    }
+    return _selectedIndexPaths;
+}
+
+
+///////////////////////////////////////////////////////////////////
+///////////GENERATE TABLE ROW TEXT/////////////////////////////////
+///////////////////////////////////////////////////////////////////
 - (void) setTextArrayForDetailTextViewCells
 {
     self.itemTexts = [NSMutableArray arrayWithCapacity:([self.items count] - 1)];
@@ -193,7 +202,6 @@
     }
     
 }
-
 
 - (NSAttributedString *)generateTextForViewAtIndex:(NSUInteger)index
 {
@@ -226,10 +234,7 @@
         NSString *totalPrice = [ViewHelper transformDecimalToString:[positionTotals valueForKey:key]];
         positionsText = [positionsText stringByAppendingString:[NSString stringWithFormat:@"%@✕ %@ - %@€\n", [positionDict valueForKey:key], key, totalPrice]];
     }
-    
-    //for (Position *p in self.positions) {
-    //    positionsText = [positionsText stringByAppendingString:[NSString stringWithFormat:@"%@: %@€\n",p.name, p.price]];
-    //}
+
     
     NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -249,16 +254,12 @@
     
     NSMutableAttributedString *completeText = [[NSMutableAttributedString alloc] initWithAttributedString:positionsAttributedString];
     [completeText appendAttributedString:totalAttributedString];
-    //NSMutableAttributedString *attributedText2 = [NSMutableAttributedString alloc] ap
-    //add alignment
-    //NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    //[paragraphStyle setAlignment:NSTextAlignmentCenter];
-    //[attributedText addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(self.name.length - 2, attributedText.length)];
-    
     
     return completeText;
     
 }
+
+
 
 
 
@@ -267,16 +268,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

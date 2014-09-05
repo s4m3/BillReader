@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "Bill.h"
 
+/**
+ * @class BillTextToBillObjectConverter
+ * @discussion Helper Class for creating bill object out of extracted bill text from bill image.
+ */
 @interface BillTextToBillObjectConverter : NSObject
 
 /**

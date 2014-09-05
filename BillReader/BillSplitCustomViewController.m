@@ -14,15 +14,15 @@
 
 @interface BillSplitCustomViewController ()
 
-@property (weak, nonatomic) IBOutlet ItemScrollView *itemScrollView;
-@property (weak, nonatomic) IBOutlet UIScrollView *personScrollView;
-@property (weak, nonatomic) IBOutlet UIScrollView *detailScrollView;
-@property (strong, nonatomic) NSArray *personViews;
-@property (strong, nonatomic) NSMutableArray *itemViews;
-@property (nonatomic) BOOL personArticlesShown;
+@property (weak, nonatomic) IBOutlet ItemScrollView *itemScrollView; //scroll view for listing items views (left)
+@property (weak, nonatomic) IBOutlet UIScrollView *personScrollView; //scroll view for listing person views (middle)
+@property (weak, nonatomic) IBOutlet UIScrollView *detailScrollView; //scroll view for listing items assigned to specific person (right)
+@property (strong, nonatomic) NSArray *personViews; //of PersonCustomView
+@property (strong, nonatomic) NSMutableArray *itemViews; //of ItemCustomView
+@property (nonatomic) BOOL personArticlesShown; //flag for checking whether detail view is currently displayed
 
-@property (nonatomic) CGPoint originalPersonScrollViewOrigin;
-@property (nonatomic) CGPoint originalItemScrollViewOrigin;
+@property (nonatomic) CGPoint originalPersonScrollViewOrigin; //reference to original position of person scroll view to be able to restore it
+@property (nonatomic) CGPoint originalItemScrollViewOrigin; //reference to original position of item scroll view to be able to restore it
 @end
 
 @implementation BillSplitCustomViewController
@@ -36,18 +36,6 @@
     return self;
 }
 
-- (NSMutableArray *)colors
-{
-    if (![super colors]) {
-        
-        self.colors = [NSMutableArray arrayWithCapacity:self.totalNumOfPersons];
-        for (int i=0; i<self.totalNumOfPersons; i++) {
-            self.colors[i] = [DefinedColors getColorForNumber:i];
-        }
-    }
-    return [super colors];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -59,6 +47,7 @@
     self.navigationItem.leftBarButtonItem = newBackButton;
 }
 
+//alert before canceling the split actions in this controller
 -(void)willGoBackToPersonView:(UIBarButtonItem *)sender {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Zurück"
                                                     message:@"Wollen Sie die aktuelle Aufteilung abbrechen und zur Personenauswahl zurückkehren?"
@@ -69,9 +58,11 @@
     
 }
 
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
+        //go back to number of persons controller
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
@@ -83,6 +74,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    //dismiss subviews
     for (ItemCustomView *itemCustomView in self.itemViews) {
         [itemCustomView removeFromSuperview];
     }
@@ -103,6 +95,7 @@
 {
     self.originalItemScrollViewOrigin = self.itemScrollView.frame.origin;
     self.originalPersonScrollViewOrigin = self.personScrollView.frame.origin;
+    
     //init ItemScrollView
     NSArray *itemsWithNoOwner = [self.items objectForKey:[NSNumber numberWithInt:0]];
     NSUInteger amountOfItems = [itemsWithNoOwner count];
@@ -114,9 +107,6 @@
         CGRect itemViewBounds = CGRectMake(0, j*(height+margin), self.itemScrollView.bounds.size.width * 0.9, height);
         ItemCustomView *icv = [[ItemCustomView alloc] initWithFrame:itemViewBounds andItem:itemsWithNoOwner[j] andNumber:j];
         UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:icv action:@selector(respondToPanGesture:)];
-//        [recognizer requireGestureRecognizerToFail:self.itemScrollView.panGestureRecognizer];
-//        [recognizer setCancelsTouchesInView:NO];
-//        [recognizer setDelaysTouchesBegan:YES];
         [icv addGestureRecognizer:recognizer];
         [icv setParentController:self];
         [self.itemScrollView addSubview:icv];
@@ -125,7 +115,6 @@
         [self.itemViews addObject:icv];
     }
     [self.itemScrollView setContentSize:CGSizeMake(self.itemScrollView.bounds.size.width, amountOfItems*(height+margin))];
-    //self.itemScrollView.delegate = self;
     
     //init Person ScrollView
     long totalAmountOfPeople = self.totalNumOfPersons;
@@ -154,7 +143,7 @@
     
 }
 
-
+//gesture handler when displaying items of PersonView to return to normal view state
 - (IBAction)respondToSwipeGesture:(UISwipeGestureRecognizer *)recognizer
 {
     if (self.personArticlesShown) {
@@ -179,6 +168,7 @@
     return NO;
 }
 
+//animation method to move ItemCustomView instance "into" PersonCustomView instance
 - (void)animateItem:(ItemCustomView *)itemCustomView intoPersonView:(PersonCustomView *)personCustomView
 {
     CGPoint center = [self.personScrollView convertPoint:personCustomView.center toView:self.itemScrollView];
@@ -198,6 +188,7 @@
 
 }
 
+//displays all items that are assigned to person of PersonCustomView parameter
 - (void)showItemsOfPersonView:(PersonCustomView *)personCustomView
 {
     self.personArticlesShown = YES;
@@ -227,25 +218,9 @@
     
 }
 
-- (void)dismissDetailItems:(PersonCustomView *)personCustomView
-{
-    personCustomView.itemsAreShown = NO;
-    for (UIView *subview in self.detailScrollView.subviews) {
-        [UIView animateWithDuration:0.1
-                              delay:0.0
-                            options: UIViewAnimationOptionCurveEaseInOut
-                         animations:^{
-                             subview.frame = CGRectMake(subview.frame.origin.x, subview.frame.origin.y, 0, subview.frame.size.height);
-                             for (UIView *view in subview.subviews) {
-                                 view.bounds = CGRectZero;
-                             }
-                         }
-                         completion:^(BOOL finished){
-                             [subview removeFromSuperview];
-                         }];
-    }
-}
 
+
+//convenience method for showItemsOfPersonView to list the items
 - (void)listItemsOfPerson:(PersonCustomView *)personCustomView
 {
     self.detailScrollView.frame = CGRectMake(self.view.frame.size.width / 2, self.detailScrollView.frame.origin.y, self.detailScrollView.frame.size.width, self.detailScrollView.frame.size.height);
@@ -322,14 +297,28 @@
     
 }
 
-//////DEBUG
-- (NSString *)printRect:(CGRect)rect
+//convenience method for goToOriginalView to dismiss subviews
+- (void)dismissDetailItems:(PersonCustomView *)personCustomView
 {
-    return [NSString stringWithFormat:@"%f:%f %f-%f", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
+    personCustomView.itemsAreShown = NO;
+    for (UIView *subview in self.detailScrollView.subviews) {
+        [UIView animateWithDuration:0.1
+                              delay:0.0
+                            options: UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+                             subview.frame = CGRectMake(subview.frame.origin.x, subview.frame.origin.y, 0, subview.frame.size.height);
+                             for (UIView *view in subview.subviews) {
+                                 view.bounds = CGRectZero;
+                             }
+                         }
+                         completion:^(BOOL finished){
+                             [subview removeFromSuperview];
+                         }];
+    }
 }
 
-//////
 
+//lists all item views
 - (void)updateItemView
 {
     for (int i=0; i<self.itemViews.count; i++) {
@@ -341,6 +330,7 @@
     }
 }
 
+//switch owner of item
 - (void)setItem:(Item *)item toNewOwner:(int)newOwner
 {
     int oldOwner = (int) item.belongsToId;
@@ -356,7 +346,19 @@
     for (int i=0; i<self.personViews.count; i++) {
         [self.personViews[i] updateItems:[self.items objectForKey:[NSNumber numberWithInt:i+1]]];
     }
+}
 
+//get one of the predefined colors
+- (NSMutableArray *)colors
+{
+    if (![super colors]) {
+        
+        self.colors = [NSMutableArray arrayWithCapacity:self.totalNumOfPersons];
+        for (int i=0; i<self.totalNumOfPersons; i++) {
+            self.colors[i] = [DefinedColors getColorForNumber:i];
+        }
+    }
+    return [super colors];
 }
 
 
@@ -366,15 +368,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//////DEBUG/////////////
+- (NSString *)printRect:(CGRect)rect
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    return [NSString stringWithFormat:@"%f:%f %f-%f", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
 }
-*/
+
 
 @end

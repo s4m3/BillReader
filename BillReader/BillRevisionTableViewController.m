@@ -11,77 +11,25 @@
 #import "ItemEditingViewController.h"
 
 @interface BillRevisionTableViewController ()
-@property (weak, nonatomic) IBOutlet UITableView *billTableView;
-
+@property (weak, nonatomic) IBOutlet UITableView *billTableView; //the table view that holds the EditableItem objects
 
 @end
 
 @implementation BillRevisionTableViewController
 
-- (void)setEditableItems:(NSMutableArray *)items
-{
-    _editableItems = items;
-    //[self setupEditablePositions];
-    [self.billTableView reloadData];
-}
-
-- (void)willMoveToParentViewController:(UIViewController *)parent
-{
-    
-    if (self.parentController) {
-        [self.parentController updateBillWithRevisedItems:self.editableItems];
-    }
-}
-
-//- (void)setupEditablePositions
-//{
-//    NSArray *itemsArray = [NSArray arrayWithArray:self.items];
-//    NSMutableDictionary *itemDictionary = [[NSMutableDictionary alloc] init];
-//    NSString *name = @"";
-//    for (Item *pos in itemsArray) {
-//        name = pos.name;
-//        
-//        //check whether item with name is already in dictionary
-//        if ([itemDictionary objectForKey:name]) {
-//            EditableItem *positionFromDict = [itemDictionary objectForKey:name];
-//            positionFromDict.amount = positionFromDict.amount + 1;
-//        } else {
-//            EditableItem *newPosition = [[EditableItem alloc] initWithName:name amount:1 andPrice:pos.price];
-//            [itemDictionary setObject:newPosition forKey:name];
-//        }
-//    }
-//    
-//    NSEnumerator *itemEnum = [itemDictionary objectEnumerator];
-//    self.editableItems = [NSMutableArray array];
-//    EditableItem *nextPos;
-//    while (nextPos = [itemEnum nextObject]) {
-//        [self.editableItems addObject:nextPos];
-//    }
-//}
-
-- (void)updateEditableItem:(EditableItem *)editableItem
-{
-    EditableItem * currentItem;
-    for (int i=0; i<[self.editableItems count]; i++) {
-        currentItem = self.editableItems[i];
-        if ([currentItem isKindOfClass:[EditableItem class]]) {
-            if (((EditableItem *)currentItem).identification == editableItem.identification) {
-                currentItem = editableItem;
-            }
-        }
-    }
-
-}
-
 #define REMOVE_TITLE @"Löschen"
 #define ADD_TITLE @"Hinzufügen"
+#define SAVE_TITLE @"Speichern"
+#define ARTICLE_TITLE @"Artikel"
+#define DONE_TITLE @"Fertig"
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.billTableView.delegate = self;
     self.billTableView.dataSource = self;
     
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Speichern"
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SAVE_TITLE
                                       style:self.navigationItem.backBarButtonItem.style
                                      target:nil
                                      action:nil];
@@ -95,59 +43,33 @@
                                                                     target:self
                                                                     action:@selector(enterEditingMode)];
     
-    
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:EDIT_TITLE
-//                                                                              style:self.navigationItem.rightBarButtonItem.style
-//                                                                             target:self
-//                                                                             action:@selector(enterEditingMode)];
-    
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:removeButton, addButton, nil];
     
     UITapGestureRecognizer *recognizerForEmptyRows = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOnEmptyRow:)];
     [self.billTableView addGestureRecognizer:recognizerForEmptyRows];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+ 
 }
 
--(void)didTapOnEmptyRow:(UIGestureRecognizer*) recognizer {
-    CGPoint tapPoint = [recognizer locationInView:self.billTableView];
-    NSIndexPath *indexPath = [self.billTableView indexPathForRowAtPoint:tapPoint];
-    
-    if (indexPath) {
-        recognizer.cancelsTouchesInView = NO;
-    } else {
-        [self enterItemAddingMode];
-    }
-}
 
-- (void)enterEditingMode
+- (void)viewDidAppear:(BOOL)animated
 {
-    if ([self.billTableView isEditing]) {
-        [self.billTableView setEditing:NO animated:YES];
-        [self.navigationItem.rightBarButtonItems[0] setTitle:REMOVE_TITLE];
-    } else {
-        [self.navigationItem.rightBarButtonItems[0] setTitle:@"Fertig"];
-        [self.billTableView setEditing:YES animated:YES];
-    }
+    [super viewDidAppear:animated];
+    [self.billTableView reloadData];
 }
 
-- (void)enterItemAddingMode
+
+
+///////////////////////////////////////////
+////////TABLE EDITING//////////////////////
+///////////////////////////////////////////
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    EditableItem *newItem = [[EditableItem alloc] initWithName:[ItemEditingViewController defaultItemName] amount:1 andPrice:[NSDecimalNumber decimalNumberWithString:@"0"]];
-    [self.editableItems addObject:newItem];
-    NSUInteger section = 0;
-    NSUInteger row = [self.billTableView numberOfRowsInSection:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
-    [self performSegueWithIdentifier:@"Edit Position" sender:indexPath];
+    return YES;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         
@@ -162,31 +84,6 @@
             [self.navigationItem.rightBarButtonItems[0] setTitle:REMOVE_TITLE];
         }
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self.billTableView reloadData];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-//#pragma mark - Table view data source
-//
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//    // Return the number of sections.
-//    return 1;
-//}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -214,10 +111,69 @@
     return nil;
 }
 
+//Title for deletion confirmation
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return REMOVE_TITLE;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"section: %ld, row: %ld",(long)indexPath.section, (long)indexPath.row);
+    //NSLog(@"section: %ld, row: %ld",(long)indexPath.section, (long)indexPath.row);
     [self performSegueWithIdentifier:@"Edit Position" sender:indexPath];
+}
+
+-(void)didTapOnEmptyRow:(UIGestureRecognizer*) recognizer {
+    CGPoint tapPoint = [recognizer locationInView:self.billTableView];
+    NSIndexPath *indexPath = [self.billTableView indexPathForRowAtPoint:tapPoint];
+    
+    if (indexPath) {
+        recognizer.cancelsTouchesInView = NO;
+    } else {
+        [self enterItemAddingMode];
+    }
+}
+
+- (void)enterEditingMode
+{
+    if ([self.billTableView isEditing]) {
+        [self.billTableView setEditing:NO animated:YES];
+        [self.navigationItem.rightBarButtonItems[0] setTitle:REMOVE_TITLE];
+    } else {
+        [self.navigationItem.rightBarButtonItems[0] setTitle:DONE_TITLE];
+        [self.billTableView setEditing:YES animated:YES];
+    }
+}
+
+- (void)enterItemAddingMode
+{
+    EditableItem *newItem = [[EditableItem alloc] initWithName:[ItemEditingViewController defaultItemName] amount:1 andPrice:[NSDecimalNumber decimalNumberWithString:@"0"]];
+    [self.editableItems addObject:newItem];
+    NSUInteger section = 0;
+    NSUInteger row = [self.billTableView numberOfRowsInSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+    [self performSegueWithIdentifier:@"Edit Position" sender:indexPath];
+}
+
+- (void)setEditableItems:(NSMutableArray *)items
+{
+    _editableItems = items;
+    [self.billTableView reloadData];
+}
+
+
+
+- (void)updateEditableItem:(EditableItem *)editableItem
+{
+    EditableItem * currentItem;
+    for (int i=0; i<[self.editableItems count]; i++) {
+        currentItem = self.editableItems[i];
+        if ([currentItem isKindOfClass:[EditableItem class]]) {
+            if (((EditableItem *)currentItem).identification == editableItem.identification) {
+                currentItem = editableItem;
+            }
+        }
+    }
 }
 
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -226,7 +182,7 @@
      ItemEditingViewController *ievc = [segue destinationViewController];
      ievc.editableItem = self.editableItems[index];
      ievc.parentController = self;
-     ievc.title = @"Artikel";
+     ievc.title = ARTICLE_TITLE;
      NSMutableArray *otherPositions = [NSMutableArray array];
      for (int i=0; i<[self.editableItems count]; i++) {
          if (i != index) {
@@ -236,50 +192,20 @@
      ievc.otherItems = otherPositions;
  }
 
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+//update edited items in parent view controller
+- (void)willMoveToParentViewController:(UIViewController *)parent
 {
-    return @"Löschen";
+    
+    if (self.parentController) {
+        [self.parentController updateBillWithRevisedItems:self.editableItems];
+    }
 }
 
 
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)didReceiveMemoryWarning
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 
 @end

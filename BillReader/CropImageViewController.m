@@ -12,11 +12,11 @@
 #import "NormalizableImage.h"
 
 @interface CropImageViewController () <UIGestureRecognizerDelegate>
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (strong, nonatomic) CropRectangleView *cropView;
-@property MinimumDistance minDist;
-@property float widthScale;
-@property float heightScale;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView; //view for displaying image
+@property (strong, nonatomic) CropRectangleView *cropView; //view for displaying crop rectangle
+@property MinimumDistance minDist; //current crop point that is updated
+@property float widthScale; //width scale for adapting crop rectangle to view scale of image
+@property float heightScale; //height scale for adopting crop rectangle to view scale of image
 
 @property (nonatomic, strong) CropCircle *topCropCircle;
 @property (nonatomic, strong) CropCircle *topLeftCropCircle;
@@ -40,13 +40,6 @@
     return self;
 }
 
-//UIImage *imageToDisplay =
-//[UIImage imageWithCGImage:[originalImage CGImage]
-//                    scale:1.0
-//              orientation: UIImageOrientationUp];
-
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -59,7 +52,6 @@
     self.widthScale = self.imageView.bounds.size.width / self.originalImage.size.width;
     self.heightScale = self.imageView.bounds.size.height / self.originalImage.size.height;
     [self.imageView setImage:self.originalImage];
-    //self.imageView.frame = CGRectMake(0, 0, self.originalImage.size.width, self.originalImage.size.height);
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
     UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(updateCropRectangle:)];
@@ -160,10 +152,9 @@
 
 }
 
-//Does not work with passed in crop circle
+//Does not work with passed in crop circle therefor DEPRECATED
 - (void)addCropCircle:(CropCircle *)cropCircle AtPosition:(CGPoint)center
 {
-
     CGRect circleFrame = CGRectMake(0, 0, SMALL_CIRCLE_SIZE, SMALL_CIRCLE_SIZE);
     
     cropCircle = [[CropCircle alloc] initWithFrame:circleFrame];
@@ -173,7 +164,7 @@
 }
 
 
-//CGFloat distance = hypotf(p1.x - p2.x, p1.y - p2.y);
+//gesture handler to update crop rectangle
 - (IBAction)updateCropRectangle:(UIPanGestureRecognizer *)recognizer
 {
     if (recognizer.state == UIGestureRecognizerStateBegan) {
@@ -223,6 +214,7 @@
     
 }
 
+//convenience method for updating positions of crop circles used by updateCropRectangle gesture handler
 - (void)updateCropPoints
 {
     CGRect cropRect = CGRectMake(self.cropView.left, self.cropView.top, self.cropView.right - self.cropView.left, self.cropView.bottom - self.cropView.top);
@@ -270,16 +262,10 @@
     [self.bottomRightCropCircle setNeedsDisplay];
 }
 
-//- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-//{
-//    return self.imageView;
-//}
 
-
+//button handler after cropping is done. passes back the cropped image and dismisses controller
 - (IBAction)doneButton:(UIButton *)sender
 {
-
-    
     //since picture is scaled down on display, cropping area must be scaled accordingly
     CGRect frame = self.cropView.cropRect;
     float x, y, w, h, offset;
@@ -306,6 +292,7 @@
     [self dismissCropController];
 }
 
+//cancels cropping and returns to parent controller
 - (IBAction)cancelButton:(UIButton *)sender
 {
     [self.parentBillReaderViewController setCroppedImage:nil];

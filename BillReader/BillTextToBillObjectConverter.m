@@ -35,7 +35,7 @@
     
     
     //if not enough items (less than 2 (at least one item and total)) -> 2.try: filter for positions without € or EUR, etc (not so save for item recognition).
-    //TODO: this is stupid (less than 2), more evaluating, probably checking against total...
+    //TODO:more evaluating, probably checking against total...
     if([possibleItemsArray count] < 2) {
         regex = [NSRegularExpression regularExpressionWithPattern:@"\\d+[\\,,\\.]{1}\\d{1,2}"
                                                                            options:NSRegularExpressionCaseInsensitive
@@ -223,17 +223,6 @@
     
 }
 
-////DEBUG
-- (void)printRecognizedPositionArray:(NSArray *)positions
-{
-    //print array
-    int iter = 0;
-    for(NSString *obj in positions) {
-        NSLog(@"pos %i: %@", iter++, obj);
-    }
-}
-/////////
-
 - (NSString *)getLocaleCharOfPositions:(NSArray *)positions
 {
     NSError *error = NULL;
@@ -262,5 +251,16 @@
     
     return locale;
 }
+
+////DEBUG
+- (void)printRecognizedPositionArray:(NSArray *)positions
+{
+    //print array
+    int iter = 0;
+    for(NSString *obj in positions) {
+        NSLog(@"pos %i: %@", iter++, obj);
+    }
+}
+/////////
 
 @end

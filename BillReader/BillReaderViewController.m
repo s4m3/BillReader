@@ -21,97 +21,38 @@
 
 @interface BillReaderViewController () <UIImagePickerControllerDelegate, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIButton *splitButton;
+@property (weak, nonatomic) IBOutlet UIButton *splitButton; //button for segue to bill splitting
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar; //toolbar with buttons for deleting bill and taking new picture
+
+@property (weak, nonatomic) IBOutlet UIView *infoView; //view that stores imagePreview and billPreviewText
+@property (weak, nonatomic) IBOutlet UIImageView *imagePreview; //view that displays the preview of the bill image
+@property (weak, nonatomic) IBOutlet UITextView *billPreviewText; //view that displays the extracted text
+
+@property (weak, nonatomic) IBOutlet UIProgressView *billRecognitionProgressBar; //progress view to indicate the progress of tesseract OCR action
 
 
-@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (strong, nonatomic) UIImage *billImage; //the returned cropped image that is used for OCR
+@property (strong, nonatomic) UIImage *imageToCrop; //the original image after taking picture that is send to crop controller. Is then dismissed. see viewDidAppear
+@property (strong, nonatomic) UIImage *originalImage; //same as imageToCrop but is saved for different cropping and not beeing dismissed
+@property (nonatomic) BOOL imageProcessingRequired; //flag, whether image processing is required (when crop view controller cancels, this flag is still set to NO)
+@property (nonatomic) BOOL editingOfBillAllowed; //flag for allowing user to edit bill. Whenever this is set to YES, the user can hit the bill editing button
+@property (nonatomic) BOOL shouldCancelImageRecognition; //flag, whether OCR action should be canceled. For example when crop controller is accessed during image recognition
 
-@property (weak, nonatomic) IBOutlet UIImageView *imagePreview;
-@property (weak, nonatomic) IBOutlet UITextView *billPreviewText;
-@property (weak, nonatomic) IBOutlet UIProgressView *billRecognitionProgressBar;
-@property (weak, nonatomic) IBOutlet UIView *infoView;
-
-@property (strong, nonatomic) UIImage *originalImage;
-@property (strong, nonatomic) UIImage *billImage;
-@property (nonatomic, strong) UIImage *imageToCrop;
-@property (nonatomic) BOOL imageProcessingRequired;
-@property (nonatomic) BOOL editingOfBillAllowed;
-@property (nonatomic) BOOL shouldCancelImageRecognition;
-
-@property (nonatomic, strong) Bill *loadedBill;
-
-
-
+@property (nonatomic, strong) Bill *loadedBill; //temp object for evaluating returned bill object from BillTextToBillObjectConverter
 
 typedef enum {
     IMAGE_ONLY = 0,
     BOTH = 1,
     TEXT_ONLY = 2
-} InfoViewDisplayState;
-@property (nonatomic) InfoViewDisplayState infoViewDisplayState;
-@property (nonatomic) CGRect originalBillPreviewImageFrame;
-@property (nonatomic) CGRect originalBillPreviewTextFrame;
+} InfoViewDisplayState; //enum for display state of top preview rectangles (imagePreview and billPreviewText)
+@property (nonatomic) InfoViewDisplayState infoViewDisplayState; //current display state
+
+@property (nonatomic) CGRect originalBillPreviewImageFrame; //rect to store original frame of imagePreview
+@property (nonatomic) CGRect originalBillPreviewTextFrame; //rect to store original frame of billPreviewText
 
 @end
 
 @implementation BillReaderViewController
-
-
-- (void)setBillImage:(UIImage *)billImage
-{
-    _billImage = billImage;
-    if(billImage) {
-        self.billPreviewText.text = @"Rechnungstext wird extrahiert...";
-        self.imageProcessingRequired = YES;
-        self.bill = nil;
-        [self.imagePreview setImage:billImage];
-    }
-}
-
-
-- (void)setBill:(Bill *)bill
-{
-    _bill = bill;
-    if (bill) {
-        self.splitButton.enabled = YES;
-        self.editingOfBillAllowed = YES;
-        [self updateBillPreviewText];
-    } else {
-        [self.billPreviewText setText:@"Rechnung:"];
-    }
-}
-
-- (void)setEditingOfBillAllowed:(BOOL)editingOfBillAllowed
-{
-    _editingOfBillAllowed = editingOfBillAllowed;
-    self.navigationItem.rightBarButtonItem.enabled = editingOfBillAllowed;
-    self.navigationItem.rightBarButtonItem.tintColor = editingOfBillAllowed ? [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] : [UIColor clearColor];
-}
-
-- (void)setCroppedImage:(UIImage *)croppedImage
-{
-    self.imageToCrop = nil;
-    self.billImage = croppedImage;
-}
-
-- (void)setInfoViewDisplayState:(InfoViewDisplayState)infoViewDisplayState
-{
-    _infoViewDisplayState = infoViewDisplayState;
-    
-    switch(infoViewDisplayState) {
-        case TEXT_ONLY:
-            [self switchToTextOnlyInfoView];
-            break;
-        
-        case BOTH:
-            [self switchToBothInfoView];
-            break;
-            
-        case IMAGE_ONLY:
-            [self switchToImageOnlyInfoView];
-            break;
-    }
-}
 
 - (void)viewDidLoad
 {
@@ -124,7 +65,6 @@ typedef enum {
     
     UIBarButtonItem *resetButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(tryToReset:)];
     
-    //UIBarButtonItem *other buttons ??? TODO...
     NSArray *items = [[NSArray alloc] initWithObjects:cameraButton, flexSpace, resetButton, nil];
     self.toolbar.items = items;
     
@@ -154,13 +94,7 @@ typedef enum {
                                                                              style:self.navigationItem.backBarButtonItem.style
                                                                             target:nil
                                                                             action:nil];
-    
-    
-
-    
     self.editingOfBillAllowed = NO;
-
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -202,130 +136,44 @@ typedef enum {
     
 }
 
-
-- (void)resetInterface
+- (void)setBillImage:(UIImage *)billImage
 {
-    self.shouldCancelImageRecognition = YES;
-    self.bill = nil;
-    _billImage = [UIImage imageNamed:@"iconImageBill.png"];
-    [self.imagePreview setImage:_billImage];
-    self.imageProcessingRequired = NO;
-    self.billRecognitionProgressBar.hidden = YES;
-    self.splitButton.enabled = NO;
-    self.billRecognitionProgressBar.progress = 0.0;
-    self.editingOfBillAllowed = NO;
-    self.originalImage = nil;
-    self.imageToCrop = nil;
-    
+    _billImage = billImage;
+    if(billImage) {
+        self.billPreviewText.text = @"Rechnungstext wird extrahiert...";
+        self.imageProcessingRequired = YES;
+        self.bill = nil;
+        [self.imagePreview setImage:billImage];
+    }
 }
 
-- (void)handleInfoViewLeftSwipe:(UISwipeGestureRecognizer *)recognizer
+- (void)setBill:(Bill *)bill
 {
-    [self changeInfoViewToLeft:YES];
-}
-
-- (void)handleInfoViewRightSwipe:(UISwipeGestureRecognizer *)recognizer
-{
-    [self changeInfoViewToLeft:NO];
-
-}
-
-//change view state, if left = false -> direction is right
-- (void)changeInfoViewToLeft:(BOOL)left
-{
-    //cancel if view is already in state that cannot change further to one side
-    if ((left && self.infoViewDisplayState == TEXT_ONLY) || (!left && self.infoViewDisplayState == IMAGE_ONLY))
-        return;
-    
-    if (self.infoViewDisplayState == BOTH) {
-        if(left) {
-            self.infoViewDisplayState = TEXT_ONLY;
-        } else {
-            self.infoViewDisplayState = IMAGE_ONLY;
-        }
+    _bill = bill;
+    if (bill) {
+        self.splitButton.enabled = YES;
+        self.editingOfBillAllowed = YES;
+        [self updateBillPreviewText];
     } else {
-        self.infoViewDisplayState = BOTH;
+        [self.billPreviewText setText:@"Rechnung:"];
     }
 }
 
-- (void)switchToTextOnlyInfoView
+- (void)setEditingOfBillAllowed:(BOOL)editingOfBillAllowed
 {
-    CGRect newFrame = CGRectMake(0, 0, self.infoView.bounds.size.width, self.infoView.bounds.size.height);
-    
-    
-    
-    [UIView animateWithDuration:0.4
-                          delay:0.0
-         usingSpringWithDamping:0.84
-          initialSpringVelocity:12.0
-                        options:0
-                     animations:^{
-                         self.billPreviewText.frame = newFrame;
-                         self.billPreviewText.alpha = 1;
-                         self.imagePreview.alpha = 0;
-                     }
-                     completion:^(BOOL finished){
-                     }];
-    
+    _editingOfBillAllowed = editingOfBillAllowed;
+    self.navigationItem.rightBarButtonItem.enabled = editingOfBillAllowed;
+    self.navigationItem.rightBarButtonItem.tintColor = editingOfBillAllowed ? [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] : [UIColor clearColor];
 }
 
-- (void)switchToImageOnlyInfoView
+- (void)setCroppedImage:(UIImage *)croppedImage
 {
-    CGRect newFrame = CGRectMake(0, 0, self.infoView.bounds.size.width, self.infoView.bounds.size.height);
-    
-    
-    
-    [UIView animateWithDuration:0.4
-                          delay:0.0
-         usingSpringWithDamping:0.84
-          initialSpringVelocity:12.0
-                        options:0
-                     animations:^{
-                         self.imagePreview.frame = newFrame;
-                         self.imagePreview.alpha = 1;
-                         
-                         self.billPreviewText.alpha = 0;
-                         
-                     }
-                     completion:^(BOOL finished){
-                     }];
+    self.imageToCrop = nil;
+    self.billImage = croppedImage;
 }
 
-- (void)switchToBothInfoView
-{
-    [UIView animateWithDuration:0.4
-                          delay:0.0
-         usingSpringWithDamping:0.84
-          initialSpringVelocity:12.0
-                        options:0
-                     animations:^{
-                         self.imagePreview.frame = self.originalBillPreviewImageFrame;
-                         self.imagePreview.alpha = 1;
-                         
-                         self.billPreviewText.frame = self.originalBillPreviewTextFrame;
-                         self.billPreviewText.alpha = 1;
-                         
-                     }
-                     completion:^(BOOL finished){
-                     }];
-    
-}
 
-//get data back from bill revision controller
-- (void)updateBillWithRevisedItems:(NSMutableArray *)revisedItems
-{
-    [self.bill updateEditableItems:revisedItems];
-    [self updateBillPreviewText];
-}
-
-//go to bill revision
-- (void)editBillAction:(id)sender
-{
-    if (self.editingOfBillAllowed) {
-        [self performSegueWithIdentifier:@"Revise Bill" sender:sender];
-    }
-}
-
+//segue preparation for other controllers
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([[segue identifier] isEqualToString:@"Pick Num of People"]) {
@@ -345,28 +193,27 @@ typedef enum {
     }
 }
 
-//- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
-//{
-//    NSLog(@"animationControllerForPresentedController called");
-//    DETAnimatedTransitioning *transitioning = [DETAnimatedTransitioning new];
-//    return transitioning;
-//}
-//
-//
-//- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
-//{
-//    NSLog(@"animationControllerForDismissedController called");
-//    DETAnimatedTransitioning *transitioning = [DETAnimatedTransitioning new];
-//    transitioning.reverse = YES;
-//    return transitioning;
-//}
+//go to bill revision
+- (void)editBillAction:(id)sender
+{
+    if (self.editingOfBillAllowed) {
+        [self performSegueWithIdentifier:@"Revise Bill" sender:sender];
+    }
+}
 
+//get data back from bill revision controller
+- (void)updateBillWithRevisedItems:(NSMutableArray *)revisedItems
+{
+    [self.bill updateEditableItems:revisedItems];
+    [self updateBillPreviewText];
+}
+
+
+
+
+//animation into BillRevisionTableViewController. same style as iOS7 transitioning between apps
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC
 {
-//    NSLog(@"navi: %@", [navigationController description]);
-//    NSLog(@"operation: %d", operation);
-//    NSLog(@"from vc: %@", [fromVC description]);
-//    NSLog(@"to vc: %@", [toVC description]);
     if ([toVC isKindOfClass:[BillRevisionTableViewController class]] && [fromVC isKindOfClass:[BillReaderViewController class]]) {
         DETAnimatedTransitioning *transitioning = [DETAnimatedTransitioning new];
         transitioning.transitionCenterPoint = [self billPreviewText].center;
@@ -380,6 +227,8 @@ typedef enum {
     return nil;
 }
 
+
+//action sheet for resetting of current bill
 - (IBAction)tryToReset:(id)sender
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Rechnung löschen"
@@ -397,10 +246,30 @@ typedef enum {
     }
 }
 
+//resetting of current bill (image, object, items) and interface
+- (void)resetInterface
+{
+    self.shouldCancelImageRecognition = YES;
+    self.bill = nil;
+    _billImage = [UIImage imageNamed:@"iconImageBill.png"];
+    [self.imagePreview setImage:_billImage];
+    self.imageProcessingRequired = NO;
+    self.billRecognitionProgressBar.hidden = YES;
+    self.splitButton.enabled = NO;
+    self.billRecognitionProgressBar.progress = 0.0;
+    self.editingOfBillAllowed = NO;
+    self.originalImage = nil;
+    self.imageToCrop = nil;
+    
+}
+
+
 #define NEW_PHOTO @"Neues Photo"
 #define PICTURE_FROM_GALLERY @"Bild aus Galerie"
 #define EXAMPLE_PICTURE_WITH_DATA @"Beispiel Bild"
 
+
+//action sheet when clicking on "Neue Rechnung" or the camera symbol
 - (IBAction)showImageActionSheet:(id)sender
 {
     
@@ -412,7 +281,7 @@ typedef enum {
     [actionSheet showInView:self.view];
 }
 
-//delegate method of action sheet
+//delegate method of action sheet after selection was done
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *menuItem = [actionSheet buttonTitleAtIndex:buttonIndex];
@@ -426,13 +295,15 @@ typedef enum {
 }
 
 
+//////////Referenz: iOS 7 Programming Cookbook pp 627 - 635 + 647f (but modified)
+//startup of UIImagePickerController to use build in functionality of taking or selecting picture
 - (void)prepareToTakePicture
 {
     if ([self isCameraAvailable] && [self doesCameraSupportTakingPhotos]) {
         [self takePicture];
     }
 }
-//////////Referenz: iOS 7 Programming Cookbook pp 627 - 635 + 647f (but modified)
+
 - (BOOL)isCameraAvailable
 {
     return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
@@ -510,9 +381,7 @@ typedef enum {
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     NSLog(@"Picker returned successfully");
-    
     NSLog(@"%@", info);
-    //TODO: clean up unused image
     self.bill = nil;
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:(__bridge NSString *)kUTTypeImage]) {
@@ -524,12 +393,6 @@ typedef enum {
         NSLog(@"Image = %@", theImage);
         NSLog(@"Edited Image = %@", editedImage);
         
-        //TODO REFACTOR
-//        if (editedImage) {
-//            self.billImage = editedImage;
-//        } else {
-//            self.billImage = theImage;
-//        }
         self.originalImage = theImage;
         self.imageToCrop = theImage;
         
@@ -540,39 +403,11 @@ typedef enum {
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    //NSLog(@"Picker was cancelled");
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 /////// end referenz
 
 
-////// EXAMPLE PICTURE (delete in the end, also at image action sheet)
-
-- (void)setupExamplePicture
-{
-    self.billImage = [UIImage imageNamed:@"exampleBillPicture2.png"];
-    self.bill = [self tempUseTestData];
-}
-
-- (Bill *)tempUseTestData
-{
-//    NSDecimalNumber *testTotal = [[NSDecimalNumber alloc] initWithInt:100];
-    NSDecimalNumber *staropramenPrice = [[NSDecimalNumber alloc] initWithFloat:3.5];
-    NSDecimalNumber *krombacherPrice = [[NSDecimalNumber alloc] initWithFloat:3.5];
-    NSDecimalNumber *hefeDunkelPrice = [[NSDecimalNumber alloc] initWithFloat:3.5];
-    NSDecimalNumber *johnnyWalkerPrice = [[NSDecimalNumber alloc] initWithFloat:5.0];
-    NSDecimalNumber *tortillaPrice = [[NSDecimalNumber alloc] initWithFloat:4.0];
-    EditableItem *staro = [[EditableItem alloc] initWithName:@"Staropramen 0,5l" amount:5 andPrice:staropramenPrice];
-    EditableItem *krom = [[EditableItem alloc] initWithName:@"Krombacher 0,5l" amount:1 andPrice:krombacherPrice];
-    EditableItem *hefe = [[EditableItem alloc] initWithName:@"Hefe dunkel" amount:1 andPrice:hefeDunkelPrice];
-    EditableItem *johnny = [[EditableItem alloc] initWithName:@"Johnny Walker Red Label" amount:1 andPrice:johnnyWalkerPrice];
-    EditableItem *tortilla = [[EditableItem alloc] initWithName:@"Tortillachips Cheesedip" amount:2 andPrice:tortillaPrice];
-    NSArray *items = [[NSArray alloc] initWithObjects: staro, krom, hefe, johnny, tortilla, nil];
-    Bill *testBill = [[Bill alloc] initWithEditableItems:items];
-    return testBill;
-}
-
-////////END EXAMPLE
 
 
 
@@ -605,10 +440,9 @@ typedef enum {
     
 }
 
-//TODO: maybe let other object take care of this. this is a little bit copy pasted code from ItemEditingViewController TODO:FIX!!!
+//sets/updates preview text after OCR process finishes and extracting of items is done.
 - (void)updateBillPreviewText
 {
-    //NSLog(@"updating bill preview text");
     NSString *appendingStringBill = @"Rechnung: \n";
     NSArray *items = [self.bill editableItems];
     
@@ -640,95 +474,7 @@ typedef enum {
     
     NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:appendingStringBill attributes:attributes];
     self.billPreviewText.attributedText = attributedString;
-    //self.completeBillTextView.attributedText = [self generateBillText];
-    //self.completeBillTotalsTextView.attributedText = [self generateTotalText];
 }
-
-- (void)updateCompleteBillTextView
-{
-
-    
-}
-
-//OLD, DEPRECATED?   TODO
-//- (void)tempSetupAndUseTesseract
-//{
-//    // language are used for recognition. Ex: eng. Tesseract will search for a eng.traineddata file in the dataPath directory; eng+ita will search for a eng.traineddata and ita.traineddata.
-//    
-//    //Like in the Template Framework Project:
-//    // Assumed that .traineddata files are in your "tessdata" folder and the folder is in the root of the project.
-//    // Assumed, that you added a folder references "tessdata" into your xCode project tree, with the ‘Create folder references for any added folders’ options set up in the «Add files to project» dialog.
-//    // Assumed that any .traineddata files is in the tessdata folder, like in the Template Framework Project
-//    
-//    //Create your tesseract using the initWithLanguage method:
-//    // Tesseract* tesseract = [[Tesseract alloc] initWithLanguage:@"eng+ita"];
-//    // set up the delegate to recieve tesseract's callback
-//    // self should respond to TesseractDelegate and implement shouldCancelImageRecognitionForTesseract: method
-//    // to have an ability to recieve callback and interrupt Tesseract before it finishes
-//    
-//    Tesseract* tesseract = [[Tesseract alloc] initWithLanguage:@"eng+ita+deu"];
-//    tesseract.delegate = self;
-//    
-//    //[tesseract setVariableValue:@"0123456789" forKey:@"tessedit_char_whitelist"]; //limit search
-//    [tesseract setImage:[UIImage imageNamed:@"rechnung2.jpg"]]; //image to check
-//    [tesseract recognize];
-//    
-//    NSLog(@"%@", [tesseract recognizedText]);
-//    
-//    //get only lines with numbers into array
-//    NSString *recognizedText = [tesseract recognizedText];
-//    NSMutableArray *recognizedTextArray = [NSMutableArray array];
-//    
-//    NSError *error = NULL;
-//    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\d EU"
-//                                                                           options:NSRegularExpressionCaseInsensitive
-//                                                                             error:&error];
-//    
-//    
-//    NSArray *lines = [recognizedText componentsSeparatedByString:@"\n"];
-//    for(NSString *word in lines) {
-//        if ([word length] > 0) {
-//            NSUInteger numberOfMatches = [regex numberOfMatchesInString:word
-//                                                                options:0
-//                                                                  range:NSMakeRange(0, [word length])];
-//            if(numberOfMatches > 0) {
-//                [recognizedTextArray addObject:word];
-//            }
-//        }
-//    }
-//    
-//    
-//    //print array
-//    int iter = 0;
-//    for(NSString *obj in recognizedTextArray) {
-//        NSLog(@"%i: %@", iter++, obj);
-//    }
-//    
-//    //find total amount and print it out
-//    NSString *totalAmountString = nil;
-//    NSRegularExpression *barRegex = [NSRegularExpression regularExpressionWithPattern:@"Bar"
-//                                                                              options:NSRegularExpressionCaseInsensitive
-//                                                                                error:&error];
-//    for(NSString *billString in recognizedTextArray) {
-//        NSUInteger numberOfMatches = [barRegex numberOfMatchesInString:billString
-//                                                               options:0
-//                                                                 range:NSMakeRange(0, [billString length])];
-//        if(numberOfMatches > 0) {
-//            NSLog(@"bar: %@", billString);
-//            totalAmountString = [self getSubstring:billString betweenString:@" "];
-//            NSLog(@"%@", totalAmountString);
-//            NSDictionary    *l = [NSDictionary dictionaryWithObject:@"," forKey:NSLocaleDecimalSeparator];
-//            NSDecimalNumber *total = [[NSDecimalNumber alloc] initWithString:totalAmountString locale:l];
-//            NSLog(@"total in decimal: %@", total);
-//            
-//            //TEST NSLog(@"%@", [total decimalNumberBySubtracting:[[NSDecimalNumber alloc] initWithString:totalAmountString]]);
-//        }
-//    }
-//    
-//    tesseract = nil;
-//
-//}
-
 
 
 - (NSString *)getSubstring:(NSString *)value betweenString:(NSString *)separator
@@ -740,30 +486,176 @@ typedef enum {
     return [value substringWithRange:finalRange];
 }
 
+// returns YES, if tesseract needs to be interrupted before it finishes
 - (BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract*)tesseract
 {
     if (self.shouldCancelImageRecognition) return YES;
     
-    
     NSNumber *progress = [NSNumber numberWithFloat:(tesseract.progress / 100.0)];
-    //NSLog(@"progress: %d", tesseract.progress);
     
     [self performSelectorOnMainThread:@selector(setLoaderProgress:) withObject:progress waitUntilDone:NO];
-    return NO;  // return YES, if you need to interrupt tesseract before it finishes
+    return NO;
 }
 
+//sets the loader bar progress value
 - (void)setLoaderProgress:(NSNumber *)progress
 {
-     //NSLog(@"updating progress: %@", progress);
     [self.billRecognitionProgressBar setProgress:[progress floatValue] animated:YES];
     
     if ([progress floatValue] >= 1.0) {
-        //TODO: proper setting of preview Text
         self.billRecognitionProgressBar.hidden = YES;
         self.imageProcessingRequired = NO;
         self.bill = self.loadedBill;
     }
 }
+
+
+////////////////////////////////////////////////////////////////////
+/////////////////PREVIEW IMAGE AND TEXT/////////////////////////////
+////////////////////////////////////////////////////////////////////
+
+- (void)handleInfoViewLeftSwipe:(UISwipeGestureRecognizer *)recognizer
+{
+    [self changeInfoViewToLeft:YES];
+}
+
+- (void)handleInfoViewRightSwipe:(UISwipeGestureRecognizer *)recognizer
+{
+    [self changeInfoViewToLeft:NO];
+    
+}
+
+//change view state, if left = false -> direction is right
+- (void)changeInfoViewToLeft:(BOOL)left
+{
+    //cancel if view is already in state that cannot change further to one side
+    if ((left && self.infoViewDisplayState == TEXT_ONLY) || (!left && self.infoViewDisplayState == IMAGE_ONLY))
+        return;
+    
+    if (self.infoViewDisplayState == BOTH) {
+        if(left) {
+            self.infoViewDisplayState = TEXT_ONLY;
+        } else {
+            self.infoViewDisplayState = IMAGE_ONLY;
+        }
+    } else {
+        self.infoViewDisplayState = BOTH;
+    }
+}
+
+- (void)setInfoViewDisplayState:(InfoViewDisplayState)infoViewDisplayState
+{
+    _infoViewDisplayState = infoViewDisplayState;
+    
+    switch(infoViewDisplayState) {
+        case TEXT_ONLY:
+            [self switchToTextOnlyInfoView];
+            break;
+            
+        case BOTH:
+            [self switchToBothInfoView];
+            break;
+            
+        case IMAGE_ONLY:
+            [self switchToImageOnlyInfoView];
+            break;
+    }
+}
+
+- (void)switchToTextOnlyInfoView
+{
+    CGRect newFrame = CGRectMake(0, 0, self.infoView.bounds.size.width, self.infoView.bounds.size.height);
+    
+    
+    
+    [UIView animateWithDuration:0.4
+                          delay:0.0
+         usingSpringWithDamping:0.84
+          initialSpringVelocity:12.0
+                        options:0
+                     animations:^{
+                         self.billPreviewText.frame = newFrame;
+                         self.billPreviewText.alpha = 1;
+                         self.imagePreview.alpha = 0;
+                     }
+                     completion:^(BOOL finished){
+                     }];
+    
+}
+
+- (void)switchToImageOnlyInfoView
+{
+    CGRect newFrame = CGRectMake(0, 0, self.infoView.bounds.size.width, self.infoView.bounds.size.height);
+    
+    
+    
+    [UIView animateWithDuration:0.4
+                          delay:0.0
+         usingSpringWithDamping:0.84
+          initialSpringVelocity:12.0
+                        options:0
+                     animations:^{
+                         self.imagePreview.frame = newFrame;
+                         self.imagePreview.alpha = 1;
+                         
+                         self.billPreviewText.alpha = 0;
+                         
+                     }
+                     completion:^(BOOL finished){
+                     }];
+}
+
+- (void)switchToBothInfoView
+{
+    [UIView animateWithDuration:0.4
+                          delay:0.0
+         usingSpringWithDamping:0.84
+          initialSpringVelocity:12.0
+                        options:0
+                     animations:^{
+                         self.imagePreview.frame = self.originalBillPreviewImageFrame;
+                         self.imagePreview.alpha = 1;
+                         
+                         self.billPreviewText.frame = self.originalBillPreviewTextFrame;
+                         self.billPreviewText.alpha = 1;
+                         
+                     }
+                     completion:^(BOOL finished){
+                     }];
+    
+}
+
+
+
+////////////////////////////////////////////////////////////////////
+/////////////////EXAMPLE PICTURE AND BILL///////////////////////////
+////////////////////////////////////////////////////////////////////
+
+//for demostrating and DEBUG purpose
+- (void)setupExamplePicture
+{
+    self.billImage = [UIImage imageNamed:@"exampleBillPicture2.png"];
+    self.bill = [self tempUseTestData];
+}
+
+- (Bill *)tempUseTestData
+{
+    NSDecimalNumber *staropramenPrice = [[NSDecimalNumber alloc] initWithFloat:3.5];
+    NSDecimalNumber *krombacherPrice = [[NSDecimalNumber alloc] initWithFloat:3.5];
+    NSDecimalNumber *hefeDunkelPrice = [[NSDecimalNumber alloc] initWithFloat:3.5];
+    NSDecimalNumber *johnnyWalkerPrice = [[NSDecimalNumber alloc] initWithFloat:5.0];
+    NSDecimalNumber *tortillaPrice = [[NSDecimalNumber alloc] initWithFloat:4.0];
+    EditableItem *staro = [[EditableItem alloc] initWithName:@"Staropramen 0,5l" amount:5 andPrice:staropramenPrice];
+    EditableItem *krom = [[EditableItem alloc] initWithName:@"Krombacher 0,5l" amount:1 andPrice:krombacherPrice];
+    EditableItem *hefe = [[EditableItem alloc] initWithName:@"Hefe dunkel" amount:1 andPrice:hefeDunkelPrice];
+    EditableItem *johnny = [[EditableItem alloc] initWithName:@"Johnny Walker Red Label" amount:1 andPrice:johnnyWalkerPrice];
+    EditableItem *tortilla = [[EditableItem alloc] initWithName:@"Tortillachips Cheesedip" amount:2 andPrice:tortillaPrice];
+    NSArray *items = [[NSArray alloc] initWithObjects: staro, krom, hefe, johnny, tortilla, nil];
+    Bill *testBill = [[Bill alloc] initWithEditableItems:items];
+    return testBill;
+}
+
+////////END EXAMPLE
 
 
 - (void)didReceiveMemoryWarning

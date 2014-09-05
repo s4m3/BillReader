@@ -8,7 +8,7 @@
 
 #import "Bill.h"
 @interface Bill()
-@property (nonatomic, strong) NSArray * originalItems;
+@property (nonatomic, strong) NSArray * originalItems; //reference to items that it was initialized with
 @end
 @implementation Bill
 
@@ -19,7 +19,6 @@ static int Id = 0;
     return Id++;
 }
 
-//designated initializer
 - (id)initWithEditableItems:(NSArray *)editableItems
 {
     self = [super init];
@@ -32,7 +31,6 @@ static int Id = 0;
     return self;
 }
 
-//convenience method for initializing the editable items as Items in a Dictionary with ownership where key = owner id, with ownerId = 0 meaning no owner.
 - (NSMutableDictionary *)itemsAsDictionary
 {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
@@ -69,12 +67,6 @@ static int Id = 0;
 }
 
 
-- (void)resetToOriginalValues
-{
-    [self.editableItems removeAllObjects];
-    self.editableItems = [self.originalItems mutableCopy];
-}
-
 - (NSDecimalNumber *)total
 {
     //always recalculate (no big calculation anyways)
@@ -96,6 +88,12 @@ static int Id = 0;
     
     NSString *totalAsString = [nf stringFromNumber:self.total];
     return totalAsString;
+}
+
+- (void)resetToOriginalValues
+{
+    [self.editableItems removeAllObjects];
+    self.editableItems = [self.originalItems mutableCopy];
 }
 
 @end

@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ * @class PersonArticleTableViewController
+ * @discussion Displays an overview of all people and their assigned items. Detail View can be opened.
+ */
 @interface PersonArticleTableViewController : UIViewController
 
 @property (nonatomic, strong) NSDictionary * items; //of Item arrays with person id as key
-@property (nonatomic, strong) NSArray * colors; //of UIColors for displaying collection with colors
+@property (nonatomic, strong) NSArray * colors; //of UIColors for displaying table cells with background colors
 
 @end

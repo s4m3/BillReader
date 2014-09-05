@@ -10,12 +10,12 @@
 #import "ViewHelper.h"
 
 @interface ItemEditingViewController () 
-@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
-@property (weak, nonatomic) IBOutlet UITextField *amountTextField;
-@property (weak, nonatomic) IBOutlet UITextField *priceTextField;
+@property (weak, nonatomic) IBOutlet UITextField *nameTextField; //name of item
+@property (weak, nonatomic) IBOutlet UITextField *amountTextField; //how many times item of same type exists
+@property (weak, nonatomic) IBOutlet UITextField *priceTextField; //single item price
 
-@property (weak, nonatomic) IBOutlet UITextView *completeBillTextView;
-@property (weak, nonatomic) IBOutlet UITextView *completeBillTotalsTextView;
+@property (weak, nonatomic) IBOutlet UITextView *completeBillTextView; //list of items of bill on bottom of screen
+@property (weak, nonatomic) IBOutlet UITextView *completeBillTotalsTextView; //list of prices on bottom of screen
 
 @end
 
@@ -55,13 +55,9 @@
     }
 }
 
+//before returning to parent controller, update the item according to the editing done
 - (void)willMoveToParentViewController:(UIViewController *)parent
 {
-    
-    //the actual parent is the navigation controller, but i need the last controller on the stack
-//    if ([parent isKindOfClass:[BillRevisionTableViewController class]]) {
-//        [(BillRevisionTableViewController *)parent updateEditableItem:self.editableItem];
-//    }
     if (self.parentController) {
         [self.parentController updateEditableItem:self.editableItem];
     }
@@ -72,11 +68,7 @@
     [self.view endEditing:YES];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-
-}
-
+//exit text editing when tapping other region in text editing mode
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     [self updateCompleteBillTextView];
@@ -84,17 +76,9 @@
 }
 
 
-- (NSUInteger)getAmountAsInteger
-{
-    return [self.amountTextField.text intValue];
-}
 
-- (NSDecimalNumber *)getPriceAsDecimalNumber
-{
-    NSDictionary *germanLocale = [NSDictionary dictionaryWithObject:@"," forKey:NSLocaleDecimalSeparator];
-    return [NSDecimalNumber decimalNumberWithString:self.priceTextField.text locale:germanLocale];
-}
 
+//name editing via text control
 - (IBAction)nameEditingAction:(UITextField *)sender
 {
     if (sender.text) {
@@ -104,6 +88,7 @@
     self.nameTextField.text = self.editableItem.name;
 }
 
+//amount update via text control
 - (IBAction)amountEditingAction:(UITextField *)sender
 {
     NSUInteger amount = [sender.text intValue];
@@ -113,6 +98,7 @@
     self.amountTextField.text = [NSString stringWithFormat:@"%lu",(unsigned long)self.editableItem.amount];;
 }
 
+//price editing via text control
 - (IBAction)priceEditingAction:(UITextField *)sender
 {
     NSDictionary    *l = [NSDictionary dictionaryWithObject:@"," forKey:NSLocaleDecimalSeparator];
@@ -125,6 +111,7 @@
     self.priceTextField.text = [self.editableItem priceAsString];
 }
 
+//update how often item exists (= amount) via stepper control
 - (IBAction)amountStepAction:(UIStepper *)sender
 {
     if ([self getAmountAsInteger] <= 0 && sender.value < 0) {
@@ -138,7 +125,7 @@
     [self updateCompleteBillTextView];
 }
 
-
+//update price via stepper control
 - (IBAction)priceStepAction:(UIStepper *)sender
 {
     NSDecimalNumber *newAmount = [[self getPriceAsDecimalNumber] decimalNumberByAdding:(NSDecimalNumber *)[NSDecimalNumber numberWithDouble:sender.value]];
@@ -154,6 +141,21 @@
     [self updateCompleteBillTextView];
 }
 
+//convenience method for amount editing action
+- (NSUInteger)getAmountAsInteger
+{
+    return [self.amountTextField.text intValue];
+}
+
+//convenience method for price editing action
+- (NSDecimalNumber *)getPriceAsDecimalNumber
+{
+    NSDictionary *germanLocale = [NSDictionary dictionaryWithObject:@"," forKey:NSLocaleDecimalSeparator];
+    return [NSDecimalNumber decimalNumberWithString:self.priceTextField.text locale:germanLocale];
+}
+
+
+//generate bill text in overview on bottom
 - (void)updateCompleteBillTextView
 {
     NSString *newTextBill = @"Bill (complete) \n\n";
@@ -185,8 +187,7 @@
     
 }
 
-
-
+//helper method for generating bill text
 - (NSAttributedString *)generateBillText
 {
 
@@ -211,7 +212,7 @@
     
 }
 
-
+//generate the total amount text
 - (NSAttributedString *)generateTotalText
 {
     BOOL lightColor = YES;
@@ -255,22 +256,7 @@
 #define LINE_SPACING 3
 #define FONT_SIZE 12
 
-//- (NSDictionary *)getAttributesForTitleText
-//{
-//    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-//    [paragraphStyle setAlignment:NSTextAlignmentLeft];
-//    [paragraphStyle setLineSpacing:LINE_SPACING];
-//    UIFont *titleFont = [UIFont boldSystemFontOfSize:BOLD_FONT_SIZE];
-//    
-//    NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
-//    [attributes setObject:paragraphStyle forKey:NSParagraphStyleAttributeName];
-//    [attributes setObject:@(NSUnderlineStyleSingle) forKey:NSUnderlineStyleAttributeName];
-//    [attributes setObject:titleFont forKey:NSFontAttributeName];
-//    [attributes setObject:[UIColor grayColor] forKey:NSForegroundColorAttributeName];
-//    
-//    return attributes;
-//}
-
+//helper method to set attributed text with changing light and darker color to make rows more distinctive
 - (NSDictionary *)getAttributesForTextWithLightColor:(BOOL)lightColor andRightAligned:(BOOL)rightAligned
 {
     NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
@@ -302,16 +288,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
