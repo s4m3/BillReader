@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+/**
+ * @class ArticleListTableView
+ * @discussion Custom class of table view for further cusomization of display.
+ */
 @interface ArticleListTableView : UITableView
 
 @end

@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ * @class ItemScrollView
+ * @discussion Scroll panel for displaying ItemCustomViews.
+ */
 @interface ItemScrollView : UIScrollView
 
 @end

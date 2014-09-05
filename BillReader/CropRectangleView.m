@@ -31,10 +31,6 @@
     if (self) {
         // Initialization code
         self.backgroundColor = [UIColor clearColor];
-//        UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(updateCropRectangle:)];
-//        [panRecognizer setMinimumNumberOfTouches:1];
-//        [panRecognizer setMaximumNumberOfTouches:2];
-//        [self addGestureRecognizer:panRecognizer];
         self.top = self.originalTop = DEFAULT_TOP;
         self.bottom = self.originalBottom = frame.size.height - DEFAULT_BOTTOM;
         self.left = self.originalLeft = DEFAULT_LEFT;
@@ -43,17 +39,12 @@
     return self;
 }
 
+//paints the crop rectangle and hides the background with a half transparent rectangle.
 - (void)drawRect:(CGRect)rect
 {
-    
     self.cropRect = CGRectMake(self.left, self.top, self.right - self.left, self.bottom - self.top);
- 
     [[UIColor colorWithWhite:0.8f alpha:0.7f] setFill];
-    
     [[UIColor colorWithWhite:0.2f alpha:0.8f] setStroke];
-    
-    
-    
     UIRectFill( rect );
     
     CGRect holeRectIntersection = CGRectIntersection( self.cropRect, rect );    
@@ -84,9 +75,7 @@
             
         case TOP_LEFT:
             self.top = self.originalTop + point.y;
-            //self.bottom = self.originalBottom - point.y;
             self.left = self.originalLeft + point.x;
-            //self.right = self.originalRight - point.x;
             break;
             
         case TOP_RIGHT:

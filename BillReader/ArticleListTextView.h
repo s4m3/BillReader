@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ * @class ArticleListTextView
+ * @discussion Detail item list for further cusomization.
+ */
 @interface ArticleListTextView : UITextView
 
 @end

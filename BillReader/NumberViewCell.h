@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ * @class NumberViewCell
+ * @discussion Custom collection view cell for displaying person numbers.
+ */
 @interface NumberViewCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet UILabel *numberLabel;
-
+@property (weak, nonatomic) IBOutlet UILabel *numberLabel; //label for number of person
 @end

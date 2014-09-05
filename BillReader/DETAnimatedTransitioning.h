@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ * @class DETAnimatedTransitioning
+ * @discussion Custom transition animation to animate out of and into specific view. Used in main controller to open correction screen of bill.
+ * @see https://github.com/jbradforddillon/TransitioningExample for more information
+ */
 @interface DETAnimatedTransitioning : NSObject <UIViewControllerAnimatedTransitioning>
 
 @property (nonatomic) BOOL reverse;

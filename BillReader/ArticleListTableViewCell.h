@@ -9,11 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "ArticleListTextView.h"
 
+/**
+ * @class ArticleListTableViewCell
+ * @discussion Custom table cell to display the name, price to be paid and assigned items in the final overview.
+ */
 @interface ArticleListTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *totalLabel;
-@property (weak, nonatomic) IBOutlet UILabel *arrowLabel;
-@property (weak, nonatomic) IBOutlet ArticleListTextView *itemTextView;
 
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel; //name of person
+@property (weak, nonatomic) IBOutlet UILabel *totalLabel; //total price to be paid
+@property (weak, nonatomic) IBOutlet UILabel *arrowLabel; //arrow to indicate detail view
+@property (weak, nonatomic) IBOutlet ArticleListTextView *itemTextView; //a list of articles in detail view
 
 @end

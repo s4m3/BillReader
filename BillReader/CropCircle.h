@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ * @class CropCircle
+ * @discussion The circled shaped points that enclose the crop rectangle. 
+ */
 @interface CropCircle : UIView
 
 @end

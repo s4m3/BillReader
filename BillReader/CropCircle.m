@@ -21,6 +21,7 @@
     return self;
 }
 
+//draws the circular crop touch point
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context= UIGraphicsGetCurrentContext();
@@ -28,7 +29,7 @@
     CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
     CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
 
-    //for full display, inset rect...
+    //for full display, inset rect... (otherwise circle is cut off)
     CGRect newRect = CGRectInset(CGRectMake(0, 0, self.frame.size.width, self.frame.size.height), 2, 2);
     CGContextFillEllipseInRect(context, newRect);
     CGContextStrokeEllipseInRect(context, newRect);

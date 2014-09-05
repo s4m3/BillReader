@@ -97,6 +97,7 @@
     [self updateLabels];
 }
 
+//redraws the views labels
 - (void)updateLabels
 {
     NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
@@ -125,17 +126,6 @@
     
     NSAttributedString *totalAmountText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Total: %@€", totalString] attributes:attributes];
     [self.totalAmountLabel setAttributedText:totalAmountText];
-    
-    
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

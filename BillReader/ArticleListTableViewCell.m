@@ -24,6 +24,7 @@
     // Initialization code
 }
 
+//opens or closes the detail view
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
