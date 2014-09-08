@@ -30,12 +30,12 @@
                                                                              error:&error];
     
     NSMutableArray *possibleItemsArray = [self getPositionTextLinesOfRecognizedText:billText byRegularExpressionFilter:regex];
-    [self printRecognizedPositionArray:[possibleItemsArray copy]];
+    //DEBUG:
+    //[self printRecognizedPositionArray:[possibleItemsArray copy]];
     
     
     
     //if not enough items (less than 2 (at least one item and total)) -> 2.try: filter for positions without € or EUR, etc (not so save for item recognition).
-    //TODO:more evaluating, probably checking against total...
     if([possibleItemsArray count] < 2) {
         regex = [NSRegularExpression regularExpressionWithPattern:@"\\d+[\\,,\\.]{1}\\d{1,2}"
                                                                            options:NSRegularExpressionCaseInsensitive
@@ -95,7 +95,6 @@
                 NSRange rangeOfFirstMatchOfAmount = [amountRegex rangeOfFirstMatchInString:posString options:0 range:NSMakeRange(0, [posString length])];
                 if (!NSEqualRanges(rangeOfFirstMatchOfAmount, NSMakeRange(NSNotFound, 0))) {
                     NSString *amountSubstring = [posString substringWithRange:rangeOfFirstMatchOfAmount];
-                    //NSLog(@"amount: %@", amountSubstring);
                     amount = [amountSubstring integerValue];
                     NSDecimalNumber *amountAsDecimal = [[NSDecimalNumber alloc] initWithString:amountSubstring locale:germanLocale];
                     singleItemPrice = [total decimalNumberByDividingBy:amountAsDecimal];
@@ -122,16 +121,11 @@
                     
                     if (!NSEqualRanges(longestRangeForItemName, NSMakeRange(NSNotFound, 0))) {
                         NSString *itemName = [posString substringWithRange:longestRangeForItemName];
-                        //NSLog(@"itemName: %@", itemName);
                         EditableItem *item = [[EditableItem alloc] initWithName:itemName amount:amount andPrice:singleItemPrice];
                         [items addObject:item];
                     }
                 }
-                
-                
-                
             }
-            
         }
     }
     
@@ -148,19 +142,13 @@
                                                                options:0
                                                                  range:NSMakeRange(0, [billString length])];
         if(numberOfMatches > 0) {
-            //NSLog(@"bar: %@", billString);
             NSRange rangeOfFirstMatch = [price rangeOfFirstMatchInString:billString options:0 range:NSMakeRange(0, [billString length])];
             if (!NSEqualRanges(rangeOfFirstMatch, NSMakeRange(NSNotFound, 0))) {
                 NSString *priceSubstring = [billString substringWithRange:rangeOfFirstMatch];
                 totalAmountString = priceSubstring;
-                //NSLog(@"bar: %@", totalAmountString);
                 total = [[NSDecimalNumber alloc] initWithString:totalAmountString locale:germanLocale];
-                NSLog(@"total in decimal: %@", [ViewHelper transformDecimalToString:total]);
+                //NSLog(@"total in decimal: %@", [ViewHelper transformDecimalToString:total]);
             }
-            
-            
-            
-            //TEST NSLog(@"%@", [total decimalNumberBySubtracting:[[NSDecimalNumber alloc] initWithString:totalAmountString]]);
         }
     }
     
@@ -178,30 +166,14 @@
                 }
             }
         }
-        NSLog(@"total in decimal after second recognition try: %@", [ViewHelper transformDecimalToString:total]);
+        //NSLog(@"total in decimal after second recognition try: %@", [ViewHelper transformDecimalToString:total]);
     }
-    
-    
-    
-    //if there is more than one item (so total price cannot be equal to price of single item), filter out items that have the same price as total
-    //because these items are mistakenly identified as items, when they just show the total price. Sometimes bills show twice the total price
-//    NSDecimalNumber *currentItemTotalPrice;
-//    NSArray *itemsCopy = [items copy];
-//    if (total && [items count] > 1) {
-//        for (EditableItem *currentItem in itemsCopy) {
-//            currentItemTotalPrice = [currentItem getTotalPriceOfItem];
-//            if ([total compare:currentItemTotalPrice] == NSOrderedSame || [total compare:currentItemTotalPrice] == NSOrderedAscending) {
-//                [items removeObject:currentItem];
-//            }
-//        }
-//    }
-    
     
     return [[Bill alloc] initWithEditableItems:items];
 
 }
 
-
+//get lines of bill text as array
 - (NSMutableArray *)getPositionTextLinesOfRecognizedText:(NSString *)recognizedText byRegularExpressionFilter:(NSRegularExpression *)regex
 {
     NSMutableArray *regexedTextArray = [NSMutableArray array];
@@ -223,6 +195,8 @@
     
 }
 
+
+//check whether prices are written with comma or point
 - (NSString *)getLocaleCharOfPositions:(NSArray *)positions
 {
     NSError *error = NULL;
@@ -245,7 +219,7 @@
                                                                         options:0
                                                                           range:NSMakeRange(0, [pos length])];
     }
-    NSLog(@"num of points: %lu, num of commas: %lu", (unsigned long)amountOfPointsPricesInPositions, (unsigned long)amountOfCommasPricesInPositions);
+    //NSLog(@"num of points: %lu, num of commas: %lu", (unsigned long)amountOfPointsPricesInPositions, (unsigned long)amountOfCommasPricesInPositions);
     NSString *locale = amountOfPointsPricesInPositions >= amountOfCommasPricesInPositions ? @"." : @",";
     
     

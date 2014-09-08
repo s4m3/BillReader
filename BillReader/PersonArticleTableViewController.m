@@ -143,7 +143,7 @@
         [attributes setObject:titleFont forKey:NSFontAttributeName];
         [attributes setObject:self.colors[indexPath.row] forKey:NSForegroundColorAttributeName];
         
-        NSAttributedString *title = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Person %d", (indexPath.row + 1)] attributes:attributes];
+        NSAttributedString *title = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Person %@", [NSNumber numberWithInteger:(indexPath.row + 1)]] attributes:attributes];
         cell.nameLabel.attributedText = title;
 
         ArticleListTextView *articleListTextView = ((ArticleListTableViewCell *) cell).itemTextView;

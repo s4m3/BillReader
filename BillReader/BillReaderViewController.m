@@ -272,11 +272,11 @@ typedef enum {
 //action sheet when clicking on "Neue Rechnung" or the camera symbol
 - (IBAction)showImageActionSheet:(id)sender
 {
-    
+    //"example picture" is not included in shipped out version
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self
                                                     cancelButtonTitle:@"Abbrechen"
                                                     destructiveButtonTitle:nil
-                                                    otherButtonTitles:NEW_PHOTO, PICTURE_FROM_GALLERY, EXAMPLE_PICTURE_WITH_DATA, nil];
+                                                    otherButtonTitles:NEW_PHOTO, PICTURE_FROM_GALLERY, /*EXAMPLE_PICTURE_WITH_DATA, */nil];
     
     [actionSheet showInView:self.view];
 }
@@ -380,18 +380,12 @@ typedef enum {
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    NSLog(@"Picker returned successfully");
-    NSLog(@"%@", info);
     self.bill = nil;
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:(__bridge NSString *)kUTTypeImage]) {
-        NSDictionary *metaData = info[UIImagePickerControllerMediaMetadata];
+        //NSDictionary *metaData = info[UIImagePickerControllerMediaMetadata];
         UIImage *theImage = info[UIImagePickerControllerOriginalImage];
-        UIImage *editedImage = info[UIImagePickerControllerEditedImage];
-        
-        NSLog(@"Image Metadata = %@", metaData);
-        NSLog(@"Image = %@", theImage);
-        NSLog(@"Edited Image = %@", editedImage);
+        //UIImage *editedImage = info[UIImagePickerControllerEditedImage];
         
         self.originalImage = theImage;
         self.imageToCrop = theImage;
@@ -421,17 +415,14 @@ typedef enum {
     
     [tesseract setImage:self.billImage];
     
-    //[tesseract setVariableValue:@"TRUE" forKey:@"interactive_mode"];
-    
     self.billRecognitionProgressBar.progress = 0.5;
     [tesseract recognize];
     
-    NSLog(@"%@", [tesseract recognizedText]);
+    //NSLog(@"%@", [tesseract recognizedText]);
     NSString *recognizedText = [tesseract recognizedText];
     
     BillTextToBillObjectConverter *converter = [[BillTextToBillObjectConverter alloc] init];
-        
-    //if all is evaluated
+
     self.loadedBill = [converter transform:recognizedText];
     
     tesseract = nil;
